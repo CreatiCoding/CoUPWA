@@ -70,6 +70,7 @@
 
   // Toggles the visibility of the add new city dialog.
   app.toggleAddDialog = function(visible) {
+    // visible은 보여질지 말지 정하는 변수
     if (visible) {
       app.addDialog.classList.add('dialog-container--visible');
     } else {
