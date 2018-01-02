@@ -80,6 +80,7 @@
   // add dialog 표시/해체.
   app.toggleAddDialog = function(visible) {
     if (visible) {	// 표시
+    // visible은 보여질지 말지를 표시
       app.addDialog.classList.add('dialog-container--visible');
     } else {	// 해체
       app.addDialog.classList.remove('dialog-container--visible');
