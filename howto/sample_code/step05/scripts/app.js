@@ -14,6 +14,7 @@
 
 
 (function() {
+
   'use strict';
 
   var app = {
@@ -35,6 +36,7 @@
    ****************************************************************************/
 
   document.getElementById('butRefresh').addEventListener('click', function() {
+
     // Refresh all of the forecasts
     app.updateForecasts();
   });
@@ -71,6 +73,7 @@
    *
    ****************************************************************************/
 
+
   // Toggles the visibility of the add new city dialog.
   app.toggleAddDialog = function(visible) {
     if (visible) {
@@ -79,6 +82,7 @@
       app.addDialog.classList.remove('dialog-container--visible');
     }
   };
+
 
   // Updates a weather card with the latest weather forecast. If the card
   // doesn't already exist, it's cloned from the template.
@@ -108,10 +112,12 @@
     if (cardLastUpdated) {
       cardLastUpdated = new Date(cardLastUpdated);
       // Bail if the card has more recent data then the data
+
       if (dataLastUpdated.getTime() < cardLastUpdated.getTime()) {
         return;
       }
     }
+
     cardLastUpdatedElem.textContent = data.created;
 
     card.querySelector('.description').textContent = current.text;
@@ -133,6 +139,7 @@
       var nextDay = nextDays[i];
       var daily = data.channel.item.forecast[i];
       if (daily && nextDay) {
+
         nextDay.querySelector('.date').textContent =
           app.daysOfWeek[(i + today) % 7];
         nextDay.querySelector('.icon').classList.add(app.getIconClass(daily.code));
@@ -142,6 +149,7 @@
           Math.round(daily.low);
       }
     }
+
     if (app.isLoading) {
       app.spinner.setAttribute('hidden', true);
       app.container.removeAttribute('hidden');
@@ -164,6 +172,7 @@
    * request goes through, then the card gets updated a second time with the
    * freshest data.
    */
+
   app.getForecast = function(key, label) {
     var statement = 'select * from weather.forecast where woeid=' + key;
     var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' +
@@ -174,13 +183,16 @@
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
+
         if (request.status === 200) {
           var response = JSON.parse(request.response);
           var results = response.query.results;
           results.key = key;
           results.label = label;
           results.created = response.query.created;
+
           app.updateForecastCard(results);
+
         }
       } else {
         // Return the initial weather forecast since no data is available.
@@ -275,7 +287,9 @@
    * or when the user has not saved any cities. See startup code for more
    * discussion.
    */
+
   var initialWeatherForecast = {
+
     key: '2459115',
     label: 'New York, NY',
     created: '2016-07-22T01:00:00Z',
