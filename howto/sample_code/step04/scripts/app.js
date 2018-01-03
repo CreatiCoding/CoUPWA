@@ -14,18 +14,18 @@
 
 
 (function() {
-
-  'use strict';
-
+  'use strict';   //strict mode 선언
+    
+    //변수 선언 및 할당
   var app = {
-    isLoading: true,
-    visibleCards: {},
-    selectedCities: [],
-    spinner: document.querySelector('.loader'),
-    cardTemplate: document.querySelector('.cardTemplate'),
-    container: document.querySelector('.main'),
-    addDialog: document.querySelector('.dialog-container'),
-    daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    isLoading: true,          //로딩중임을 나타내는 변수
+    visibleCards: {},         //보여지는 카드
+    selectedCities: [],       //선택된 도시
+    spinner: document.querySelector('.loader'),                         //html 문서의 loader를 가져옴
+    cardTemplate: document.querySelector('.cardTemplate'),            //html 문서의 cardTemplate를 가져옴
+    container: document.querySelector('.main'),                        //html 문서의 main을 가져옴
+    addDialog: document.querySelector('.dialog-container'),           //html 문서의 dialog-container를 가져옴
+    daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']   //요일 변수 설정
   };
 
 
@@ -35,34 +35,34 @@
    *
    ****************************************************************************/
 
+  //refresh 버튼을 눌렀을 때의 동작
   document.getElementById('butRefresh').addEventListener('click', function() {
-
-    // Refresh all of the forecasts
+    // 날씨를 업데이트
     app.updateForecasts();
   });
 
+  //add 버튼을 눌렀을 때의 동작
   document.getElementById('butAdd').addEventListener('click', function() {
-    // Open/show the add new city dialog
+    //도시 추가 창을 띄움
     app.toggleAddDialog(true);
   });
 
+  //다이얼로그창에서 add city를 눌렀을 때의 동작
   document.getElementById('butAddCity').addEventListener('click', function() {
-    // Add the newly selected city
-    var select = document.getElementById('selectCityToAdd');
+    //선택된 city를 추가
+    var select = document.getElementById('selectCityToAdd');    //선택된 도시의 id 요소를 가져옴
     var selected = select.options[select.selectedIndex];
     var key = selected.value;
     var label = selected.textContent;
-    if (!app.selectedCities) {
-      app.selectedCities = [];
-    }
-    app.getForecast(key, label);
-    app.selectedCities.push({key: key, label: label});
-    app.saveSelectedCities();
-    app.toggleAddDialog(false);
+    // TODO app.selectedCities array 초기화
+    app.getForecast(key, label);        //key와 label에 해당하는 날씨를 가져옴
+    // TODO selected city를 배열에 넣고 저장
+    app.toggleAddDialog(false);       //dialog에 추가
   });
 
+  //add cancel을 눌렀을 때의 동작
   document.getElementById('butAddCancel').addEventListener('click', function() {
-    // Close the add new city dialog
+    // dialog 닫기
     app.toggleAddDialog(false);
   });
 
@@ -73,8 +73,7 @@
    *
    ****************************************************************************/
 
-
-  // Toggles the visibility of the add new city dialog.
+  //add dialog 표시/해제. true면 표시하고 false면 표시하지 않음
   app.toggleAddDialog = function(visible) {
     if (visible) {
       app.addDialog.classList.add('dialog-container--visible');
@@ -83,63 +82,77 @@
     }
   };
 
-
+  //날씨 카드 생성 메소드
   // Updates a weather card with the latest weather forecast. If the card
   // doesn't already exist, it's cloned from the template.
   app.updateForecastCard = function(data) {
-    var dataLastUpdated = new Date(data.created);
-    var sunrise = data.channel.astronomy.sunrise;
-    var sunset = data.channel.astronomy.sunset;
-    var current = data.channel.item.condition;
-    var humidity = data.channel.atmosphere.humidity;
-    var wind = data.channel.wind;
+    var dataLastUpdated = new Date(data.created);     //date 객체 생성
+    var sunrise = data.channel.astronomy.sunrise;     //일출 관련 정보 받아옴
+    var sunset = data.channel.astronomy.sunset;       //일몰 관련 정보 받아옴
+    var current = data.channel.item.condition;        //현재 상태에 대한 정보
+    var humidity = data.channel.atmosphere.humidity;  //습도에 대한 정보
+    var wind = data.channel.wind;                       //바람 정보
 
-    var card = app.visibleCards[data.key];
+    var card = app.visibleCards[data.key];            //card 정보
+
+      //card가 존재하지 않으면 생성
     if (!card) {
       card = app.cardTemplate.cloneNode(true);
       card.classList.remove('cardTemplate');
       card.querySelector('.location').textContent = data.label;
-      card.removeAttribute('hidden');
-      app.container.appendChild(card);
-      app.visibleCards[data.key] = card;
+      card.removeAttribute('hidden');           //hidden 속성 제거
+      app.container.appendChild(card);        //카드 추가
+      app.visibleCards[data.key] = card;      //카드 리스트에 추가
     }
+    
+    var cardLastUpdatedElem = card.querySelector('.card-last-updated');   //카드의 마지막 업데이트 시간을 가져옴
+    var cardLastUpdated = cardLastUpdatedElem.textContent;        //text 가져옴
 
-    // Verifies the data provide is newer than what's already visible
-    // on the card, if it's not bail, if it is, continue and update the
-    // time saved in the card
-    var cardLastUpdatedElem = card.querySelector('.card-last-updated');
-    var cardLastUpdated = cardLastUpdatedElem.textContent;
-    if (cardLastUpdated) {
+      //최신 날짜 업데이트
+      if (cardLastUpdated) {
       cardLastUpdated = new Date(cardLastUpdated);
-      // Bail if the card has more recent data then the data
-
+      //현재 시간이 마지막 업데이트 시간보다 뒤일 경우 return
       if (dataLastUpdated.getTime() < cardLastUpdated.getTime()) {
         return;
       }
     }
-
-    cardLastUpdatedElem.textContent = data.created;
+    cardLastUpdatedElem.textContent = data.created;       //최신 날짜 저장
 
     card.querySelector('.description').textContent = current.text;
-    card.querySelector('.date').textContent = current.date;
+    card.querySelector('.date').textContent = current.date;     //날짜
     card.querySelector('.current .icon').classList.add(app.getIconClass(current.code));
+
+    //현재 온도
     card.querySelector('.current .temperature .value').textContent =
       Math.round(current.temp);
+
+    //일출/일몰 설정
     card.querySelector('.current .sunrise').textContent = sunrise;
     card.querySelector('.current .sunset').textContent = sunset;
+
+    //습도 구하기
     card.querySelector('.current .humidity').textContent =
       Math.round(humidity) + '%';
+
+    //풍속 구하기
     card.querySelector('.current .wind .value').textContent =
       Math.round(wind.speed);
+
+    //풍향 구하기
     card.querySelector('.current .wind .direction').textContent = wind.direction;
+
+    //다음날
     var nextDays = card.querySelectorAll('.future .oneday');
+
+    //오늘
     var today = new Date();
     today = today.getDay();
+
+    //요일별로 구하기
     for (var i = 0; i < 7; i++) {
       var nextDay = nextDays[i];
       var daily = data.channel.item.forecast[i];
       if (daily && nextDay) {
-
         nextDay.querySelector('.date').textContent =
           app.daysOfWeek[(i + today) % 7];
         nextDay.querySelector('.icon').classList.add(app.getIconClass(daily.code));
@@ -150,6 +163,7 @@
       }
     }
 
+    //로딩중일 경우 로딩 화면 출력
     if (app.isLoading) {
       app.spinner.setAttribute('hidden', true);
       app.container.removeAttribute('hidden');
@@ -173,29 +187,29 @@
    * freshest data.
    */
 
+  //날씨를 가져오는 메소드
   app.getForecast = function(key, label) {
-    var statement = 'select * from weather.forecast where woeid=' + key;
+    var statement = 'select * from weather.forecast where woeid=' + key;      //날씨 데이터를 가져오는 쿼리
+      //yahoo api로 데이터 가져옴
     var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' +
         statement;
-    // TODO add cache logic here
+    // TODO 데이터를 캐시하는 부분 -> PWA에서 할 일
 
-    // Fetch the latest data.
+    // 가장 최근의 데이터 fetch
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (request.readyState === XMLHttpRequest.DONE) {
-
+        //연결이 정상적으로 되었을 경우 처리
         if (request.status === 200) {
-          var response = JSON.parse(request.response);
+          var response = JSON.parse(request.response);    //request를 parsing
           var results = response.query.results;
           results.key = key;
           results.label = label;
           results.created = response.query.created;
-
-          app.updateForecastCard(results);
-
+          app.updateForecastCard(results);            //result를 가지고 update
         }
       } else {
-        // Return the initial weather forecast since no data is available.
+        // api 서버에 연결하지 못할 경우 기본 data 출력
         app.updateForecastCard(initialWeatherForecast);
       }
     };
@@ -203,7 +217,7 @@
     request.send();
   };
 
-  // Iterate all of the cards and attempt to get the latest forecast data
+  // 최신 데이터로 업데이트
   app.updateForecasts = function() {
     var keys = Object.keys(app.visibleCards);
     keys.forEach(function(key) {
@@ -211,13 +225,9 @@
     });
   };
 
-  // TODO add saveSelectedCities function here
-  // Save list of cities to localStorage.
-  app.saveSelectedCities = function() {
-    var selectedCities = JSON.stringify(app.selectedCities);
-    localStorage.selectedCities = selectedCities;
-  };
+  // TODO saveSelectedCities function 추가
 
+    //api에 따른 icon 설정
   app.getIconClass = function(weatherCode) {
     // Weather codes: https://developer.yahoo.com/weather/documentation.html#codes
     weatherCode = parseInt(weatherCode);
@@ -282,14 +292,8 @@
     }
   };
 
-  /*
-   * Fake weather data that is presented when the user first uses the app,
-   * or when the user has not saved any cities. See startup code for more
-   * discussion.
-   */
-
+  //최초의 데이터
   var initialWeatherForecast = {
-
     key: '2459115',
     label: 'New York, NY',
     created: '2016-07-22T01:00:00Z',
@@ -324,39 +328,10 @@
       }
     }
   };
-  // TODO uncomment line below to test app with fake data
-  // app.updateForecastCard(initialWeatherForecast);
+  // 최초의 데이터로 설정
+  app.updateForecastCard(initialWeatherForecast);
 
-  /************************************************************************
-   *
-   * Code required to start the app
-   *
-   * NOTE: To simplify this codelab, we've used localStorage.
-   *   localStorage is a synchronous API and has serious performance
-   *   implications. It should not be used in production applications!
-   *   Instead, check out IDB (https://www.npmjs.com/package/idb) or
-   *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
-   ************************************************************************/
+  // TODO startup code 추가
 
-  // TODO add startup code here
-  app.selectedCities = localStorage.selectedCities;
-  if (app.selectedCities) {
-    app.selectedCities = JSON.parse(app.selectedCities);
-    app.selectedCities.forEach(function(city) {
-      app.getForecast(city.key, city.label);
-    });
-  } else {
-    /* The user is using the app for the first time, or the user has not
-     * saved any cities, so show the user some fake data. A real app in this
-     * scenario could guess the user's location via IP lookup and then inject
-     * that data into the page.
-     */
-    app.updateForecastCard(initialWeatherForecast);
-    app.selectedCities = [
-      {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
-    ];
-    app.saveSelectedCities();
-  }
-
-  // TODO add service worker code here
+  // TODO service worker code를 추가하는 부분
 })();
