@@ -16,14 +16,23 @@
 (function() {
   'use strict';
 
+  // #주석# app : step1의 앱 변수
   var app = {
+    // #주석# 현재 로딩중인지 체크
     isLoading: true,
+    // #주석# 보여지는 카드(정보)들
     visibleCards: {},
+    // #주석# 선택된 도시들
     selectedCities: [],
+    // #주석# 로딩중일때 보여지는 요소
     spinner: document.querySelector('.loader'),
+    // #주석# 정보를 담는 카드의 템플릿(아이템 틀)
     cardTemplate: document.querySelector('.cardTemplate'),
+    // #주석# 카드들이 담기는 컨테이너 요소
     container: document.querySelector('.main'),
+    // #주석# 도시 추가 다이얼 로그 창 요소
     addDialog: document.querySelector('.dialog-container'),
+    // #주석# 요일 배열 문자열
     daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   };
 
@@ -34,16 +43,17 @@
    *
    ****************************************************************************/
 
+  // #주석# 새로고침 이벤트
   document.getElementById('butRefresh').addEventListener('click', function() {
     // Refresh all of the forecasts
     app.updateForecasts();
   });
-
+  // #주석# 새로운 도시 추가 버튼 이벤트
   document.getElementById('butAdd').addEventListener('click', function() {
     // Open/show the add new city dialog
     app.toggleAddDialog(true);
   });
-
+  // #주석# 도시 추가 버튼
   document.getElementById('butAddCity').addEventListener('click', function() {
     // Add the newly selected city
     var select = document.getElementById('selectCityToAdd');
@@ -55,7 +65,7 @@
     // TODO push the selected city to the array and save here
     app.toggleAddDialog(false);
   });
-
+  // #주석# 취소 버튼
   document.getElementById('butAddCancel').addEventListener('click', function() {
     // Close the add new city dialog
     app.toggleAddDialog(false);
@@ -68,6 +78,7 @@
    *
    ****************************************************************************/
 
+  // #주석# 새로운 도시 숨기기 토글
   // Toggles the visibility of the add new city dialog.
   app.toggleAddDialog = function(visible) {
     // visible은 보여질지 말지 정하는 변수
@@ -78,6 +89,7 @@
     }
   };
 
+  // #주석# 예보 업데이트 함수
   // Updates a weather card with the latest weather forecast. If the card
   // doesn't already exist, it's cloned from the template.
   app.updateForecastCard = function(data) {
@@ -98,6 +110,7 @@
       app.visibleCards[data.key] = card;
     }
 
+    // #주석# 카드 업데이트 변수 갱신
     // Verifies the data provide is newer than what's already visible
     // on the card, if it's not bail, if it is, continue and update the
     // time saved in the card
@@ -112,6 +125,7 @@
     }
     cardLastUpdatedElem.textContent = data.created;
 
+    // #주석# UI 정보 갱신
     card.querySelector('.description').textContent = current.text;
     card.querySelector('.date').textContent = current.date;
     card.querySelector('.current .icon').classList.add(app.getIconClass(current.code));
@@ -125,6 +139,7 @@
       Math.round(wind.speed);
     card.querySelector('.current .wind .direction').textContent = wind.direction;
     var nextDays = card.querySelectorAll('.future .oneday');
+    // #주석# 날짜 갱신
     var today = new Date();
     today = today.getDay();
     for (var i = 0; i < 7; i++) {
@@ -140,6 +155,7 @@
           Math.round(daily.low);
       }
     }
+    // #주석# 로딩 로고 완료시 false
     if (app.isLoading) {
       app.spinner.setAttribute('hidden', true);
       app.container.removeAttribute('hidden');
@@ -162,12 +178,14 @@
    * request goes through, then the card gets updated a second time with the
    * freshest data.
    */
+
+  // #주석# 예보 받아오는 함수
   app.getForecast = function(key, label) {
     var statement = 'select * from weather.forecast where woeid=' + key;
     var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' +
         statement;
     // TODO add cache logic here
-
+    console.log(url);
     // Fetch the latest data.
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
@@ -188,7 +206,8 @@
     request.open('GET', url);
     request.send();
   };
-
+  
+  // #주석# 예보 정보 갱신 함수
   // Iterate all of the cards and attempt to get the latest forecast data
   app.updateForecasts = function() {
     var keys = Object.keys(app.visibleCards);
@@ -199,6 +218,7 @@
 
   // TODO add saveSelectedCities function here
 
+  // #주석# 예보 아이콘에 해당되는 class 가져오는 함수
   app.getIconClass = function(weatherCode) {
     // Weather codes: https://developer.yahoo.com/weather/documentation.html#codes
     weatherCode = parseInt(weatherCode);
@@ -268,6 +288,7 @@
    * or when the user has not saved any cities. See startup code for more
    * discussion.
    */
+  // #주석# 테스트 정보
   var initialWeatherForecast = {
     key: '2459115',
     label: 'New York, NY',
