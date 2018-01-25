@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Swiper demo</title>
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="/css/swiper.min.css">
+
+	<!-- Demo styles -->
+	<style>
+		html, body {
+			position: relative;
+			height: 100%;
+		}
+		body {
+			background: #eee;
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			color:#000;
+			margin: 0;
+			padding: 0;
+		}
+		.swiper-container {
+			width: 100%;
+			height: 100%;
+		}
+		.swiper-slide {
+			text-align: center;
+			font-size: 18px;
+			background: #fff;
+			/* Center slide text vertically */
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+		}
+	</style>
+</head>
+<body>
+<!-- Swiper -->
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<img src="/images/a.jpg"/>
+		</div>
+		<div class="swiper-slide">
+			<img src="/images/b.jpg"/>
+		</div>
+		<div class="swiper-slide">
+			<img src="/images/c.jpg"/>
+		</div>
+	</div>
+</div>
+
+<!-- Swiper JS -->
+<script src="/js/swiper.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+	window.swiper = new Swiper('.swiper-container');
+	// swiper.slideTo(숫자)
+</script>
+</body>
+</html>
