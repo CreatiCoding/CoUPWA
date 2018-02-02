@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="theme-color" content="#000000">
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.css">
+    <title>React App</title>
+  </head>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script src="/firebase/firebase.js"></script>
+  <script src="/firebase/firebase-app.js"></script>
+  <script src="/firebase/firebase-messaging.js"></script>
+  <script src="/firebase/init.js"></script>
+  <script>
+    $(window).scroll(function() {
+        if( $(this).scrollTop() == 0 ) {
+          $(".navbar").addClass("hide");
+          if(!($('.dropdown').find('.dropdown-menu').is(":hidden")))
+          	$('.dropdown-menu').dropdown("toggle");
+        }
+        else {
+          $(".navbar").removeClass("hide");
+        }
+      });
+  </script>
+  </body>
 
-	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-	<link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.min.css">
-
-	<title>React App</title>
-</head>
-<body>
-
-<noscript>
-	You need to enable JavaScript to run this app.
-</noscript>
-
-<div id="root"></div>
-
-<script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
-<script src="/__/firebase/4.9.0/firebase.js"></script>
-<script src="/__/firebase/4.6.2/firebase-app.js"></script>
-<script src="/__/firebase/4.6.2/firebase-messaging.js"></script>
-<script src="/__/firebase/init.js"></script>
-</body>
 </html>
