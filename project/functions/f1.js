@@ -55,4 +55,4 @@ function download_test() {
         });
     });
 }
-download_file_with_wget().then(file=> console.log(file)).catch(e => console.log(e));
+// download_file_with_wget().then(file=> console.log(file)).catch(e => console.log(e));
