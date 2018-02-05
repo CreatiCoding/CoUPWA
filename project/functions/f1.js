@@ -3,7 +3,9 @@ const admin = require('firebase-admin');
 const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const parser = require('xml2js');
 
+// firebase experimental:functions:shell
 /**
  * 정석호s
  *  hello world 함수
@@ -131,3 +133,36 @@ exports.downloadChapter = functions.https.onRequest((req, res) => {
 	});
 	res.send(true);
 });
+
+
+
+/**
+ * 웹툰 메인 배너 리스트 가져오는 함수
+ * num:  가져올 리스트의 갯수 ( 기본 6 )
+ * @type {HttpsFunction}
+ */
+exports.getMainBannerImage = functions.https.onRequest((req, res) => {
+	"use strict";
+	const num = req.body.num === undefined ? req.query.num === undefined? 6 : req.query.num : req.body.num;
+	const referUrl = 'http://comic.naver.com/xml/mainTopXml.nhn?order=viewCount';
+	const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+			+ ' (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36';
+	request(referUrl, function(error, mres, body) {
+		var $ = cheerio.load(body);
+		var parseString = parser.parseString;
+
+		parseString(body, function (err, result) {
+			var list = result.comics.comic;
+			var random = Array.from({length: list.length}, (v, k) => k);
+			var pick = [];
+			var pickList = [];
+			for(var i =0;i<num;i++) {
+				pick[i] = random.splice(parseInt(Math.random() * random.length), 1);
+				pickList.push(list[pick[i]]);
+			}
+			res.send(pickList);
+		});
+	});
+
+});
+
