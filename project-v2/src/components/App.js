@@ -3,7 +3,7 @@ import '../css/test.css';
 
 class App extends Component {
     render() {
-        const url = './image/react.png';
+        const url = './images/react.png';
         return (
             <div>
                 <h1>hello</h1>
