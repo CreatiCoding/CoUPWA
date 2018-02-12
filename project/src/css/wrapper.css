@@ -1,0 +1,17 @@
+
+@media all and (max-width: 979px) {
+    .wrapper {
+        width: 100%;
+        /*background-color: blue;*/
+    }
+}
+@media all and (min-width: 980px) {
+    .wrapper {
+        width: 980px;
+        /*background-color: black;*/
+    }
+}
+.wrapper{
+    display: inline-block;
+    border: solid 1px;
+}

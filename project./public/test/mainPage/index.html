@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./swiper.min.css">
+    <title>메인 페이지</title>
+    <style>
+      .component-img{
+    	width:100px;
+    	height:200px;
+      }
+      .footer{
+      top: 90%;
+          height: 10%;
+          background: #000000;
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        z-index: 99;
+      }
+    	.banner-img{
+    		width:100%;
+    	}
+        html {
+        	height:200%;
+        }
+        body {  }
+      .component{
+    	width:200px;
+    	height:200px;
+    	 border: solid 2px;
+      }
+      .navbar {
+      z-index: 99;
+            background: hotpink;
+            margin: 0; padding: 0;
+            list-style: none;
+            position: fixed;
+            width: 100%;
+            transition: transform .3s;
+          }
+          .navbar.hide {
+            transform: translateY(-100%);
+          }
+          .navbar>li {
+            display: inline-block;
+          }
+          .navbar>li>a {
+            display: block;
+            text-decoration: none;
+            padding: 10px 20px;
+            color: white;
+          }
+          .navbar>li>a:hover {
+            background: deeppink;
+          }
+    </style>
+  </head>
+
+  <body>
+    <ul class="hide navbar">
+      <li><a href="#">조회수</a>
+      </li>
+    </ul>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img class="banner-img" src="./images/a.jpg" />
+        </div>
+        <div class="swiper-slide">
+          <img class="banner-img" src="./images/b.jpg" />
+        </div>
+        <div class="swiper-slide">
+          <img class="banner-img" src="./images/c.jpg" />
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+        <div class="component col-xs-12 col-sm-6 col-md-2 col-lg-1">
+          <img class="component-img" src="./images/empty_component.jpg"></img>
+        </div>
+      </div>
+    </div>
+    <div class="footer">바닥</div>
+    <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+    <script src="./swiper.js"></script>
+    <script>
+      window.swiper = new Swiper('.swiper-container', {
+          pagination: {
+            el: '.swiper-pagination',
+          },
+        });
+$(window).scroll(function() {
+console.log(1);
+  if( $(this).scrollTop() == 0 ) {
+    $(".navbar").addClass("hide");
+  }
+  else {
+    $(".navbar").removeClass("hide");
+  }
+});
+    </script>
+  </body>
+
+</html>

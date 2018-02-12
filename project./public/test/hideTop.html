@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>React App</title>
+	<style>
+    html {
+      height: 200%;
+      background: linear-gradient(red, yellow, green);
+    }
+    body { margin: 0; }
+    .navbar {
+      background: hotpink;
+      margin: 0; padding: 0;
+      list-style: none;
+      position: fixed;
+      width: 100%;
+      transition: transform .3s;
+    }
+    .navbar.hide {
+      transform: translateY(-100%);
+    }
+    .navbar>li {
+      display: inline-block;
+    }
+    .navbar>li>a {
+      display: block;
+      text-decoration: none;
+      padding: 10px 20px;
+      color: white;
+    }
+    .navbar>li>a:hover {
+      background: deeppink;
+    }
+    </style>
+</head>
+<body>
+
+<ul class="hide navbar">
+  <li><a href="#">홈</a></li>
+  <li><a href="#">1번 메뉴</a></li>
+  <li><a href="#">2번 메뉴</a></li>
+</ul>
+
+<script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
+
+<script>
+$(window).scroll(function() {
+  if( $(this).scrollTop() == 0 ) {
+    $(".navbar").addClass("hide");
+  }
+  else {
+    $(".navbar").removeClass("hide");
+  }
+});
+</script>
+</body>
+</html>
+
+
+
+
