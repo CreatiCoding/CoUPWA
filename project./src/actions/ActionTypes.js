@@ -1,1 +1,0 @@
-export const CHANHE_LISTTYPE = "CHANHE_LISTTYPE";
