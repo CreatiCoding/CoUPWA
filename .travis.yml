@@ -1,5 +1,7 @@
 language: node_js
 node_js:
   - "7"
+before_install:
+  - npm install jshint --save-dev
 before_script:
   - cd ./travis_test
