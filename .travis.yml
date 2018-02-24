@@ -3,5 +3,4 @@ node_js:
   - "7"
 before_install:
   - cd ./travis_test
-  - npm install jshint --save-dev
 #before_script:
