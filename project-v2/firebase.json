@@ -8,6 +8,30 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/images",
+        "function": "images"
+      },
+      {
+        "source": "/bannerImage",
+        "function": "bannerImage"
+      },
+      {
+        "source": "/imagePipe",
+        "function": "imagePipe"
+      },
+      {
+        "source": "/getWeekAllToonInfoBySort",
+        "function": "getWeekAllToonInfoBySort"
+      },{
+        "source": "/addReceiver",
+        "function": "addReceiver"
+      },{
+        "source": "/sendNotification",
+        "function": "sendNotification"
+      }
     ]
   },
   "storage": {
