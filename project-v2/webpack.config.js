@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: __dirname + '/public/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     devServer: {
         hot: true,
@@ -18,20 +18,18 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!(dom7|swiper)\/).*/,
                 query: {
                     cacheDirectory: true,
-                    presets: ['env', 'react']
-                }
+                    presets: ['env', 'react'],
+                },
             },
-			{
-				test: /\.css$/,
-				loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]'
-/*				loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'*/
-			}
-        ]
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]',
+                /*				loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'*/
+            },
+        ],
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ]
-}
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+};

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import '../css/test.css';
+import Wrapper from './Wrapper';
+import MainHeaderContainer from '../containers/MainHeaderContainer';
+import MainMenu from './MainMenu';
 
 class App extends Component {
     render() {
-        const url = './images/react.png';
         return (
-            <div>
-                <h1>hello</h1>
-                <img src={url} />
+            <div className="app">
+				<MainHeaderContainer />
+                <Wrapper />
+				<MainMenu />
             </div>
         );
     }

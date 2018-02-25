@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta name="Description" content="Author: CoU, Category: Webtoon, Length: 3 Pages">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon-precomposed" href="/favicon.ico" type="image/x-icon"
+    />
+    <link rel="apple-touch-startup-image" href="/favicon.ico" type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/swiper.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>React App</title>
     <title>Welcome to Firebase Hosting</title>
-    <!-- update the version number as needed
-    -->
-    <script defer src="/__/firebase/4.9.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.9.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/4.9.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/4.9.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.9.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded
-    -->
-    <script defer src="/__/firebase/init.js"></script>
+    <script>
+      // 서비스 워커 등록
+      if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js').then(function(a, b, c) {
+              console.log('Service Worker Registered');
+          });
+      }
+    </script>
+    <script async src="/js/jquery-1.12.4.min.js"></script>
+    <!-- <script defer src="/js/firebase/firebase-app.js"></script>
+    <script defer src="/js/firebase/firebase-auth.js"></script>
+    <script defer src="/js/firebase/firebase-database.js"></script>
+    <script defer src="/js/firebase/firebase-messaging.js"></script>
+    <script defer src="/js/firebase/firebase-storage.js"></script>
+    <script defer src="/js/firebase/init.js"></script>
+-->
   </head>
+
   <body>
+    <img class="hide" src='/images/thumbnail_default.png' />
     <div id="root"></div>
-    <script src="bundle.js"></script>
+    <script async src="bundle.js"></script>
   </body>
+
 </html>

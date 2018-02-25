@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+
+  <body>
+    <input type="text" id="title">
+    <input type="text" id="contents">
+    <button onClick="send()">공지사항 보내기</button>
+  </body>
+  <script async src="/js/jquery-1.12.4.min.js"></script>
+  <script>
+  function send(){
+  	console.log("tests");
+  	$.ajax({
+            url:"/sendNotification",
+            type:'GET',
+            data: {
+            	title : $("#title").val(),
+            	contents : $("#contents").val()
+            },
+            success:function(data){
+            	console.log(data);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+            	console.log(jqXHR);
+            }
+        });
+  	}
+	</script>
+
+</html>
+

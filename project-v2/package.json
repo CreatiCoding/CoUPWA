@@ -1,27 +1,43 @@
 {
   "name": "coupwa",
   "version": "1.0.0",
-  "description": "CoUPWA naver & kw",
+  "description": "CoUPWA naver &kw",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server",
-    "build": "webpack"
+    "test": "echo\"Error: no test specified\"&&exit1",
+    "shutdown": "taskkill /im node.exe /f",
+    "startdev": "npm run webpack-dev && npm run browser",
+    "build": "webpack",
+    "dev": "webpack-dev-server ",
+    "browser": "start /B browser-sync start --proxy \"127.0.0.1:4000\" --files \"public/css/*.css\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.0.0",
+    "firebase": "^4.10.1",
+    "firebase-app": "0.0.1",
+    "firebase-messaging": "^1.0.6",
+    "imagemin": "^5.3.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^3.1.3",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "swiper": "^4.1.6",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "browser-sync": "^2.23.6",
     "css-loader": "^0.28.9",
     "style-loader": "^0.20.1"
   }
