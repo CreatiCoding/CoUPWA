@@ -320,7 +320,6 @@ html {
 .main-contents-toon-thumbnail {
 	background: url('/images/thumbnail_default.png');
 	display: none;
-	top: ;
 	position: absolute;
 	top: 0;
 	left: 0;
