@@ -1,0 +1,1 @@
+init about design detail page
