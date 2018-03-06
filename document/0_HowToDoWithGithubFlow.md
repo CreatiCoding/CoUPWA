@@ -16,7 +16,7 @@ $ git checkout master
 
 
 
-### 1. 최신 상태 업데이트ㅁ
+### 1. 최신 상태 업데이트
 
 ```bash
 $ git pull				# fetch + merge, 최신 상태로 업데이트
@@ -54,9 +54,9 @@ $ git checkout -b <branch name>
 
  서비스 중 급하게 버그를 고치는 경우
 
- hotfix/design-함수명-버그명
+ hotfix/design-페이지명-버그명
 
- hotfix/front-함수명-버그명
+ hotfix/front-페이지명-버그명
 
  hotfix/back-함수명-버그명
 
