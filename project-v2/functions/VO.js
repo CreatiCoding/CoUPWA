@@ -3,8 +3,27 @@ exports.cartoon = () => {
 	return {
 		TitleId : '',
 		Title: '',
-		Author: '',
-		No:''
+		Author: ''
+	};
+};
+
+//웹툰 회차
+exports.sequence = () =>{
+	return {
+		No: '',
+		Title: '',
+		TitleId:'',
+	};
+};
+
+//웹툰 이미지 리스트
+exports.imageList = () => {
+	return {
+		ImageID : '',
+		Seq: '',
+		Path: '',
+		No: '',
+		Title: ''
 	};
 };
 
@@ -12,17 +31,34 @@ exports.cartoon = () => {
 exports.user = () =>{
 	return {
 		UUID : '',
-		RandomId: '',
 		Token: '',
+		RandomId: ''
+	};
+};
+
+//사용자가 보고 있었던 웹툰 정보
+exports.like = () =>{
+	return {
+		UUID : '',
+		TitleId: '',
+		No: ''
+	};
+};
+
+//사용자의 웹툰 업데이트 알람 수신여부
+exports.like = () =>{
+	return {
+		UUID : '',
+		TitleId: '',
 		Alarm: ''
 	};
 };
 
-//웹툰 이미지 리스트
-exports.imagelist = () => {
+//사용자 Token 입력
+exports.insert = () =>{
 	return {
-		ImageID : '',
-		Seq: '',
-		Path: ''
+		UUID : '',
+		RandomId: '',
+		Token: ''
 	};
 };
