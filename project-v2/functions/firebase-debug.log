@@ -1,0 +1,55 @@
+[debug] [2018-03-09T04:36:06.636Z] ----------------------------------------------------------------------
+[debug] [2018-03-09T04:36:06.644Z] Command:       C:\Users\kj\node.exe C:\Users\이경진\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase experimental:functions:shell
+[debug] [2018-03-09T04:36:06.645Z] CLI Version:   3.17.4
+[debug] [2018-03-09T04:36:06.645Z] Platform:      win32
+[debug] [2018-03-09T04:36:06.645Z] Node Version:  v8.9.4
+[debug] [2018-03-09T04:36:06.648Z] Time:          Fri Mar 09 2018 13:36:06 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-09T04:36:06.648Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-09T04:36:06.689Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-09T04:36:06.691Z] > authorizing via signed-in user
+[debug] [2018-03-09T04:36:06.698Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/coupwa  
+  
+ Fri Mar 09 2018 13:36:06 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-09T04:36:07.982Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-09T04:36:07.988Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/coupwa/tokens  
+  
+ Fri Mar 09 2018 13:36:07 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-09T04:36:08.744Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-03-09T04:36:10.285Z] Fetching environment
+[debug] [2018-03-09T04:36:10.289Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/coupwa  
+  
+ Fri Mar 09 2018 13:36:10 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-09T04:36:10.290Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/coupwa/apiKeys  
+  
+ Fri Mar 09 2018 13:36:10 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-09T04:36:11.334Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-09T04:36:11.422Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-09T04:36:11.423Z] Starting @google-cloud/functions-emulator
+[debug] [2018-03-09T04:36:17.082Z] Parsing function triggers
+[info] +  functions: helloWorld1
+[info] +  functions: sendNotification
+[info] +  functions: getImageTest
+[info] +  functions: downloadChapter
+[info] +  functions: getMainContentList
+[info] +  functions: getMainBannerImage
+[info] +  functions: addReceiver
+[info] +  functions: time
+[info] +  functions: requestRefererWebtoon
+[info] +  functions: helloWorld2
+[info] +  functions: createToon
+[info] +  functions: createSeq
+[info] +  functions: getUser
+[info] +  functions: getUserToon
+[info] +  functions: askPermission
+[info] +  functions: searchUser
+[info] +  functions: testFc
+[info] +  functions: helloWorld4
+[info] +  functions: saveTodayBannerInfo
+[info] +  functions: images
+[info] +  functions: imagePipe
+[info] +  functions: bannerImage
+[info] +  functions: saveTodayWeekAllToonInfo
+[info] +  functions: getWeekAllToonInfoBySort
+[info] +  functions: createSeries
