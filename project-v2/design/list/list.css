@@ -9,10 +9,18 @@
             height: 50px;
             background: whitesmoke;
         }
-        .header a{
+        .header span.backbutton{
             font-size: 30px;
             margin: 20px;
         }
+				.header span.first-chapter{
+					float: right;
+					margin:20px 20px 0 0;
+				}
+				.header span.like{
+					float: right;
+					margin:20px 20px 0 0;
+				}
 
 				.frame{
 					background: #ececf6;
@@ -44,9 +52,7 @@
 				li {
 					display: list-item;
 					text-align: -webkit-match-parent;
-					/*list-style-type:none;
-					border-bottom: 1px solid black;
-					border-top: 1px solid black;*/
+
 				}ul{
 									 margin: 0;
 									 padding: 0;
@@ -65,13 +71,6 @@
 					 width: 90px;
 					 float: left;
 				 }
-
-				 /*.frame li{
-					 display: block;
-					 height: 48px;
-					 width: 49px;
-					 float: left;
-				 }*/
 
 				.frame ul{
             display: grid;
