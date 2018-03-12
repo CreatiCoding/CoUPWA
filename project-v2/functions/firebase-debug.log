@@ -53,3 +53,67 @@
 [info] +  functions: saveTodayWeekAllToonInfo
 [info] +  functions: getWeekAllToonInfoBySort
 [info] +  functions: createSeries
+[debug] [2018-03-12T05:06:38.668Z] ----------------------------------------------------------------------
+[debug] [2018-03-12T05:06:38.676Z] Command:       C:\Users\kj\node.exe C:\Users\이경진\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase experimental:functions:shell
+[debug] [2018-03-12T05:06:38.677Z] CLI Version:   3.17.4
+[debug] [2018-03-12T05:06:38.677Z] Platform:      win32
+[debug] [2018-03-12T05:06:38.677Z] Node Version:  v8.9.4
+[debug] [2018-03-12T05:06:38.684Z] Time:          Mon Mar 12 2018 14:06:38 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:38.684Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-12T05:06:38.758Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-12T05:06:38.761Z] > authorizing via signed-in user
+[debug] [2018-03-12T05:06:38.772Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-03-12T05:06:38.773Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/6JvUkT8NBgZmsp9aCeCDczVc5UuS1Y7lmJlUE-ovUEc',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Mon Mar 12 2018 14:06:38 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:39.525Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-12T05:06:39.553Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/coupwa  
+  
+ Mon Mar 12 2018 14:06:39 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:40.846Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-12T05:06:40.848Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/coupwa/tokens  
+  
+ Mon Mar 12 2018 14:06:40 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:41.668Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-03-12T05:06:44.973Z] Fetching environment
+[debug] [2018-03-12T05:06:44.977Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/coupwa  
+  
+ Mon Mar 12 2018 14:06:44 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:44.978Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/coupwa/apiKeys  
+  
+ Mon Mar 12 2018 14:06:44 GMT+0900 (대한민국 표준시)
+[debug] [2018-03-12T05:06:46.090Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-12T05:06:46.220Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-12T05:06:46.221Z] Starting @google-cloud/functions-emulator
+[debug] [2018-03-12T05:06:53.868Z] Parsing function triggers
+[info] +  functions: helloWorld1
+[info] +  functions: downloadChapter
+[info] +  functions: getMainContentList
+[info] +  functions: getMainBannerImage
+[info] +  functions: helloWorld2
+[info] +  functions: requestRefererWebtoon
+[info] +  functions: time
+[info] +  functions: helloWorld4
+[info] +  functions: images
+[info] +  functions: imagePipe
+[info] +  functions: getWeekAllToonInfoBySort
+[info] +  functions: sendNotification
+[info] +  functions: getImageTest
+[info] +  functions: createToon
+[info] +  functions: createSeries
+[info] +  functions: createSeq
+[info] +  functions: getUser
+[info] +  functions: getUserToon
+[info] +  functions: askPermission
+[info] +  functions: searchUser
+[info] +  functions: testFc
+[info] +  functions: saveTodayBannerInfo
+[info] +  functions: saveTodayWeekAllToonInfo
+[info] +  functions: bannerImage
+[info] +  functions: addReceiver
