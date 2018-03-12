@@ -1,6 +1,7 @@
 // firebase experimental:functions:shell
 const admin = require('firebase-admin');
-
+const voUtil = require('./VO');
+const crypto = require('crypto');
 //IndexedDB 안에 사용자 UUID가 E/NE
 //E: 관심 웹툰 추가(사용자가 어떤 웹툰을 추가했는지에 대한 자료 있어야), firestore에 추가
 //NE: 사용자 등록, firestore에 추가 -> Client indexedDB 추가
@@ -8,39 +9,46 @@ const admin = require('firebase-admin');
 
 //IndexedDB(TEST)
 /* TODO 사용자의 입력을 함수 인자로 받는 방법  */
-exports.testFc = function(uuid, toon){
-	const db = admin.firestore();
-	var docRef = db.collection('IndexedDB');
+exports.testFc = function(){
 
-	//임의로 등록
-	docRef.doc('user1').set({
-		uuid:'user1'});
-	docRef.doc('user2').set({
-		uuid:'user2'
-	});
+	//voUtil을 이용해 user 객체 생성
+	let user1 = voUtil.user();
+	let user2 = voUtil.user();
 
-	/* TODO USER inputs uuid value */
-	//Reference location of docRef is uuid value
-	docRef = db.collection('IndexedDB').doc(uuid);
+	//새로 생성된 user들의 uuid 생성
+	user1.uuid = this.genUUID();
 
-	//UUID가 존재하지 않을 때(test)
-	//docRef = db.collection('IndexedDB').doc('user3');
+	//addUser를 통해 위 user들을 'user' collection에 추가
+	this.addUser(user1).then(function () {
+		
+	})
 
-	//search uuid in IndexedDB
-	docRef.get().then(function (doc) {
+	console.log(user1.uuid);
+	this.findUser(user1).then(function (doc) {//findUser이 반환한 데이터가 E/NE인지 함수 실행
 		if(doc.exists){
 			console.log("Document data: ", doc.data());
-			//관심웹툰추가
-			addToon(docRef,toon);
+
+			//likeVo라는 객체 생성
+			let like1 = voUtil.like();
+
+			// likeVo.뭔가 = 값;
+			like1.titleId = 'webtoon1';
+			addLike(like1);
 		}
 		else{
+			console.log(JSON.stringify(doc));
 			console.log("No such document!");
-			//사용자  UUID 추가
-			addUser(docRef,uuid);
+/*
+			//addUser함수를 통해 user1 추가
+			//addUser(user1);
 
-			/* TODO 관심웹툰 추가 */
-			addToon(docRef, toon);
+			let like1 = voUtil.like();
+			like1.titleId = 'webtoon2';
 
+			// likeVo.뭔가 = 값;
+
+			addLike(like1);
+*/
 		}
 	}).catch(function (error) {
 		console.log("Error getting document:", error);
@@ -48,17 +56,37 @@ exports.testFc = function(uuid, toon){
 
 }
 
+exports.findUser = function(vo){
+	//'user' collection에서 vo.uuid값을 참조해서 데이터를 리턴
+	console.log(vo.uuid);
+	return admin.firestore().collection('user').doc(vo.uuid).get();
+}
 //IndexedDB에 사용자 UUID가 없을 때
-function addUser(docRef, uuid){
-	docRef.set({
-		uuid: uuid
-	})
+exports.addToon = function (vo){
+	//'cartoon' collection에서 vo.TitleId 데이터 추가
+	admin.firestore().collection('cartoon').doc(vo.TitleId).set(vo);
+}
+
+//IndexedDB에 사용자 UUID가 없을 때
+exports.addUser = function (vo){
+	//'user' collection에 해당 uuid값을 참조하여 vo를 추가
+	admin.firestore().collection('user').doc(vo.uuid).set(vo);
+}
+
+exports.addLike = function (vo){
+	//'like' collection에 해당 titleId값을 참조하여 vo를 추가
+	admin.firestore().collection('like').doc(vo.titleId).set(vo);
 }
 
 //IndexedDB에 사용자 UUID가 있을 때 -> 선호 웹툰 업데이트
-function addToon(docRef, toon){
-	/* TODO 사용자의 관심 웹툰 업데이트 */
-	docRef.update({
-		Like: toon
-	})
+exports.updateToon = function (vo){
+	// 'cartoon' collection에서 해당 타이틀아이디를 참고해 선호하는 웹툰 업데이트
+	admin.firestore().collection('cartoon').doc(vo.TitleId).update(vo);
 }
+
+//UUID 생성 함수
+exports.genUUID = function(){
+	let current_date = (new Date()).valueOf().toString();
+	let random = Math.random().toString();
+	return crypto.createHash('md5').update(current_date + random).digest('hex');
+};
