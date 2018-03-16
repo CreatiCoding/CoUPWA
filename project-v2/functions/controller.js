@@ -52,9 +52,20 @@ exports.testFc = function() {
 	});
 };
 
+//IndexedDB에 사용자 UUID가 없을 때
+exports.addUser = function(vo) {
+	//'user' collection에 해당 uuid값을 참조하여 vo를 추가
+	admin
+		.firestore()
+		.collection('user')
+		.doc(vo.uuid)
+		.set(vo);
+};
+
+
 exports.findUser = function(vo) {
 	//'user' collection에서 vo.uuid값을 참조해서 데이터를 리턴
-	console.log(vo.uuid);
+	console.log("---"+vo.uuid+"---");
 	return admin
 		.firestore()
 		.collection('user')
@@ -68,16 +79,6 @@ exports.addToon = function(vo) {
 		.firestore()
 		.collection('cartoon')
 		.doc(vo.TitleId)
-		.set(vo);
-};
-
-//IndexedDB에 사용자 UUID가 없을 때
-exports.addUser = function(vo) {
-	//'user' collection에 해당 uuid값을 참조하여 vo를 추가
-	admin
-		.firestore()
-		.collection('user')
-		.doc(vo.uuid)
 		.set(vo);
 };
 
