@@ -1,0 +1,8 @@
+{
+  "proseWrap": "always",
+  "singleQuote": true,
+  "tabWidth": 120,
+  "parser":"flow",
+  "trailingComma": "es5",
+  "jsxBracketSameLine": false
+}
