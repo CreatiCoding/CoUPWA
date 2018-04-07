@@ -1,0 +1,27 @@
+import React from 'react';
+// import { Link } from 'react-router-dom';
+
+// import Wrapper from '../components/Wrapper';
+// import MainMenu from '../components/MainMenu';
+import MainHeaderContainer from '../containers/MainHeaderContainer';
+
+const MainRoute = () => {
+	return (
+		<div className="main-route">
+			<MainHeaderContainer />
+		</div>
+	);
+};
+export default MainRoute;
+
+
+/*
+*
+
+
+			<Wrapper />
+			<MainMenu />
+
+			<Link to="/list">리스트 페이지</Link>
+			<Link to="/detail">상세 페이지</Link>
+* */
