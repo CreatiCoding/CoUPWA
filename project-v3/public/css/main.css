@@ -1,0 +1,317 @@
+html {
+	height: 200%;
+}
+
+@font-face {
+	font-family: 'GoDoM';
+	src: url("/fonts/GodoM.ttf") format('truetype');
+}
+
+@font-face {
+	font-family: 'godoRounded';
+	src: url("/fonts/godoRoundedL.ttf") format('truetype');
+}
+
+@media all and (max-width: 400px) {
+	.main-menu {
+		height: 16vw;
+		margin: -16vw 0 0 0;
+	}
+
+	.main-contents-swiper-container {
+		margin-bottom: 16vw;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	.main-menu {
+		height: 19vw;
+		margin: -19vw 0 0 0;
+	}
+
+	.main-contents-swiper-container {
+		margin-bottom: 19vw;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.main-menu {
+		height: 16vw;
+		margin: -16vw 0 0 0;
+	}
+
+	.main-contents-swiper-container {
+		margin-bottom: 16vw;
+	}
+}
+
+@media all and (max-width: 979px) {
+	.wrapper-width {
+		width: 100%;
+	}
+
+	.header-nav-font {
+		font-size: 6vw;
+		line-height: 10vw;
+	}
+
+	.main-contents-dow-row {
+		font-size: 5vw;
+	}
+
+	.main-contents-toon-title {
+		font-size: 1.5vw;
+	}
+
+	.main-contents-toon-author {
+		font-size: 1.5vw;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.wrapper-width {
+		width: 980px;
+	}
+
+	.header-nav-font {
+		font-size: 60px;
+		line-height: 100px;
+	}
+
+	.main-contents-dow-row {
+		font-size: 50px;
+	}
+
+	.main-contents-toon-title {
+		font-size: 15px;
+	}
+
+	.main-contents-toon-author {
+		font-size: 15px;
+	}
+
+	.main-menu {
+		height: 160px;
+		margin: -160px 0 0 0;
+	}
+
+	.main-contents-swiper-container {
+		margin-bottom: 160px;
+	}
+}
+
+.hide {
+	display: none;
+}
+
+.default-font {
+	font-family: 'godoRounded', sans-serif;
+	text-decoration: none;
+}
+
+.default-font-bold {
+	font-family: 'GodoM', sans-serif;
+	text-decoration: none;
+}
+
+.pparent-style {
+	text-align: center;
+	border: solid 1px #ffffff;
+}
+
+.parent-style {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	background: #ffffff;
+}
+
+.app {
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+.main-banner-img {
+	width: 100%;
+	height: auto;
+	background: #fff3cd;
+}
+
+.main-banner-swiper-slide {
+	display: inline;
+	border: solid 0px #ffffff;
+	background: #ffffff;
+}
+
+.main-banner-swiper-container {
+	background: #ffffff;
+}
+
+.wrapper {
+	display: inline-block;
+	border: solid 1px #ffffff;
+}
+
+.right {
+	float: right;
+	content: ' ';
+}
+
+.left {
+	float: left;
+	content: ' ';
+}
+
+.main-header-nav {
+	display: table;
+}
+
+.img-test {
+	float: left;
+	width: 10%;
+}
+
+.wrapper-height {
+	height: 5%;
+}
+
+.main-header-nav h1 {
+	display: inline-block;
+	float: left;
+	margin: 0;
+	max-height: 97px;
+}
+
+.main-header-nav h1 a {
+	color: #01cc3a;
+	font-family: 'GodoM', sans-serif;
+	margin-left: 2vw;
+	text-decoration: none;
+}
+
+.main-contents-dow {
+	background: #ffffff;
+	z-index: 98;
+}
+
+.main-contents-swiper-slide {
+	background: #ffffff;
+	height: auto;
+}
+
+.main-contents-swiper-container {
+}
+
+.main-contents-dow {
+	border: solid 0px;
+	background: #ffffff;
+	z-index: 98;
+}
+
+.main-contents-dow-btn {
+	border: solid 0px;
+	cursor: pointer;
+	padding: 0 1vw 0 1vw;
+}
+
+.main-contents-dow-btn.unclcked {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.main-contents-dow-btn.clicked {
+	background-color: #01cc3a;
+	color: #ffffff;
+}
+
+.main-contents-toon {
+	border: solid 1px;
+	padding: 0;
+}
+
+.main-contents-toon-thumbnail {
+	background: url('/images/thumbnail_default.png');
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.default_thumbnail {
+	/*	position: absolute;*/
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.main-contents-toon-img {
+	/*	width:100%;
+	height: 100%;*/
+}
+
+.main-menu-btn img {
+	width: 100%;
+	height: 100%;
+	max-height: 120px;
+	max-width: 96px;
+}
+
+.main-menu-btn-webtoon {
+	content: url(/icon/webtoon_white.png);
+}
+
+.main-menu-btn-best {
+	content: url(/icon/best_white.png);
+}
+
+.main-menu-btn-web-book {
+	content: url(/icon/web_book_white.png);
+}
+
+.main-menu-btn-webtoon-plus {
+	content: url(/icon/webtoon_plus_white.png);
+}
+
+.main-menu-btn-my {
+	content: url(/icon/my_white.png);
+}
+
+.main-menu-btn-webtoon:hover {
+	content: url(/icon/webtoon_gray.png);
+}
+
+.main-menu-btn-best:hover {
+	content: url(/icon/best_gray.png);
+}
+
+.main-menu-btn-web-book:hover {
+	content: url(/icon/web_book_gray.png);
+}
+
+.main-menu-btn-webtoon-plus:hover {
+	content: url(/icon/webtoon_plus_gray.png);
+}
+
+.main-menu-btn-my:hover {
+	content: url(/icon/my_gray.png);
+}
+
+.main-menu {
+	border-top: solid 1px #aaaaaa;
+	background: #ffffff;
+	top: 100%;
+	position: fixed;
+	padding: 0;
+	width: 100%;
+	z-index: 99;
+}
+
+.main-menu-row {
+	margin: 2px 4px 0px 4px;
+}
+
+.main-menu-btn-text-contents {
+	font-weight: bold;
+}

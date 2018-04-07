@@ -1,6 +1,6 @@
 import * as types from './ActionTypes';
 
-/*
+
 export function changeListType(curListType) {
 	if (curListType < 0) curListType = 0;
 	else if (curListType > 3) curListType = 3;
@@ -9,7 +9,7 @@ export function changeListType(curListType) {
 		curListType,
 	};
 }
-
+/*
 export function changeWeekDay(curWeekDay) {
 	if (curWeekDay < 0) curWeekDay = 0;
 	else if (curWeekDay > 6) curWeekDay = 6;
