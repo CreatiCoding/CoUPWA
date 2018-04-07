@@ -11,7 +11,7 @@ const ListTypeInfo = ({ ListType, clickTypes, seq }) => {
 				$(".dropdown button").click();
 			}}
 		>
-			<div className={'main-hedaer-dropdown-menu-item'}>
+			<div className={'main-header-dropdown-menu-item'}>
 				{ListType}
 			</div>
 		</MenuItem>
@@ -36,12 +36,12 @@ const MainHeader = ({ clickLeft, clickRight, clickTypes, curListType }) => {
 		});
 	};
 	return (
-		<div className="main-header-navbar">
+		<div className="main-header-navbar hide">
 			<div className="main-header-side-style oi oi-caret-left" onClick={clickLeft} />
 			<div className="main-header-list-type-style">
 				<DropdownButton
 					noCaret
-					id="main-haeder-dropdown"
+					id="main-header-dropdown"
 					bsStyle="default"
 					title={listTypes[curListType]}
 					className="default-font">

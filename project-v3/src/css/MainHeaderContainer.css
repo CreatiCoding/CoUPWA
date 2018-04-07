@@ -1,26 +1,25 @@
 
 @media all and (max-width: 979px) {
 	.main-header-list-type-style button,
-	.main-hedaer-dropdown-menu {
+	.main-header-dropdown-menu {
 		font-size: 3vw;
 		padding: 1vw;
 	}
-	.main-hedaer-dropdown-menu-item{
+	.main-header-dropdown-menu-item{
 		font-size: 3vw;
 	}
 }
 
 @media all and (min-width: 980px) {
 	.main-header-list-type-style button,
-	.main-hedaer-dropdown-menu {
+	.main-header-dropdown-menu {
 		font-size: 30px;
 		padding: 10px;
 	}
-	.main-hedaer-dropdown-menu-item{
+	.main-header-dropdown-menu-item{
 		font-size: 30px;
 	}
 }
-
 .main-header-side-style {
 	vertical-align: middle;
 	font-size: 2vw;
@@ -34,6 +33,7 @@
 }
 
 .main-header-list-type-style button {
+	height: 8vw;
 	font-weight: bold;
 	display: inline-block;
 	margin: auto;
@@ -45,19 +45,19 @@
 	box-shadow: none;
 }
 
-.main-hedaer-dropdown-menu {
+.main-header-dropdown-menu {
 	max-width: 25vw;
 	min-width: 25vw;
 	margin: 0;
 }
 
-.main-hedaer-dropdown-menu li {
+.main-header-dropdown-menu li {
 	width: 25vw;
 	text-align: left;
 	display: inline-block;
 }
 
-.main-hedaer-dropdown-menu li a {
+.main-header-dropdown-menu li a {
 	text-align: center;
 	display: inline-block;
 	margin: 0 0 0 -1vw;
