@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import MainBanner from '../components/MainBanner';
-import Swiper from 'swiper';
+import { connect } from 'react-redux';
 
 class MainBannerContainer extends Component {
-	constructor(props) {
-		super(props);
+	constructor(
+		props
+	) {
+		super(
+			props
+		);
 	}
-	componentDidMount() {
-		new Swiper('.main-banner-swiper-container');
-	}
+	componentDidMount() {}
 	render() {
-		const alt = 'image';
-		const srcList = [
+		const bannerList = [
 			'/bannerImage?num=0',
 			'/bannerImage?num=1',
 			'/bannerImage?num=2',
@@ -20,7 +21,13 @@ class MainBannerContainer extends Component {
 			'/bannerImage?num=5',
 		];
 		return (
-			<MainBanner srcList={srcList}/>
+			<MainBanner
+				bannerList={
+					bannerList
+				}
+			/>
 		);
 	}
 }
+
+export default MainBannerContainer;

@@ -1,0 +1,20 @@
+@media all and (max-width: 979px) {
+	.wrapper-width {
+		width: 100%;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.wrapper-width {
+		width: 980px;
+	}
+}
+
+.wrapper {
+	display: inline-block;
+	border: solid 1px #ffffff;
+}
+
+.wrapper-height {
+	height: 5%;
+}

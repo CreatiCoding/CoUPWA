@@ -7,11 +7,11 @@ const MainRoute = () => {
 	return (
 		<div className="main-route">
 			<MainHeaderContainer />
+			<Wrapper />
 		</div>
 	);
 };
 export default MainRoute;
-
 
 /*
 			<Wrapper />
