@@ -9,10 +9,16 @@ import React from 'react';
 // 스토어
 const store = createStore(reducers);
 ReactDom.render(
-	<Provider store={store}>
+	<Provider
+		store={
+			store
+		}
+	>
 		<App />
 	</Provider>,
-	document.getElementById('root')
+	document.getElementById(
+		'root'
+	)
 );
 
 registerServiceWorker();
