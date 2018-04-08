@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Link} from "react-router-dom";
 
 const ListRoute = () => {
 	return (
@@ -11,4 +11,5 @@ const ListRoute = () => {
 		</div>
 	);
 };
+
 export default ListRoute;

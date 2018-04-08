@@ -10,7 +10,6 @@ class MainBannerContainer extends Component {
 		new Swiper('.main-banner-swiper-container');
 	}
 	render() {
-		const alt = 'image';
 		const srcList = [
 			'/bannerImage?num=0',
 			'/bannerImage?num=1',

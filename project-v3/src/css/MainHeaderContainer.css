@@ -1,11 +1,11 @@
-
 @media all and (max-width: 979px) {
 	.main-header-list-type-style button,
 	.main-header-dropdown-menu {
 		font-size: 3vw;
 		padding: 1vw;
 	}
-	.main-header-dropdown-menu-item{
+
+	.main-header-dropdown-menu-item {
 		font-size: 3vw;
 	}
 }
@@ -16,10 +16,12 @@
 		font-size: 30px;
 		padding: 10px;
 	}
-	.main-header-dropdown-menu-item{
+
+	.main-header-dropdown-menu-item {
 		font-size: 30px;
 	}
 }
+
 .main-header-side-style {
 	vertical-align: middle;
 	font-size: 2vw;

@@ -6,7 +6,7 @@
 }
 
 @media all and (min-width: 980px) {
-.header-nav-font {
+	.header-nav-font {
 		font-size: 60px;
 		line-height: 100px;
 	}

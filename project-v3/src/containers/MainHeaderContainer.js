@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import MainHeader from '../components/MainHeader';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
-import $ from 'jquery';
-import '../css/MainHeaderContainer.css';
+import React, {Component} from "react";
+import MainHeader from "../components/MainHeader";
+import {connect} from "react-redux";
+import * as actions from "../actions";
+import $ from "jquery";
+import "../css/MainHeaderContainer.css";
 
 class MainHeaderContainer extends Component {
 	constructor(props) {
@@ -15,11 +15,11 @@ class MainHeaderContainer extends Component {
 	componentDidMount() {
 		$(window).scroll(function() {
 			if ($(this).scrollTop() === 0) {
-				$('.main-header-navbar').addClass('hide');
-				if ($(".dropdown button").attr("aria-expanded") === 'true')
+				$(".main-header-navbar").addClass("hide");
+				if ($(".dropdown button").attr("aria-expanded") === "true")
 					$(".dropdown button").click();
 			} else {
-				$('.main-header-navbar').removeClass('hide');
+				$(".main-header-navbar").removeClass("hide");
 			}
 		});
 	}
@@ -48,7 +48,7 @@ class MainHeaderContainer extends Component {
 
 const mapStateToPrpos = state => {
 	return {
-		curListType: state.mainHeaderReducer.curListType,
+		curListType: state.mainHeaderReducer.curListType
 	};
 };
 
@@ -56,8 +56,10 @@ const mapDispatchToProps = dispatch => {
 	return {
 		handleChangeListType: curListType => {
 			dispatch(actions.changeListType(curListType));
-		},
+		}
 	};
 };
 
-export default connect(mapStateToPrpos, mapDispatchToProps)(MainHeaderContainer);
+export default connect(mapStateToPrpos, mapDispatchToProps)(
+	MainHeaderContainer
+);

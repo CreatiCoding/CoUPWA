@@ -1,7 +1,7 @@
-import React from 'react';
-import Wrapper from '../components/Wrapper';
+import React from "react";
+import Wrapper from "../components/Wrapper";
 // import MainMenu from '../components/MainMenu';
-import MainHeaderContainer from '../containers/MainHeaderContainer';
+import MainHeaderContainer from "../containers/MainHeaderContainer";
 
 const MainRoute = () => {
 	return (
@@ -12,7 +12,6 @@ const MainRoute = () => {
 	);
 };
 export default MainRoute;
-
 /*
 			<Wrapper />
 			<MainMenu />

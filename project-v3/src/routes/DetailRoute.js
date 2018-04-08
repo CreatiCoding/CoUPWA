@@ -1,10 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const DetailRoute = () => {
-	return (
-		<div>
-			Detail
-		</div>
-	);
+	return <div>Detail</div>;
 };
+
 export default DetailRoute;
