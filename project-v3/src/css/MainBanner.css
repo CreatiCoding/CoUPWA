@@ -1,0 +1,12 @@
+.main-banner-swiper-slide {
+	display: inline;
+	border: solid 0px #ffffff;
+	background: #ffffff;
+}
+
+.main-banner-swiper-container {
+	background: #ffffff;
+}
+.main-banner-slick-dots{
+	bottom: 0px;
+}

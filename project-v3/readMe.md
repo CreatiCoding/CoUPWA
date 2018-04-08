@@ -60,9 +60,25 @@ insert_final_newline = true
 max_line_length = 80
 ```
 
-### 4. 외부 툴 설정
+### 4. 컨벤션 툴 설정
 
 ```bash
 sudo npm install -g html prettier stylefmt
+```
+
+### 5. React Router 설정
+
+```
+yarn add react-router-dom
+yarn add redux redux-actions react-redux
+```
+
+### 6. react-slick
+
+```
+yarn add react-slick
+npm install slick-carousel --save
+
+
 ```
 

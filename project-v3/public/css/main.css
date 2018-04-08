@@ -1,0 +1,167 @@
+html {
+	height: 200%;
+	margin: auto 0px;
+}
+
+@font-face {
+	font-family: 'GoDoM';
+	src: url("/fonts/GodoM.ttf") format('truetype');
+}
+
+@font-face {
+	font-family: 'godoRounded';
+	src: url("/fonts/godoRoundedL.ttf") format('truetype');
+}
+
+@media all and (max-width: 400px) {
+	.main-menu {
+		height: 16vw;
+		margin: -16vw 0 0 0;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	.main-menu {
+		height: 19vw;
+		margin: -19vw 0 0 0;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.main-menu {
+		height: 16vw;
+		margin: -16vw 0 0 0;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.main-menu {
+		height: 160px;
+		margin: -160px 0 0 0;
+	}
+}
+
+.hide {
+	display: none;
+}
+
+.default-font {
+	font-family: 'godoRounded', sans-serif;
+	text-decoration: none;
+}
+
+.default-font-bold {
+	font-family: 'GodoM', sans-serif;
+	text-decoration: none;
+}
+
+.pparent-style {
+	text-align: center;
+	border: solid 1px #ffffff;
+}
+
+.parent-style {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	background: #ffffff;
+}
+
+.app {
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+.main-banner-img {
+	width: 100%;
+	height: auto;
+	background: #fff3cd;
+}
+
+.right {
+	float: right;
+	content: ' ';
+}
+
+.left {
+	float: left;
+	content: ' ';
+}
+
+.img-test {
+	float: left;
+	width: 10%;
+}
+
+.default_thumbnail {
+	/*	position: absolute;*/
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.main-menu-btn img {
+	width: 100%;
+	height: 100%;
+	max-height: 120px;
+	max-width: 96px;
+}
+
+.main-menu-btn-webtoon {
+	content: url(/icon/webtoon_white.png);
+}
+
+.main-menu-btn-best {
+	content: url(/icon/best_white.png);
+}
+
+.main-menu-btn-web-book {
+	content: url(/icon/web_book_white.png);
+}
+
+.main-menu-btn-webtoon-plus {
+	content: url(/icon/webtoon_plus_white.png);
+}
+
+.main-menu-btn-my {
+	content: url(/icon/my_white.png);
+}
+
+.main-menu-btn-webtoon:hover {
+	content: url(/icon/webtoon_gray.png);
+}
+
+.main-menu-btn-best:hover {
+	content: url(/icon/best_gray.png);
+}
+
+.main-menu-btn-web-book:hover {
+	content: url(/icon/web_book_gray.png);
+}
+
+.main-menu-btn-webtoon-plus:hover {
+	content: url(/icon/webtoon_plus_gray.png);
+}
+
+.main-menu-btn-my:hover {
+	content: url(/icon/my_gray.png);
+}
+
+.main-menu {
+	border-top: solid 1px #aaaaaa;
+	background: #ffffff;
+	top: 100%;
+	position: fixed;
+	padding: 0;
+	width: 100%;
+	z-index: 99;
+}
+
+.main-menu-row {
+	margin: 2px 4px 0px 4px;
+}
+
+.main-menu-btn-text-contents {
+	font-weight: bold;
+}

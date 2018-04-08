@@ -1,0 +1,31 @@
+@media all and (max-width: 979px) {
+	.header-nav-font {
+		font-size: 6vw;
+		line-height: 10vw;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.header-nav-font {
+		font-size: 60px;
+		line-height: 100px;
+	}
+}
+
+.main-header-nav {
+	display: table;
+}
+
+.main-header-nav h1 {
+	display: inline-block;
+	float: left;
+	margin: 0;
+	max-height: 97px;
+}
+
+.main-header-nav h1 a {
+	color: #01cc3a;
+	font-family: 'GodoM', sans-serif;
+	margin-left: 2vw;
+	text-decoration: none;
+}

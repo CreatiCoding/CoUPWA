@@ -1,8 +1,11 @@
 {
-  "proseWrap": "always",
-  "singleQuote": true,
-  "tabWidth": 120,
-  "parser":"flow",
-  "trailingComma": "es5",
-  "jsxBracketSameLine": false
+  "proseWrap": "preserve",
+  "singleQuote": false,
+  "printWidth": 80,
+  "tabWidth": 4,
+  "parser":"babylon",
+  "trailingComma": "none",
+  "jsxBracketSameLine": false,
+  "bracketSpacing": false,
+  "noSemi": true,
 }
