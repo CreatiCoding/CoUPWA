@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
+import "../css/MainMenu.css";
 const MainMenu = ({}) => {
 	return (
 		<div className="main-menu container-fluid">
