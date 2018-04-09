@@ -2,8 +2,8 @@ import * as types from "../actions/ActionTypes";
 // import Swiper from "swiper";
 
 const initialState = {
-	weekAllToon: [],
-	curWeekDay: (new Date().getDay() + 6) % 7
+	//weekAllToon: [],
+	//curWeekDay: (new Date().getDay() + 6) % 7
 	//contentsSwiper: new Swiper(".main-contents-swiper-container", {
 	//	initialSlide: (new Date().getDay() + 6) % 7
 	//})
@@ -23,11 +23,11 @@ const initialState = {
 
 export default function mainContentsReducer(state = initialState, action) {
 	switch (action.type) {
-		case types.CHANGE_WEEKDAY:
-			return {
-				...state,
-				curWeekDay: action.curWeekDay
-			};
+		//case types.CHANGE_WEEKDAY:
+		//	return {
+		//		...state,
+		//		curWeekDay: action.curWeekDay
+		//	};
 		//case types.INIT_CONTENTS_SWIPER:
 		//	return {
 		//		...state,
