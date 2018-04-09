@@ -8,6 +8,8 @@ export function changeListType(curListType) {
 		curListType
 	};
 }
+
+/*
 export function changeWeekDay(curWeekDay) {
 	if (curWeekDay < 0) curWeekDay = 0;
 	else if (curWeekDay > 6) curWeekDay = 6;
@@ -18,16 +20,15 @@ export function changeWeekDay(curWeekDay) {
 }
 
 export function initContentsSlick(callback, n) {
-	//let swiper = new Swiper(".main-contents-swiper-container", {
-	//	initialSlide: (new Date().getDay() + 6) % 7
-	//});
-	//swiper.on("slideChange", callback);
-	//return {
-	//	type: types.INIT_CONTENTS_SWIPER,
-	//	contentsSwiper: swiper
-	//};
+	let swiper = new Swiper(".main-contents-swiper-container", {
+		initialSlide: (new Date().getDay() + 6) % 7
+	});
+	swiper.on("slideChange", callback);
+	return {
+		type: types.INIT_CONTENTS_SWIPER,
+		contentsSwiper: swiper
+	};
 }
-/*
 export function receiveWeekAllToon(weekAllToon) {
 	return {
 		type: types.RECEIVE_WEEKALLTOON,

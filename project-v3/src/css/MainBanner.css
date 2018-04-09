@@ -7,6 +7,13 @@
 .main-banner-swiper-container {
 	background: #ffffff;
 }
-.main-banner-slick-dots{
+
+.main-banner-slick-dots {
 	bottom: 0px;
+}
+
+.main-banner-img {
+	width: 100%;
+	height: auto;
+	background: #fff3cd;
 }

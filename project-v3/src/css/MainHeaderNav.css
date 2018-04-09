@@ -29,3 +29,8 @@
 	margin-left: 2vw;
 	text-decoration: none;
 }
+
+.img-test {
+	float: left;
+	width: 10%;
+}
