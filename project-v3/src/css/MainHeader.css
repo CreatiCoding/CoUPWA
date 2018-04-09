@@ -1,0 +1,4 @@
+.dropdown-toggle-no-caret .caret,
+.dropdown-toggle-no-caret::after {
+	display: none;
+}

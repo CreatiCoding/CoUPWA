@@ -1,6 +1,7 @@
 import React from "react";
 import {DropdownButton, MenuItem} from "react-bootstrap";
 import $ from "jquery";
+import "../css/MainHeader.css";
 
 const ListTypeInfo = ({ListType, clickTypes, seq}) => {
 	return (
@@ -43,8 +44,7 @@ const MainHeader = ({clickLeft, clickRight, clickTypes, curListType}) => {
 					id="main-header-dropdown"
 					bsStyle="default"
 					title={listTypes[curListType]}
-					className="default-font"
-					noCaret
+					className="default-font dropdown-toggle-no-caret"
 				>
 					{mapToListType(listTypes)}
 				</DropdownButton>
