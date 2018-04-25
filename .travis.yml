@@ -3,6 +3,7 @@ node_js:
   - "9"
 #before_install:
 #  - cd ./travis_test
-before_script:
+#before_script:
+script:
   - cd ./travis_test && npm test && cd ..
   - cd ./project-v3/functions && npm test && cd ../../
