@@ -1,0 +1,11 @@
+{
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
+  "admin": {
+      "databaseURL": "https://react-pwa-webtoon.firebaseio.com",
+      "storageBucket": "react-pwa-webtoon.appspot.com.appspot.com"
+  },
+  "index": {
+      "customLoader": "firebase-functions.custom.loader",
+      "serviceAccount": "./react-pwa-webtoon-firebase-adminsdk-lzrho-58ca6a7389.json"
+  }
+}

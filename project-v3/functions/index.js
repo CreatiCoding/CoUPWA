@@ -1,11 +1,13 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const customLoader = require("./firebase-functions.custom.loader");
-const serviceAccount = require("./react-pwa-webtoon-firebase-adminsdk-lzrho-58ca6a7389.json");
+const properties = require("./properties.json");
+const customLoader = require(properties.index.customLoader);
+const serviceAccount = require(properties.index.serviceAccount);
 
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
-	databaseURL: "https://react-pwa-webtoon.firebaseio.com"
+	databaseURL: properties.admin.databaseURL,
+	storageBucket: properties.admin.storageBucket
 });
 
 for (var i in customLoader) {
