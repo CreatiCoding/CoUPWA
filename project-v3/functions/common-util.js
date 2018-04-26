@@ -33,20 +33,22 @@ const commonUtil = {
 	/**
 	 * crawling module
 	 * ex) commonUtil
-	 * 		.crawlingHTMLArray("<html><div class='target'>asd</div></html>",".target")
+	 * 		.crawlingHTMLArray("<html><div class='target'><li>asd</li></div></html>",".target")
 	 * 		.then(result=>{console.log(result);});
 	 * */
 	crawlingHTMLArray: args => {
 		let src = args.src != undefined ? args.src : args[0];
 		let selector = args.selector != undefined ? args.selector : args[1];
+		//return
 		return new Promise((resolve, reject) => {
 			let $ = cheerio.load(src);
 			let result = $(selector);
+			//console.log("result");
 			if (result.length == 0) {
-				console.log("result.length", result.length);
+				//console.log("result.length", result.length);
 				reject(false);
 			} else if (result != undefined) {
-				resolve(result.map((i, ele) => ele.children[0].data));
+				resolve(result.map((i, ele) => cheerio(ele).html()));
 			} else {
 				reject(result);
 			}

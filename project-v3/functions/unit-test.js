@@ -1,4 +1,5 @@
 const commonUtil = require("./common-util");
+const crawlService = require("./service/crawlService");
 
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
@@ -97,11 +98,27 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 196;
+							return result2.length == 197;
 						});
 				});
 			},
 			["http://comic.naver.com/webtoon/weekday.nhn", ".title"]
+		);
+	},
+	/**
+	 * testCrawlToon
+	 * 네이버 웹툰 중 메인 페이지에 있는 웹툰 크롤링
+	 * @returns {*}
+	 */
+	testCrawlToon: () => {
+		return jsTester.assertResult(
+			"testCrawlToon",
+			() => {
+				return crawlService.crawlToon("ViewCount").then(result => {
+					return result[0].toon_info_idx == 183559;
+				});
+			},
+			[]
 		);
 	}
 };
