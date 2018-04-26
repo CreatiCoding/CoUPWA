@@ -1,6 +1,7 @@
 const commonUtil = require("../common-util");
 const properties = require("../properties.json");
 const Toon = require("../model/Toon");
+
 function sliceStr(b, c, d) {
 	return b.substring(b.indexOf(c) + c.length, b.indexOf(d));
 }
