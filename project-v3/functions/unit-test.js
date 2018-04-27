@@ -1,4 +1,5 @@
 const commonUtil = require("./common-util");
+const crawlService = require("./service/crawlService");
 
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
@@ -45,6 +46,7 @@ const jsTester = {
 		jsTester.testInSequence(testList);
 	}
 };
+
 const unitTest = {
 	/**
 	 * testRequestHtml
@@ -97,11 +99,56 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 196;
+							return result2.length == 197;
 						});
 				});
 			},
 			["http://comic.naver.com/webtoon/weekday.nhn", ".title"]
+		);
+	},
+	/**
+	 * testCrawlToon
+	 * 네이버 웹툰 중 메인 페이지에 있는 웹툰 크롤링
+	 * @returns {*}
+	 */
+	testCrawlToon: () => {
+		return jsTester.assertResult(
+			"testCrawlToon",
+			() => {
+				return crawlService.crawlToon("ViewCount").then(result => {
+					return result[0].toon_info_idx == 183559;
+				});
+			},
+			[]
+		);
+	},
+	/**
+	 * testCrawlToonInfo
+	 * 네이버 웹툰 중 요일별로 크롤링
+	 */
+	testCrawlToonInfo: () => {
+		return jsTester.assertResult(
+			"testCrawlToonInfo",
+			() => {
+				return crawlService.crawlToonInfo("mon").then(result => {
+					return result.length == 27;
+				});
+			},
+			[]
+		);
+	},
+	/**
+	 * testRequestImage
+	 * @returns {*}
+	 */
+	testRequestImage: () => {
+		return jsTester.assertResult(
+			"testRequestImage",
+			commonUtil.requestImage,
+			[
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://comic.naver.com/index.nhn"
+			]
 		);
 	}
 };

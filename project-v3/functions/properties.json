@@ -7,5 +7,23 @@
   "index": {
       "customLoader": "firebase-functions.custom.loader",
       "serviceAccount": "./react-pwa-webtoon-firebase-adminsdk-lzrho-58ca6a7389.json"
+  },
+  "url": {
+    "crawlToon": {
+      "value": "http://comic.naver.com/webtoon/weekday.nhn",
+      "referer": ""
+    },
+    "crawlToonInfo":{
+      "value": "http://m.comic.naver.com/webtoon/weekday.nhn?week=",
+      "referer": ""
+    },
+    "bannerImageList": {
+      "value": "http://comic.naver.com/xml/mainTopXml.nhn?order=viewCount",
+      "referer": ""
+    },
+    "bannerImage": {
+      "value": "",
+      "referer": "http://comic.naver.com/index.nhn"
+    }
   }
 }
