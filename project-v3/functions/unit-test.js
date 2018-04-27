@@ -46,6 +46,7 @@ const jsTester = {
 		jsTester.testInSequence(testList);
 	}
 };
+
 const unitTest = {
 	/**
 	 * testRequestHtml
@@ -116,6 +117,21 @@ const unitTest = {
 			() => {
 				return crawlService.crawlToon("ViewCount").then(result => {
 					return result[0].toon_info_idx == 183559;
+				});
+			},
+			[]
+		);
+	},
+	/**
+	 * testCrawlToonInfo
+	 * 네이버 웹툰 중 요일별로 크롤링
+	 */
+	testCrawlToonInfo: () => {
+		return jsTester.assertResult(
+			"testCrawlToonInfo",
+			() => {
+				return crawlService.crawlToonInfo("mon").then(result => {
+					return result.length == 27;
 				});
 			},
 			[]
