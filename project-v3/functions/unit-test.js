@@ -23,6 +23,9 @@ const jsTester = {
 					console.trace(result);
 					reject(result);
 				});
+		}).catch(err => {
+			throw "error occur";
+			console.error(err);
 		});
 	},
 	testInSequence: testList => {
