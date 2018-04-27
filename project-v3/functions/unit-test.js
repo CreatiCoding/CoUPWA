@@ -26,6 +26,7 @@ const jsTester = {
 		}).catch(err => {
 			throw "error occur";
 			console.error(err);
+			process.exit(1);
 		});
 	},
 	testInSequence: testList => {
