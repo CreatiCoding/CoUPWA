@@ -3,6 +3,13 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const gm = require("gm");
 const properties = require("./properties.json");
+const gcloud = require("google-cloud");
+const bucket = gcloud
+	.storage({
+		projectId: "react-pwa-webtoon",
+		keyFilename: properties.index.serviceAccount
+	})
+	.bucket("react-pwa-webtoon");
 
 const commonUtil = {
 	/**
@@ -54,6 +61,11 @@ const commonUtil = {
 			}
 		});
 	},
+	/**
+	 * requestImage
+	 * @param argsurl, referer
+	 * @returns {Promise<any>}
+	 */
 	requestImage: args => {
 		let url = args.url != undefined ? args.url : args[0];
 		let referer = args.referer != undefined ? args.referer : args[1];
@@ -69,25 +81,6 @@ const commonUtil = {
 			request(options, (err, res, body) => {
 				("use strict");
 				if (!err && res.statusCode == 200) {
-					//fs.createWriteStream("./test4.jpg").write(body);
-					/*
-					bucket
-						.file("/test7.jpg")
-						.createWriteStream({
-							metadata: {
-								contentType: res.headers["content-type"]
-							}
-						})
-						.on("finish", () => {
-							console.log("[다운로드 완료] : " + path);
-							resolve("/test7.jpg");
-						})
-						.on("error", err => {
-							console.log("error");
-							console.log(err);
-						})
-						.end(body);
-						*/
 					resolve(res);
 				} else {
 					reject([res.statusCode, res.statusMessage]);
@@ -95,10 +88,47 @@ const commonUtil = {
 			});
 		});
 	},
-	isValidImage: path => {
-		gm(path).identify((err, data) => {
-			if (!err) console.log("not corrupt image");
-			else console.log(err);
+	/**
+	 * storeImageToBucket
+	 * @param args pipe, path,type,tag
+	 * @returns {Promise<any>}
+	 */
+	storeImageToBucket: args => {
+		let body = args.body != undefined ? args.body : args[0];
+		let path = args.path != undefined ? args.path : args[1];
+		let type = args.type != undefined ? args.type : args[2];
+		let file = bucket.file(path);
+		return new Promise((resolve, reject) => {
+			file
+				.createWriteStream({
+					metadata: {
+						contentType: type
+					}
+				})
+				.on("error", function(err) {
+					reject(err);
+				})
+				.on("finish", function() {
+					resolve(true);
+					// The file upload is complete.
+				})
+				.end(body);
+		});
+	},
+	isValidImage: args => {
+		let path = args.path != undefined ? args.path : args[0];
+		let file = bucket.file(path);
+
+		return new Promise((resolve, reject) => {
+			file.download((err, contents) => {
+				gm(contents).identify((err, data) => {
+					if (!err) {
+						resolve(true);
+					} else {
+						reject(err);
+					}
+				});
+			});
 		});
 	}
 };

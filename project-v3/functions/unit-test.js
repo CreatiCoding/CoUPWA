@@ -1,6 +1,5 @@
 const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
-
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
@@ -148,6 +147,50 @@ const unitTest = {
 			[
 				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
 				"http://comic.naver.com/index.nhn"
+			]
+		);
+	},
+	/**
+	 * testStoreImageToBucket
+	 * @returns {*}
+	 */
+	testStoreImageToBucket: () => {
+		return jsTester.assertResult(
+			"testStoreImageToBucket",
+			args => {
+				return commonUtil
+					.requestImage([args[0], args[1]])
+					.then(result => {
+						let path =
+							args[2] +
+							result.req.path.substr(
+								result.req.path.lastIndexOf("/") + 1
+							);
+						return commonUtil
+							.storeImageToBucket([
+								result.body,
+								path,
+								result.headers["content-type"]
+							])
+							.then(() => {
+								return path;
+							});
+					})
+					.catch(err => {
+						return err;
+					})
+					.then(result3 => {
+						return commonUtil
+							.isValidImage([result3])
+							.then(result => {
+								return result;
+							});
+					});
+			},
+			[
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://comic.naver.com/index.nhn",
+				"/test/"
 			]
 		);
 	}
