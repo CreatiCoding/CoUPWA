@@ -1,9 +1,13 @@
 //웹툰 내용
-module.exports = function ToonContent() {
-	this.image_idx = undefined;
-	this.image_type = undefined;
-	this.file_idx = undefined;
-	this.toon_info_idx = undefined;
-	this.image_create_at = undefined;
+module.exports = function Image(
+	image_idx,
+	image_type,
+	image_create_at,
+	options
+) {
+	this.image_idx = image_idx;
+	this.image_type = image_type;
+	this.image_create_at = image_create_at;
 	this.image_delete_at = undefined;
+	this.options = options;
 };

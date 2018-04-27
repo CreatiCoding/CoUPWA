@@ -3,6 +3,24 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const gm = require("gm");
 const properties = require("./properties.json");
+const gcloud = require("google-cloud");
+const File = require("./model/File");
+const Image = require("./model/Image");
+const BannerImage = require("./model/BannerImage");
+
+function sliceString(str, from, end) {
+	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
+}
+function sliceStr(str, from, size) {
+	return str.substr(str.indexOf(from) + from.length, size);
+}
+
+const bucket = gcloud
+	.storage({
+		projectId: "react-pwa-webtoon",
+		keyFilename: properties.index.serviceAccount
+	})
+	.bucket("react-pwa-webtoon");
 
 const commonUtil = {
 	/**
@@ -33,27 +51,36 @@ const commonUtil = {
 	/**
 	 * crawling module
 	 * ex) commonUtil
-	 * 		.crawlingHTMLArray("<html><div class='target'>asd</div></html>",".target")
+	 * 		.crawlingHTMLArray("<html><div class='target'><li>asd</li></div></html>",".target")
 	 * 		.then(result=>{console.log(result);});
 	 * */
 	crawlingHTMLArray: args => {
 		let src = args.src != undefined ? args.src : args[0];
 		let selector = args.selector != undefined ? args.selector : args[1];
+		//return
 		return new Promise((resolve, reject) => {
 			let $ = cheerio.load(src);
 			let result = $(selector);
+			//console.log("result");
 			if (result.length == 0) {
-				console.log("result.length", result.length);
+				//console.log("result.length", result.length);
 				reject(false);
 			} else if (result != undefined) {
-				resolve(result.map((i, ele) => ele.children[0].data));
+				resolve(result.map((i, ele) => cheerio(ele).html()));
 			} else {
 				reject(result);
 			}
 		});
 	},
-	requestImage: (url, referer) => {
-		var options = {
+	/**
+	 * requestImage
+	 * @param argsurl, referer
+	 * @returns {Promise<any>}
+	 */
+	requestImage: args => {
+		let url = args.url != undefined ? args.url : args[0];
+		let referer = args.referer != undefined ? args.referer : args[1];
+		const options = {
 			url: url,
 			headers: {
 				Referer: referer,
@@ -62,40 +89,109 @@ const commonUtil = {
 			encoding: null
 		};
 		return new Promise((resolve, reject) => {
-			request(options, (err, res, body) => {
-				"use strict";
+			request(options, (err, res) => {
 				if (!err && res.statusCode == 200) {
-					fs.writeFile("./test10.jpg", body);
-					//fs.createWriteStream("./test4.jpg").write(body);
-					/*
-					bucket
-						.file("/test7.jpg")
-						.createWriteStream({
-							metadata: {
-								contentType: res.headers["content-type"]
-							}
-						})
-						.on("finish", () => {
-							console.log("[다운로드 완료] : " + path);
-							resolve("/test7.jpg");
-						})
-						.on("error", err => {
-							console.log("error");
-							console.log(err);
-						})
-						.end(body);
-						*/
 					resolve(res);
 				} else {
-					reject(err);
+					if (res == undefined) reject(err);
+					else reject([res.statusCode, res.statusMessage]);
 				}
 			});
 		});
 	},
-	isValidImage: path => {
-		gm(path).identify((err, data) => {
-			if (!err) console.log("not corrupt image");
-			else console.log(err);
+	/**
+	 * storeImageToBucket
+	 * @param args pipe, path,type,tag
+	 * @returns {Promise<any>}
+	 *
+	 *
+	 */
+	storeImageToBucket: args => {
+		let body = args.body != undefined ? args.body : args[0];
+		let path = args.path != undefined ? args.path : args[1];
+		let type = args.type != undefined ? args.type : args[2];
+		let res = args.res != undefined ? args.res : args[3];
+		let options = args.options != undefined ? args.options : args[4];
+		let file = bucket.file(path);
+		return new Promise((resolve, reject) => {
+			file
+				.createWriteStream({
+					metadata: {
+						contentType: type
+					}
+				})
+				.on("error", function(err) {
+					reject(err);
+				})
+				.on("finish", function() {
+					file.getSignedUrl(
+						{
+							action: "read",
+							expires: "31-12-2030"
+						},
+						function(err, url) {
+							if (err) {
+								reject(err);
+							} else {
+								let image_idx =
+									"" +
+									new Date()
+										.toISOString()
+										.substr(0, 16)
+										.replace(/-/gi, "") +
+									res.req.path.substr(
+										res.req.path.lastIndexOf("/")
+									);
+								let image_type = res.headers["content-type"];
+								let file_idx = image_idx;
+								let image_create_at = new Date();
+								let file_name = res.req.path.substr(
+									res.req.path.lastIndexOf("/") + 1
+								);
+								let file_path = path;
+								let file_url = url;
+								let file_ext = res.headers[
+									"content-type"
+								].slice(
+									res.headers["content-type"].indexOf("/") + 1
+								);
+								resolve({
+									fileModel: new File(
+										file_idx,
+										file_name,
+										file_path,
+										file_url,
+										file_ext
+									),
+									imageModel: new Image(
+										image_idx,
+										image_type,
+										image_create_at,
+										options
+									)
+								});
+							}
+						}
+					);
+					// The file upload is complete.
+				})
+				.end(body);
+		});
+	},
+	isValidImage: args => {
+		let path = args.path != undefined ? args.path : args[0];
+		let file = bucket.file(path);
+
+		return new Promise((resolve, reject) => {
+			file.download((err, contents) => {
+				gm(contents).identify((err, data) => {
+					if (!err) {
+						resolve(true);
+					} else {
+						reject(err);
+					}
+				});
+			});
 		});
 	}
 };
