@@ -47,18 +47,67 @@ const self = {
 							"" +
 							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
 						ele.bigImg[0],
-						undefined,
-						ele.url[0] //sliceString(, "titleId=", "&no=")
+						sliceString(ele.url[0], "titleId=", "&no=")
 					);
 				});
 			});
 	},
-	downloadBannerImage: arr => {
-		let promises = [];
-		for (ele in arr)
-			promises[promises.length] = commonUtil
-				.requestHTML([ele.bigImg, ""])
-				.then(result => {});
+	downloadBannerImage: args => {
+		let bannerImage =
+			args.bannerImage != undefined ? args.bannerImage : args[0];
+		return new Promise((resolve, reject) => {
+			commonUtil
+				.requestImage([
+					bannerImage.banner_url,
+					properties.url.bannerImage.referer
+				])
+				.then(result => {
+					console.log(1, "image request is finished.");
+					return commonUtil
+						.storeImageToBucket([
+							result.body,
+							"/banner/" +
+								result.req.path.substr(
+									result.req.path.lastIndexOf("/") + 1
+								),
+							result.headers["content-type"],
+							result,
+							{}
+						])
+						.then(result2 => {
+							console.log(2, "image store is finished.");
+							result2.bannerImage = bannerImage;
+							resolve(result2);
+						});
+				})
+				.catch(err => {
+					reject(err);
+				});
+		});
+	},
+	downloadBannerImageList: args => {
+		let bannerImageList =
+			args.bannerImageList != undefined ? args.bannerImageList : args[0];
+		var promises = [];
+		console.log(bannerImageList);
+		for (let i = 0; i < bannerImageList.length; i++) {
+			promises.push(
+				(data => {
+					return new Promise(resolve => {
+						resolve(self.downloadBannerImage([data]));
+					});
+				})(bannerImageList[i])
+			);
+		}
+		return Promise.all(promises)
+			.then(data => {
+				console.log(3, "all process is finished.");
+				return data;
+			})
+			.catch(e => {
+				console.log(e);
+				return e;
+			});
 	}
 };
 

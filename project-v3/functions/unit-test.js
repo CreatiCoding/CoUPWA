@@ -1,5 +1,8 @@
 const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
+const imageDownloader = require("./service/imageDownloader");
+const BannerImage = require("./model/BannerImage");
+
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
@@ -170,7 +173,9 @@ const unitTest = {
 							.storeImageToBucket([
 								result.body,
 								path,
-								result.headers["content-type"]
+								result.headers["content-type"],
+								result,
+								{}
 							])
 							.then(() => {
 								return path;
@@ -192,6 +197,56 @@ const unitTest = {
 				"http://comic.naver.com/index.nhn",
 				"/test/"
 			]
+		);
+	},
+	/**
+	 * testCrawlBannerImage
+	 * @returns {*}
+	 */
+	testCrawlBannerImage: () => {
+		return jsTester.assertResult(
+			"testCrawlBannerImage",
+			args => {
+				return imageDownloader.crawlBannerImage().then(result => {
+					// console.log(result);
+					return true;
+				});
+			},
+			[]
+		);
+	},
+	testDownloadBannerImage: () => {
+		let bannerImage = new BannerImage(
+			"20180427027",
+			"http://imgcomic.naver.net/webtoon/710649/thumbnail/thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
+			"710649"
+		);
+		return jsTester.assertResult(
+			"testDownloadBannerImage",
+			args => {
+				return imageDownloader.crawlBannerImage().then(result => {
+					return imageDownloader.downloadBannerImage([result[0]]);
+				});
+			},
+			[]
+		);
+	},
+	testDownloadBannerImageList: () => {
+		return jsTester.assertResult(
+			"testDownloadBannerImageList",
+			args => {
+				return imageDownloader
+					.crawlBannerImage()
+					.then(result => {
+						return imageDownloader.downloadBannerImageList([
+							result
+						]);
+					})
+					.then(result2 => {
+						return result2;
+					});
+			},
+			[]
 		);
 	}
 };

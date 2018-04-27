@@ -4,6 +4,17 @@ const fs = require("fs");
 const gm = require("gm");
 const properties = require("./properties.json");
 const gcloud = require("google-cloud");
+const File = require("./model/File");
+const Image = require("./model/Image");
+const BannerImage = require("./model/BannerImage");
+
+function sliceString(str, from, end) {
+	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
+}
+function sliceStr(str, from, size) {
+	return str.substr(str.indexOf(from) + from.length, size);
+}
+
 const bucket = gcloud
 	.storage({
 		projectId: "react-pwa-webtoon",
@@ -69,7 +80,7 @@ const commonUtil = {
 	requestImage: args => {
 		let url = args.url != undefined ? args.url : args[0];
 		let referer = args.referer != undefined ? args.referer : args[1];
-		var options = {
+		const options = {
 			url: url,
 			headers: {
 				Referer: referer,
@@ -78,12 +89,12 @@ const commonUtil = {
 			encoding: null
 		};
 		return new Promise((resolve, reject) => {
-			request(options, (err, res, body) => {
-				("use strict");
+			request(options, (err, res) => {
 				if (!err && res.statusCode == 200) {
 					resolve(res);
 				} else {
-					reject([res.statusCode, res.statusMessage]);
+					if (res == undefined) reject(err);
+					else reject([res.statusCode, res.statusMessage]);
 				}
 			});
 		});
@@ -92,11 +103,15 @@ const commonUtil = {
 	 * storeImageToBucket
 	 * @param args pipe, path,type,tag
 	 * @returns {Promise<any>}
+	 *
+	 *
 	 */
 	storeImageToBucket: args => {
 		let body = args.body != undefined ? args.body : args[0];
 		let path = args.path != undefined ? args.path : args[1];
 		let type = args.type != undefined ? args.type : args[2];
+		let res = args.res != undefined ? args.res : args[3];
+		let options = args.options != undefined ? args.options : args[4];
 		let file = bucket.file(path);
 		return new Promise((resolve, reject) => {
 			file
@@ -109,7 +124,55 @@ const commonUtil = {
 					reject(err);
 				})
 				.on("finish", function() {
-					resolve(true);
+					file.getSignedUrl(
+						{
+							action: "read",
+							expires: "31-12-2030"
+						},
+						function(err, url) {
+							if (err) {
+								reject(err);
+							} else {
+								let image_idx =
+									"" +
+									new Date()
+										.toISOString()
+										.substr(0, 16)
+										.replace(/-/gi, "") +
+									res.req.path.substr(
+										res.req.path.lastIndexOf("/")
+									);
+								let image_type = res.headers["content-type"];
+								let file_idx = image_idx;
+								let image_create_at = new Date();
+								let file_name = res.req.path.substr(
+									res.req.path.lastIndexOf("/") + 1
+								);
+								let file_path = path;
+								let file_url = url;
+								let file_ext = res.headers[
+									"content-type"
+								].slice(
+									res.headers["content-type"].indexOf("/") + 1
+								);
+								resolve({
+									fileModel: new File(
+										file_idx,
+										file_name,
+										file_path,
+										file_url,
+										file_ext
+									),
+									imageModel: new Image(
+										image_idx,
+										image_type,
+										image_create_at,
+										options
+									)
+								});
+							}
+						}
+					);
 					// The file upload is complete.
 				})
 				.end(body);
