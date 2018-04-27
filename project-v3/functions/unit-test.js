@@ -162,7 +162,7 @@ const unitTest = {
 	 * testStoreImageToBucket
 	 * @returns {*}
 	 */
-	testStoreImageToBucket: () => {
+	StoreImageToBucket: () => {
 		return jsTester.assertResult(
 			"testStoreImageToBucket",
 			args => {
@@ -220,7 +220,7 @@ const unitTest = {
 			[]
 		);
 	},
-	testDownloadBannerImage: () => {
+	DownloadBannerImage: () => {
 		let bannerImage = new BannerImage(
 			"20180427027",
 			"http://imgcomic.naver.net/webtoon/710649/thumbnail/thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
@@ -236,7 +236,7 @@ const unitTest = {
 			[]
 		);
 	},
-	testDownloadBannerImageList: () => {
+	DownloadBannerImageList: () => {
 		return jsTester.assertResult(
 			"testDownloadBannerImageList",
 			args => {
