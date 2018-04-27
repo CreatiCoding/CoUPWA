@@ -136,6 +136,20 @@ const unitTest = {
 			},
 			[]
 		);
+	},
+	/**
+	 * testRequestImage
+	 * @returns {*}
+	 */
+	testRequestImage: () => {
+		return jsTester.assertResult(
+			"testRequestImage",
+			commonUtil.requestImage,
+			[
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://comic.naver.com/index.nhn"
+			]
+		);
 	}
 };
 

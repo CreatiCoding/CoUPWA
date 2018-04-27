@@ -31,10 +31,8 @@ const self = {
 		sort_type = sort_type == undefined ? "ViewCount" : sort_type;
 		return commonUtil
 			.requestHTML([
-				properties.service.crawlToon.mainUrl.value +
-					"?order=" +
-					sort_type,
-				properties.service.crawlToon.mainUrl.referer
+				properties.url.crawlToon.value + "?order=" + sort_type,
+				properties.url.crawlToon.referer
 			])
 			.then(result => {
 				return commonUtil
@@ -68,8 +66,8 @@ const self = {
 				: week;
 		return commonUtil
 			.requestHTML([
-				properties.service.crawlToonInfo.mainUrl.value + week,
-				properties.service.crawlToonInfo.mainUrl.referer
+				properties.url.crawlToonInfo.value + week,
+				properties.url.crawlToonInfo.value.referer
 			])
 			.then(result => {
 				return commonUtil

@@ -54,7 +54,9 @@ const commonUtil = {
 			}
 		});
 	},
-	requestImage: (url, referer) => {
+	requestImage: args => {
+		let url = args.url != undefined ? args.url : args[0];
+		let referer = args.referer != undefined ? args.referer : args[1];
 		var options = {
 			url: url,
 			headers: {
@@ -65,9 +67,8 @@ const commonUtil = {
 		};
 		return new Promise((resolve, reject) => {
 			request(options, (err, res, body) => {
-				"use strict";
+				("use strict");
 				if (!err && res.statusCode == 200) {
-					fs.writeFile("./test10.jpg", body);
 					//fs.createWriteStream("./test4.jpg").write(body);
 					/*
 					bucket
@@ -89,7 +90,7 @@ const commonUtil = {
 						*/
 					resolve(res);
 				} else {
-					reject(err);
+					reject([res.statusCode, res.statusMessage]);
 				}
 			});
 		});
