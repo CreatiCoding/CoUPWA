@@ -62,7 +62,6 @@ const self = {
 					properties.url.bannerImage.referer
 				])
 				.then(result => {
-					console.log(1, "image request is finished.");
 					return commonUtil
 						.storeImageToBucket([
 							result.body,
@@ -75,7 +74,6 @@ const self = {
 							{}
 						])
 						.then(result2 => {
-							console.log(2, "image store is finished.");
 							result2.bannerImage = bannerImage;
 							resolve(result2);
 						});
@@ -89,7 +87,6 @@ const self = {
 		let bannerImageList =
 			args.bannerImageList != undefined ? args.bannerImageList : args[0];
 		var promises = [];
-		console.log(bannerImageList);
 		for (let i = 0; i < bannerImageList.length; i++) {
 			promises.push(
 				(data => {
@@ -101,7 +98,6 @@ const self = {
 		}
 		return Promise.all(promises)
 			.then(data => {
-				console.log(3, "all process is finished.");
 				return data;
 			})
 			.catch(e => {

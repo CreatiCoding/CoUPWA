@@ -3,6 +3,10 @@ const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 
+process.on("exit", function(code) {
+	return console.log(`About to exit with code ${code}`);
+});
+
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
@@ -12,6 +16,7 @@ const jsTester = {
 						console.log("[failure]:", caller);
 						console.trace(result);
 						reject(result);
+						process.exit(1);
 					} else {
 						console.log("[success]:", caller);
 						// console.log(result);
@@ -21,12 +26,8 @@ const jsTester = {
 				.catch(result => {
 					console.log("[failure]:", caller);
 					console.trace(result);
-					reject(result);
+					process.exit(1);
 				});
-		}).catch(err => {
-			throw "error occur";
-			console.error(err);
-			process.exit(1);
 		});
 	},
 	testInSequence: testList => {
