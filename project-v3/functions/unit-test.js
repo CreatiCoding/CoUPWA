@@ -2,7 +2,10 @@ const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
-const fs = require("./service/firestoreService");
+
+if (!(unitTest[i].name != undefined && unitTest[i].name.includes("test"))) {
+	const fs = require("./service/firestoreService");
+}
 
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
