@@ -105,7 +105,8 @@ const self = {
 						});
 					});
 			});
-	}
+	},
+	everydayCrwalToon: () => {}
 };
 
 module.exports = self;

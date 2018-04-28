@@ -102,7 +102,7 @@ const commonUtil = {
 	/**
 	 * storeImageToBucket
 	 * @param args pipe, path,type,tag
-	 * @returns {Promise<any>}
+	 * @returns {Promise<any>}, file model and image model
 	 *
 	 *
 	 */
@@ -178,6 +178,12 @@ const commonUtil = {
 				.end(body);
 		});
 	},
+	/**
+	 * isValidImage
+	 * valify image with gm library
+	 * @param args
+	 * @returns {Promise<any>}
+	 */
 	isValidImage: args => {
 		let path = args.path != undefined ? args.path : args[0];
 		let file = bucket.file(path);
@@ -193,6 +199,31 @@ const commonUtil = {
 				});
 			});
 		});
+	},
+
+	promiseSeqOneSec: promises => {
+		let oneSecFunc = (fc, args, sec) => {
+			return new Promise(resolve => {
+				setTimeout(
+					() => {
+						resolve(fc(args));
+					},
+					1000 * sec,
+					{}
+				);
+			});
+		};
+		if (promises == undefined) {
+			console.log("promises is undefined");
+			return null;
+		}
+		let processPromises = [];
+		for (let i = 0; i < promises.length; i++) {
+			processPromises.push(
+				oneSecFunc(promises[i].func, promises[i].args, i)
+			);
+		}
+		return Promise.all(processPromises);
 	}
 };
 

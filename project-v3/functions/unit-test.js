@@ -2,10 +2,7 @@ const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
-
-process.on("exit", function(code) {
-	return console.log(`About to exit with code ${code}`);
-});
+const fs = require("./service/firestoreService");
 
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
@@ -43,11 +40,21 @@ const jsTester = {
 		let testList = [];
 
 		for (var i in unitTest) {
-			if (
-				unitTest[i].name != undefined &&
-				unitTest[i].name.includes("test")
-			)
+			if (process.argv[2] == undefined) {
+				if (
+					unitTest[i].name != undefined &&
+					unitTest[i].name.includes("test")
+				)
+					testList[testList.length] = unitTest[i];
+			} else if (process.argv[2] == 1) {
 				testList[testList.length] = unitTest[i];
+			} else if (process.argv[2] == 2) {
+				if (
+					unitTest[i].name != undefined &&
+					unitTest[i].name.includes("zzzz")
+				)
+					testList[testList.length] = unitTest[i];
+			}
 		}
 
 		jsTester.testInSequence(testList);
@@ -106,7 +113,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 197;
+							return result2.length == 198;
 						});
 				});
 			},
@@ -153,18 +160,43 @@ const unitTest = {
 			"testRequestImage",
 			commonUtil.requestImage,
 			[
-				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/" +
+					"thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
 				"http://comic.naver.com/index.nhn"
 			]
 		);
 	},
 	/**
-	 * testStoreImageToBucket
+	 * testCrawlBannerImage
 	 * @returns {*}
 	 */
+	testCrawlBannerImage: () => {
+		return jsTester.assertResult(
+			"testCrawlBannerImage",
+			args => {
+				return imageDownloader.crawlBannerImage().then(result => {
+					// console.log(result);
+					return true;
+				});
+			},
+			[]
+		);
+	},
+
+	testCrawlThumbImage: () => {
+		return jsTester.assertResult(
+			"testCrawlThumbImage",
+			() => {
+				return imageDownloader.crawlThumbImage().then(result => {
+					return result.length == 198;
+				});
+			},
+			[]
+		);
+	},
 	StoreImageToBucket: () => {
 		return jsTester.assertResult(
-			"testStoreImageToBucket",
+			"StoreImageToBucket",
 			args => {
 				return commonUtil
 					.requestImage([args[0], args[1]])
@@ -198,53 +230,75 @@ const unitTest = {
 					});
 			},
 			[
-				"http://imgcomic.naver.net/webtoon/641253/thumbnail/thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/" +
+					"thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
 				"http://comic.naver.com/index.nhn",
 				"/test/"
 			]
 		);
 	},
-	/**
-	 * testCrawlBannerImage
-	 * @returns {*}
-	 */
-	testCrawlBannerImage: () => {
-		return jsTester.assertResult(
-			"testCrawlBannerImage",
-			args => {
-				return imageDownloader.crawlBannerImage().then(result => {
-					// console.log(result);
-					return true;
-				});
-			},
-			[]
-		);
-	},
 	DownloadBannerImage: () => {
 		let bannerImage = new BannerImage(
 			"20180427027",
-			"http://imgcomic.naver.net/webtoon/710649/thumbnail/thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
+			"http://imgcomic.naver.net/webtoon/710649/thumbnail/" +
+				"thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
 			"710649"
 		);
 		return jsTester.assertResult(
-			"testDownloadBannerImage",
+			"DownloadBannerImage",
 			args => {
 				return imageDownloader.crawlBannerImage().then(result => {
 					return imageDownloader.downloadBannerImage([result[0]]);
 				});
-			},
+			},g
 			[]
+		);
+	},
+
+	FirestoreInsert: () => {
+		return jsTester.assertResult(
+			"FirestoreInsert",
+			args => {
+				return fs
+					.insert(args)
+					.then(() => {
+						return fs.select(args[0].model);
+					})
+					.then(result => {
+						for (i in result)
+							if (result[i].value != 10 && result.length != 2)
+								return false;
+						return true;
+					});
+			},
+			[
+				{
+					model: "test",
+					key: "1",
+					data: {
+						value: 10
+					}
+				},
+				{
+					model: "test",
+					key: "2",
+					data: {
+						value: 10
+					}
+				}
+			]
 		);
 	},
 	DownloadBannerImageList: () => {
 		return jsTester.assertResult(
-			"testDownloadBannerImageList",
+			"DownloadBannerImageList",
 			args => {
 				return imageDownloader
 					.crawlBannerImage()
 					.then(result => {
-						return imageDownloader.downloadBannerImageList([
-							result
+						return imageDownloader.downloadImageList([
+							result,
+							imageDownloader.downloadBannerImage
 						]);
 					})
 					.then(result2 => {
@@ -252,6 +306,65 @@ const unitTest = {
 					});
 			},
 			[]
+		);
+	},
+	DownloadThumbImageList: () => {
+		return jsTester.assertResult(
+			"DownloadThumbImageList",
+			args => {
+				return imageDownloader
+					.crawlThumbImage()
+					.then(result => {
+						return imageDownloader.downloadImageList([
+							result,
+							imageDownloader.downloadThumbImage
+						]);
+					})
+					.then(result2 => {
+						console.log(result2);
+						return result2;
+					});
+			},
+			[]
+		);
+	},
+	testPromiseSeqOneSec: () => {
+		return jsTester.assertResult(
+			"testPromiseSeqOneSec",
+			args => {
+				return commonUtil.promiseSeqOneSec(args).then(result => {
+					return true;
+				});
+			},
+			[
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 1
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 2
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 3
+				}
+			]
 		);
 	}
 };
