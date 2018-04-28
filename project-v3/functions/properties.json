@@ -24,6 +24,14 @@
     "bannerImage": {
       "value": "",
       "referer": "http://comic.naver.com/index.nhn"
+    },
+    "thumbImageList": {
+      "value": "http://comic.naver.com/webtoon/weekday.nhn",
+      "referer": ""
+    },
+    "thumbImage": {
+      "value": "",
+      "referer": "http://thumb.comic.naver.net/"
     }
   }
 }
