@@ -250,7 +250,7 @@ const unitTest = {
 				return imageDownloader.crawlBannerImage().then(result => {
 					return imageDownloader.downloadBannerImage([result[0]]);
 				});
-			},g
+			},
 			[]
 		);
 	},
