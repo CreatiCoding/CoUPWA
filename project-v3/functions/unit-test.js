@@ -3,7 +3,7 @@ const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 
-if (!(unitTest[i].name != undefined && unitTest[i].name.includes("test"))) {
+if (process.argv[2] != undefined) {
 	const fs = require("./service/firestoreService");
 }
 
