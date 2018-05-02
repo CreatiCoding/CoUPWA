@@ -116,7 +116,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 198;
+							return result2.length == 200;
 						});
 				});
 			},
