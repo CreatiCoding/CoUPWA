@@ -116,7 +116,9 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 200;
+							if (result2.length == 200) return true;
+							console.log(result2.length);
+							return false;
 						});
 				});
 			},
@@ -148,7 +150,9 @@ const unitTest = {
 			"testCrawlToonInfo",
 			() => {
 				return crawlService.crawlToonInfo("mon").then(result => {
-					return result.length == 27;
+					if (result.length == 28) return true;
+					console.log(result.length);
+					return false;
 				});
 			},
 			[]
@@ -191,7 +195,9 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloader.crawlThumbImage().then(result => {
-					return result.length == 198;
+					if (result.length == 200) return true;
+					console.log(result.length);
+					return false;
 				});
 			},
 			[]
