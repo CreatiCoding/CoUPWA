@@ -195,8 +195,8 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloader.crawlThumbImage().then(result => {
-					if (result.length == 200) return true;
-					console.log(result.length);
+					if (result[0].length == 200) return true;
+					console.log(result[0].length);
 					return false;
 				});
 			},
@@ -296,7 +296,7 @@ const unitTest = {
 			"DownloadBannerImage",
 			args => {
 				return imageDownloader.crawlBannerImage().then(result => {
-					return imageDownloader.downloadBannerImage([result[0]]);
+					return imageDownloader.downloadBannerImage([result[0][0]]);
 				});
 			},
 			[]
@@ -343,15 +343,7 @@ const unitTest = {
 			args => {
 				return imageDownloader
 					.crawlBannerImage()
-					.then(result => {
-						return imageDownloader.downloadImageList([
-							result,
-							imageDownloader.downloadBannerImage
-						]);
-					})
-					.then(result2 => {
-						return result2;
-					});
+					.then(result => imageDownloader.downloadImageList(result));
 			},
 			[]
 		);
@@ -362,16 +354,7 @@ const unitTest = {
 			args => {
 				return imageDownloader
 					.crawlThumbImage()
-					.then(result => {
-						return imageDownloader.downloadImageList([
-							result,
-							imageDownloader.downloadThumbImage
-						]);
-					})
-					.then(result2 => {
-						console.log(result2);
-						return result2;
-					});
+					.then(result => imageDownloader.downloadImageList(result));
 			},
 			[]
 		);

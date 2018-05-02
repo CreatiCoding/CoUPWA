@@ -51,6 +51,9 @@ const self = {
 						sliceString(ele.url[0], "titleId=", "&no=")
 					);
 				});
+			})
+			.then(result4 => {
+				return [result4, self.downloadBannerImage];
 			});
 	},
 	crawlThumbImage: () => {
@@ -89,6 +92,9 @@ const self = {
 						sliceString(ele.url[0], "titleId=", "&no=")
 					);
 				});*/
+			})
+			.then(result3 => {
+				return [result3, self.downloadThumbImage];
 			});
 	},
 	downloadBannerImage: args => {
@@ -118,6 +124,10 @@ const self = {
 						});
 				})
 				.catch(err => {
+					console.log([
+						bannerImage.banner_url,
+						properties.url.bannerImage.referer
+					]);
 					reject(err);
 				});
 		});

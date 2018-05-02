@@ -91,6 +91,7 @@ const commonUtil = {
 				if (!err && res.statusCode == 200) {
 					resolve(res);
 				} else {
+					console.log(err);
 					if (res == undefined) reject(err);
 					else reject([res.statusCode, res.statusMessage]);
 				}
