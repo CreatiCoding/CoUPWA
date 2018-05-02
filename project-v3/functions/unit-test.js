@@ -197,6 +197,45 @@ const unitTest = {
 			[]
 		);
 	},
+	testPromiseSeqOneSec: () => {
+		return jsTester.assertResult(
+			"testPromiseSeqOneSec",
+			args => {
+				return commonUtil.promiseSeqOneSec(args).then(result => {
+					return true;
+				});
+			},
+			[
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 1
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 2
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							console.log(a);
+							resolve(a);
+						});
+					},
+					args: 3
+				}
+			]
+		);
+	},
 	StoreImageToBucket: () => {
 		return jsTester.assertResult(
 			"StoreImageToBucket",
@@ -329,45 +368,6 @@ const unitTest = {
 					});
 			},
 			[]
-		);
-	},
-	testPromiseSeqOneSec: () => {
-		return jsTester.assertResult(
-			"testPromiseSeqOneSec",
-			args => {
-				return commonUtil.promiseSeqOneSec(args).then(result => {
-					return true;
-				});
-			},
-			[
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 1
-				},
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 2
-				},
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 3
-				}
-			]
 		);
 	}
 };
