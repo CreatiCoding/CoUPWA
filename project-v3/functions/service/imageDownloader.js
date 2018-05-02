@@ -53,55 +53,6 @@ const self = {
 				});
 			});
 	},
-	downloadBannerImage: args => {
-		let bannerImage =
-			args.bannerImage != undefined ? args.bannerImage : args[0];
-		return new Promise((resolve, reject) => {
-			commonUtil
-				.requestImage([
-					bannerImage.banner_url,
-					properties.url.bannerImage.referer
-				])
-				.then(result => {
-					return commonUtil
-						.storeImageToBucket([
-							result.body,
-							"/banner/" +
-								result.req.path.substr(
-									result.req.path.lastIndexOf("/") + 1
-								),
-							result.headers["content-type"],
-							result,
-							{}
-						])
-						.then(result2 => {
-							result2.bannerImage = bannerImage;
-							resolve(result2);
-						});
-				})
-				.catch(err => {
-					reject(err);
-				});
-		});
-	},
-	downloadImageList: args => {
-		let list = args.list != undefined ? args.list : args[0];
-		let func = args.func != undefined ? args.func : args[1];
-		var promises = [];
-		for (let i = 0; i < list.length; i++) {
-			promises.push({
-				func: data => {
-					console.log("hello world! It will waste one second.");
-					return new Promise(resolve => {
-						resolve(func([data]));
-					});
-				},
-				args: list[i]
-			});
-		}
-		return commonUtil.promiseSeqOneSec(promises);
-	},
-
 	crawlThumbImage: () => {
 		return commonUtil
 			.requestHTML([
@@ -140,6 +91,37 @@ const self = {
 				});*/
 			});
 	},
+	downloadBannerImage: args => {
+		let bannerImage =
+			args.bannerImage != undefined ? args.bannerImage : args[0];
+		return new Promise((resolve, reject) => {
+			commonUtil
+				.requestImage([
+					bannerImage.banner_url,
+					properties.url.bannerImage.referer
+				])
+				.then(result => {
+					return commonUtil
+						.storeImageToBucket([
+							result.body,
+							"/banner/" +
+								result.req.path.substr(
+									result.req.path.lastIndexOf("/") + 1
+								),
+							result.headers["content-type"],
+							result,
+							{}
+						])
+						.then(result2 => {
+							result2.bannerImage = bannerImage;
+							resolve(result2);
+						});
+				})
+				.catch(err => {
+					reject(err);
+				});
+		});
+	},
 	downloadThumbImage: args => {
 		let thumbImage =
 			args.thumbImage != undefined ? args.thumbImage : args[0];
@@ -170,6 +152,23 @@ const self = {
 					reject(err);
 				});
 		});
+	},
+	downloadImageList: args => {
+		let list = args.list != undefined ? args.list : args[0];
+		let func = args.func != undefined ? args.func : args[1];
+		var promises = [];
+		for (let i = 0; i < list.length; i++) {
+			promises.push({
+				func: data => {
+					console.log("hello world! It will waste one second.");
+					return new Promise(resolve => {
+						resolve(func([data]));
+					});
+				},
+				args: list[i]
+			});
+		}
+		return commonUtil.promiseSeqOneSec(promises);
 	}
 };
 
