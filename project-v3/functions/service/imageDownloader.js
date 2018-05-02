@@ -119,7 +119,7 @@ const self = {
 							{}
 						])
 						.then(result2 => {
-							result2.bannerImage = bannerImage;
+							result2.bannerImageModel = bannerImage;
 							resolve(result2);
 						});
 				})
@@ -154,7 +154,7 @@ const self = {
 							{}
 						])
 						.then(result2 => {
-							result2.thumbImage = thumbImage;
+							result2.thumbImageModel = thumbImage;
 							resolve(result2);
 						});
 				})
@@ -170,9 +170,15 @@ const self = {
 		for (let i = 0; i < list.length; i++) {
 			promises.push({
 				func: data => {
-					console.log("hello world! It will waste one second.");
+					console.log("[start] " + (i + 1) + "/" + list.length + "");
+
 					return new Promise(resolve => {
 						resolve(func([data]));
+					}).then(result => {
+						console.log(
+							"[finish]" + (i + 1) + "/" + list.length + ""
+						);
+						return result;
 					});
 				},
 				args: list[i]

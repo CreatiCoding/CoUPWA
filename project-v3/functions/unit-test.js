@@ -2,11 +2,11 @@ const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
+let fs = undefined;
 
 if (process.argv[2] != undefined) {
-	const fs = require("./service/firestoreService");
+	fs = require("./service/firestoreService");
 }
-
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
@@ -116,7 +116,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							if (result2.length == 200) return true;
+							if (result2.length == 201) return true;
 							console.log(result2.length);
 							return false;
 						});
@@ -195,7 +195,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloader.crawlThumbImage().then(result => {
-					if (result[0].length == 200) return true;
+					if (result[0].length == 201) return true;
 					console.log(result[0].length);
 					return false;
 				});
