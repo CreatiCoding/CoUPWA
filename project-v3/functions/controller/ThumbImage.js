@@ -10,25 +10,6 @@ let fs = undefined;
 if (process.argv[2] != undefined) {
 	fs = require("../service/firestoreService");
 }
-function sliceString(str, from, end) {
-	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
-}
-function sliceStr(str, from, size) {
-	return str.substr(str.indexOf(from) + from.length, size);
-}
-function strCodePoint(a) {
-	while (a.indexOf("&#x") != -1) {
-		a =
-			a.slice(0, a.indexOf("&#x")) +
-			String.fromCodePoint(
-				parseInt(
-					0 + "" + a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
-				)
-			) +
-			a.slice(a.indexOf("&#x") + 8);
-	}
-	return a;
-}
 
 const self = {
 	processThumbImageList: () => {
@@ -39,7 +20,6 @@ const self = {
 				let arr = [];
 
 				result2.map(ele => {
-					console.log(ele);
 					for (let key in ele) {
 						// 인덱스 이름의 컬럼의 값은 /라는 문자를 _로 바꾸어 저장한다.
 						// 파이어스토어의 path 혼동 방지용
@@ -64,7 +44,9 @@ const self = {
 						});
 					}
 				});
-				return fs.insert(arr);
+				return fs.insert(arr).then(() => {
+					return result2;
+				});
 			});
 	}
 };

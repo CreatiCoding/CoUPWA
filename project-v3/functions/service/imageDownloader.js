@@ -1,13 +1,8 @@
 const commonUtil = require("../common-util");
 const properties = require("../properties.json");
 const xmlParser = require("xml2js");
-
 const BannerImage = require("../model/BannerImage");
 const ThumbImage = require("../model/ThumbImage");
-
-function sliceString(str, from, end) {
-	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
-}
 
 const self = {
 	crawlBannerImage: () => {
@@ -34,7 +29,7 @@ const self = {
 							"" +
 							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
 						ele.bigImg[0],
-						sliceString(ele.url[0], "titleId=", "&no=")
+						commonUtil.sliceString(ele.url[0], "titleId=", "&no=")
 					);
 				});
 			})
@@ -61,8 +56,16 @@ const self = {
 								.replace(/-/gi, "") +
 							"" +
 							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-						sliceString(ele, '&apos;" src="', '" width="83" hei'),
-						sliceString(ele, "ic.naver.net/webtoon/", "/thumbnail/")
+						commonUtil.sliceString(
+							ele,
+							'&apos;" src="',
+							'" width="83" hei'
+						),
+						commonUtil.sliceString(
+							ele,
+							"ic.naver.net/webtoon/",
+							"/thumbnail/"
+						)
 					);
 				});
 				/*return result3.comics.comic.map((ele, i) => {
@@ -137,7 +140,13 @@ const self = {
 								),
 							result.headers["content-type"],
 							result,
-							{}
+							{
+								toon_info_idx: commonUtil.sliceString(
+									result.req.path,
+									"/webtoon/",
+									"/thumbnail/"
+								)
+							}
 						])
 						.then(result2 => {
 							result2.thumbImage = thumbImage;
