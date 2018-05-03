@@ -14,6 +14,26 @@ const bucket = gcloud
 	.bucket("react-pwa-webtoon");
 
 const commonUtil = {
+	sliceString: (str, from, end) => {
+		return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
+	},
+	sliceStr: (str, from, size) => {
+		return str.substr(str.indexOf(from) + from.length, size);
+	},
+	strCodePoint: a => {
+		while (a.indexOf("&#x") != -1) {
+			a =
+				a.slice(0, a.indexOf("&#x")) +
+				String.fromCodePoint(
+					parseInt(
+						"0" +
+							a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
+					)
+				) +
+				a.slice(a.indexOf("&#x") + 8);
+		}
+		return a;
+	},
 	/**
 	 * request module
 	 * ex) commonUtil.requestHTML("http://www.naver.com","")
@@ -200,7 +220,7 @@ const commonUtil = {
 					() => {
 						resolve(fc(args));
 					},
-					1000 * sec,
+					250 * sec,
 					{}
 				);
 			});
