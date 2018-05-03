@@ -216,6 +216,20 @@ const commonUtil = {
 			);
 		}
 		return Promise.all(processPromises);
+	},
+	promiseSeq: promises => {
+		let oneFunc = (fc, args) => {
+			return new Promise(resolve => {
+				resolve(fc(args));
+			});
+		};
+		let current = oneFunc(promises[0].func, promises[0].args);
+		for (let i = 1; i < promises.length; i++) {
+			current = current.then(() => {
+				return oneFunc(promises[1].func, promises[i].args);
+			});
+		}
+		return current;
 	}
 };
 
