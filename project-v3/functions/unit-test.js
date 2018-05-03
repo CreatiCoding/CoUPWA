@@ -119,7 +119,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							if (result2.length == 201) return true;
+							if (result2.length == 202) return true;
 							console.log(result2.length);
 							return false;
 						});
@@ -198,7 +198,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloader.crawlThumbImage().then(result => {
-					if (result[0].length == 201) return true;
+					if (result[0].length == 202) return true;
 					console.log(result[0].length);
 					return false;
 				});
@@ -362,7 +362,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzProcessBannerImageList: () => {
+	ProcessBannerImageList: () => {
 		return jsTester.assertResult(
 			"ProcessBannerImageList",
 			() => {
@@ -376,7 +376,7 @@ const unitTest = {
 		);
 	},
 
-	zzzzProcessThumbImageList: () => {
+	ProcessThumbImageList: () => {
 		return jsTester.assertResult(
 			"ProcessThumbImageList",
 			() => {
