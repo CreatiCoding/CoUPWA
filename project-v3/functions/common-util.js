@@ -6,13 +6,6 @@ const gcloud = require("google-cloud");
 const File = require("./model/File");
 const Image = require("./model/Image");
 
-function sliceString(str, from, end) {
-	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
-}
-function sliceStr(str, from, size) {
-	return str.substr(str.indexOf(from) + from.length, size);
-}
-
 const bucket = gcloud
 	.storage({
 		projectId: "react-pwa-webtoon",
@@ -133,13 +126,13 @@ const commonUtil = {
 								reject(err);
 							} else {
 								let image_idx =
-									"" +
-									new Date()
-										.toISOString()
-										.substr(0, 16)
-										.replace(/-/gi, "") +
+									//"" +
+									//new Date()
+									//	.toISOString()
+									//	.substr(0, 16)
+									//	.replace(/-/gi, "") +
 									res.req.path.substr(
-										res.req.path.lastIndexOf("/")
+										res.req.path.lastIndexOf("/") + 1
 									);
 								let image_type = res.headers["content-type"];
 								let file_idx = image_idx;
@@ -155,14 +148,14 @@ const commonUtil = {
 									res.headers["content-type"].indexOf("/") + 1
 								);
 								resolve({
-									fileModel: new File(
+									file: new File(
 										file_idx,
 										file_name,
 										file_path,
 										file_url,
 										file_ext
 									),
-									imageModel: new Image(
+									image: new Image(
 										image_idx,
 										image_type,
 										image_create_at,

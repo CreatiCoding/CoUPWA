@@ -14,7 +14,9 @@ function strCodePoint(a) {
 		a =
 			a.slice(0, a.indexOf("&#x")) +
 			String.fromCodePoint(
-				"0" + a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
+				parseInt(
+					"0" + a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
+				)
 			) +
 			a.slice(a.indexOf("&#x") + 8);
 	}

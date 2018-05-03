@@ -13,7 +13,6 @@ try {
 }
 
 const db = admin.firestore();
-
 const self = {
 	insert: insertInfo => {
 		//let insertInfo =
@@ -30,7 +29,7 @@ const self = {
 		for (let i = 0; i < insertInfo.length; i++) {
 			batch.set(
 				db.collection(insertInfo[i].model).doc(insertInfo[i].key),
-				insertInfo[i].data
+				JSON.parse(JSON.stringify(insertInfo[i].data))
 			);
 		}
 		return batch.commit();

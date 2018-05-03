@@ -2,6 +2,8 @@ const commonUtil = require("./common-util");
 const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
+const controllerBannerImage = require("./controller/BannerImage");
+
 let fs = undefined;
 
 if (process.argv[2] != undefined) {
@@ -355,6 +357,17 @@ const unitTest = {
 				return imageDownloader
 					.crawlThumbImage()
 					.then(result => imageDownloader.downloadImageList(result));
+			},
+			[]
+		);
+	},
+	ProcessBannerImageList: () => {
+		return jsTester.assertResult(
+			"ProcessBannerImageList",
+			() => {
+				controllerBannerImage.processBannerImageList().then(result => {
+					console.log(result);
+				});
 			},
 			[]
 		);

@@ -8,20 +8,6 @@ const ThumbImage = require("../model/ThumbImage");
 function sliceString(str, from, end) {
 	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
 }
-function sliceStr(str, from, size) {
-	return str.substr(str.indexOf(from) + from.length, size);
-}
-function strCodePoint(a) {
-	while (a.indexOf("&#x") != -1) {
-		a =
-			a.slice(0, a.indexOf("&#x")) +
-			String.fromCodePoint(
-				"0" + a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
-			) +
-			a.slice(a.indexOf("&#x") + 8);
-	}
-	return a;
-}
 
 const self = {
 	crawlBannerImage: () => {
@@ -119,7 +105,7 @@ const self = {
 							{}
 						])
 						.then(result2 => {
-							result2.bannerImageModel = bannerImage;
+							result2.bannerImage = bannerImage;
 							resolve(result2);
 						});
 				})
@@ -154,7 +140,7 @@ const self = {
 							{}
 						])
 						.then(result2 => {
-							result2.thumbImageModel = thumbImage;
+							result2.thumbImage = thumbImage;
 							resolve(result2);
 						});
 				})
@@ -170,13 +156,15 @@ const self = {
 		for (let i = 0; i < list.length; i++) {
 			promises.push({
 				func: data => {
-					console.log("[start] " + (i + 1) + "/" + list.length + "");
+					console.log(
+						"[start ] :\t" + (i + 1) + "/" + list.length + ""
+					);
 
 					return new Promise(resolve => {
 						resolve(func([data]));
 					}).then(result => {
 						console.log(
-							"[finish]" + (i + 1) + "/" + list.length + ""
+							"[finish] :\t" + (i + 1) + "/" + list.length + ""
 						);
 						return result;
 					});
