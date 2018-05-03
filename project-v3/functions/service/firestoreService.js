@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const properties = require("../properties.json");
 const serviceAccount = require("../" + properties.index.serviceAccount);
+const commonUtil = require("../common-util");
 
 try {
 	admin.app();
@@ -25,14 +26,34 @@ const self = {
 		}
 
 		// Get a new write batch
-		const batch = db.batch();
-		for (let i = 0; i < insertInfo.length; i++) {
-			batch.set(
-				db.collection(insertInfo[i].model).doc(insertInfo[i].key),
-				JSON.parse(JSON.stringify(insertInfo[i].data))
-			);
+		const batch = [];
+		const result = [];
+		for (let i = 0; i < insertInfo.length / 500; i++) {
+			let index = batch.length;
+			batch[index] = db.batch();
+
+			for (
+				let j = i * 500;
+				j < (i + 1) * 500 && j < insertInfo.length;
+				j++
+			) {
+				batch[index].set(
+					db.collection(insertInfo[j].model).doc(insertInfo[j].key),
+					JSON.parse(JSON.stringify(insertInfo[j].data))
+				);
+			}
+			result.push(batch[index].commit());
+			//console.log(index, batch[index]);
+			//result.push({
+			//	func: () => {
+			//		return batch[index].commit();
+			//	},
+			//	args: undefined
+			//});
 		}
-		return batch.commit();
+		console.log(batch);
+		//return commonUtil.promiseSeq(result);
+		return Promise.all(result);
 	},
 	select: model => {
 		return db

@@ -3,6 +3,7 @@ const crawlService = require("./service/crawlService");
 const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 const controllerBannerImage = require("./controller/BannerImage");
+const controllerThumbImage = require("./controller/ThumbImage");
 
 let fs = undefined;
 
@@ -361,13 +362,29 @@ const unitTest = {
 			[]
 		);
 	},
-	ProcessBannerImageList: () => {
+	zzzzProcessBannerImageList: () => {
 		return jsTester.assertResult(
 			"ProcessBannerImageList",
 			() => {
-				controllerBannerImage.processBannerImageList().then(result => {
-					console.log(result);
-				});
+				return controllerBannerImage
+					.processBannerImageList()
+					.then(result => {
+						console.log(result);
+					});
+			},
+			[]
+		);
+	},
+
+	zzzzProcessThumbImageList: () => {
+		return jsTester.assertResult(
+			"ProcessThumbImageList",
+			() => {
+				return controllerThumbImage
+					.processThumbImageList()
+					.then(result => {
+						console.log(result);
+					});
 			},
 			[]
 		);
