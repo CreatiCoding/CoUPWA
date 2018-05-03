@@ -51,7 +51,7 @@ const self = {
 			//	args: undefined
 			//});
 		}
-		console.log(batch);
+		// console.log(batch);
 		//return commonUtil.promiseSeq(result);
 		return Promise.all(result);
 	},
