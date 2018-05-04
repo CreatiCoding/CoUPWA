@@ -55,7 +55,7 @@ const self = {
 		//return commonUtil.promiseSeq(result);
 		return Promise.all(result);
 	},
-	select: model => {
+	selectList: model => {
 		return db
 			.collection(model)
 			.get()
@@ -68,6 +68,19 @@ const self = {
 			})
 			.then(docs => {
 				return docs.map(ele => ele.data());
+			});
+	},
+	selectOne: (model, key) => {
+		return db
+			.collection(model)
+			.doc(key)
+			.get()
+			.then(doc => {
+				if (!doc.exists) {
+					throw "No such document!";
+				} else {
+					return doc.data();
+				}
 			});
 	}
 };

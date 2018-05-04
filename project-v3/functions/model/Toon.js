@@ -4,18 +4,19 @@ const commonUtil = require("../common-util");
 const self = {
 	instance: (ele, i, sort_type) => {
 		return {
-			toon_idx:
+			toon: new self.Object(
 				"" +
-				new Date()
-					.toISOString()
-					.substr(0, 10)
-					.replace(/-/gi, "") +
-				"" +
-				(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-			toon_sort_type: sort_type,
-			toon_week_day: commonUtil.sliceString(ele, "weekday=", '" onclick'),
-			toon_rank: i,
-			toon_info_idx: commonUtil.sliceString(ele, "titleId=", "&amp;")
+					new Date()
+						.toISOString()
+						.substr(0, 10)
+						.replace(/-/gi, "") +
+					"" +
+					(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
+				sort_type,
+				commonUtil.sliceString(ele, "weekday=", '" onclick'),
+				i,
+				commonUtil.sliceString(ele, "titleId=", "&amp;")
+			)
 		};
 	},
 	Object: function Toon(

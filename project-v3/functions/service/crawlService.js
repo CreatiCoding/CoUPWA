@@ -21,7 +21,7 @@ const self = {
 					.crawlingHTMLArray([result, ".thumb"])
 					.then(result2 => {
 						return result2.map((i, ele) => {
-							return Toon.instance(ele, i, sort_type);
+							return Toon.instance(ele, i + 1, sort_type);
 						});
 					});
 			});
@@ -48,8 +48,7 @@ const self = {
 						});
 					});
 			});
-	},
-	everydayCrwalToon: () => {}
+	}
 };
 
 module.exports = self;
