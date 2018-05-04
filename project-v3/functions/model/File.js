@@ -12,7 +12,7 @@ const self = {
 				res.headers["content-type"].slice(
 					res.headers["content-type"].indexOf("/") + 1
 				),
-				commonUtil.getDateFormat("DATE")
+				new Date()
 			)
 		};
 	},

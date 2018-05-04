@@ -6,7 +6,7 @@ const self = {
 			image: new self.Factory(
 				res.req.path.substr(res.req.path.lastIndexOf("/") + 1),
 				res.headers["content-type"],
-				commonUtil.getDateFormat("DATE"),
+				new Date(),
 				options
 			)
 		};

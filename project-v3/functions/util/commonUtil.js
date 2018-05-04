@@ -146,8 +146,8 @@ const commonUtil = {
 								reject(err);
 							} else {
 								resolve({
-									file: File.instance(res, path, url),
-									image: Image.instance(res, options)
+									file: File.instance(res, path, url).file,
+									image: Image.instance(res, options).image
 								});
 							}
 						}
@@ -166,7 +166,6 @@ const commonUtil = {
 	isValidImage: args => {
 		let path = args.path != undefined ? args.path : args[0];
 		let file = bucket.file(path);
-
 		return new Promise((resolve, reject) => {
 			file.download((err, contents) => {
 				gm(contents).identify((err, data) => {
@@ -220,7 +219,6 @@ const commonUtil = {
 	},
 	getDateFormat: format => {
 		const date = new Date();
-		if (format === "DATE") return date;
 		let src = date.toString().split(" ");
 		let time = src[4].split(":");
 		let month = date.getMonth() + 1;
