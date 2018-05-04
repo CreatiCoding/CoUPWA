@@ -287,7 +287,6 @@ const unitTest = {
 			[]
 		);
 	},
-
 	StoreImageToBucket: () => {
 		return jsTester.assertResult(
 			"StoreImageToBucket",
@@ -331,20 +330,6 @@ const unitTest = {
 			]
 		);
 	},
-	DownloadBannerImage: () => {
-		return jsTester.assertResult(
-			"DownloadBannerImage",
-			args => {
-				return imageDownloadUtil.crawlBannerImage().then(result => {
-					return imageDownloadUtil.downloadBannerImage([
-						result[0][0]
-					]);
-				});
-			},
-			[]
-		);
-	},
-
 	FirestoreInsert: () => {
 		return jsTester.assertResult(
 			"FirestoreInsert",
@@ -411,7 +396,7 @@ const unitTest = {
 			() => {
 				return BannerImageService.processBannerImageList().then(
 					result => {
-						console.log(result);
+						return result;
 					}
 				);
 			},
@@ -419,20 +404,20 @@ const unitTest = {
 		);
 	},
 
-	ProcessThumbImageList: () => {
+	zzzzProcessThumbImageList: () => {
 		return jsTester.assertResult(
 			"ProcessThumbImageList",
 			() => {
 				return ThumbImageService.processThumbImageList().then(
 					result => {
-						console.log(result);
+						return result;
 					}
 				);
 			},
 			[]
 		);
 	},
-	CreateToonBySortType: () => {
+	zzzzCreateToonBySortType: () => {
 		return jsTester.assertResult(
 			"CreateToonBySortType",
 			() => {
@@ -443,7 +428,7 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonToday: () => {
+	zzzzCreateToonToday: () => {
 		return jsTester.assertResult(
 			"CreateToonToday",
 			() => {
@@ -452,7 +437,7 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonInfoByWeekDay: () => {
+	zzzzCreateToonInfoByWeekDay: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoByWeekDay",
 			() => {
@@ -461,7 +446,7 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonInfoToday: () => {
+	zzzzCreateToonInfoToday: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoToday",
 			() => {

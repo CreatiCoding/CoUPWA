@@ -20,17 +20,7 @@ const self = {
 			})
 			.then(result3 => {
 				return result3.comics.comic.map((ele, i) => {
-					return new BannerImage(
-						"" +
-							new Date()
-								.toISOString()
-								.substr(0, 10)
-								.replace(/-/gi, "") +
-							"" +
-							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-						ele.bigImg[0],
-						commonUtil.sliceString(ele.url[0], "titleId=", "&no=")
-					);
+					return BannerImage.instance(ele, i);
 				});
 			})
 			.then(result4 => {
@@ -48,39 +38,8 @@ const self = {
 			})
 			.then(result2 => {
 				return result2.map((i, ele) => {
-					return new ThumbImage(
-						"" +
-							new Date()
-								.toISOString()
-								.substr(0, 10)
-								.replace(/-/gi, "") +
-							"" +
-							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-						commonUtil.sliceString(
-							ele,
-							'&apos;" src="',
-							'" width="83" hei'
-						),
-						commonUtil.sliceString(
-							ele,
-							"ic.naver.net/webtoon/",
-							"/thumbnail/"
-						)
-					);
+					return ThumbImage.instance(ele, i);
 				});
-				/*return result3.comics.comic.map((ele, i) => {
-					return new BannerImage(
-						"" +
-							new Date()
-								.toISOString()
-								.substr(0, 10)
-								.replace(/-/gi, "") +
-							"" +
-							(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-						ele.bigImg[0],
-						sliceString(ele.url[0], "titleId=", "&no=")
-					);
-				});*/
 			})
 			.then(result3 => {
 				return [result3, self.downloadThumbImage];
@@ -178,7 +137,7 @@ const self = {
 						return result;
 					});
 				},
-				args: list[i]
+				args: list[i][Object.keys(list[i])[0]]
 			});
 		}
 		return commonUtil.promiseSeqOneSec(promises);

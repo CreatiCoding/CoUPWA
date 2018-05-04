@@ -4,7 +4,7 @@ const commonUtil = require("../util/commonUtil");
 const self = {
 	instance: ele => {
 		return {
-			toonInfo: new self.Class(
+			toonInfo: new self.Factory(
 				commonUtil.sliceString(ele, "titleId=", "&amp;").trim(),
 				commonUtil.strCodePoint(
 					commonUtil.sliceString(ele, "<strong>", "</strong>").trim()
@@ -36,7 +36,7 @@ const self = {
 			)
 		};
 	},
-	Class: function ToonInfo(
+	Factory: function ToonInfo(
 		toon_info_idx,
 		toon_info_name,
 		toon_info_author,

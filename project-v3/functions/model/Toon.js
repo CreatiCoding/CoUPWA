@@ -4,7 +4,7 @@ const commonUtil = require("../util/commonUtil");
 const self = {
 	instance: (ele, i, sort_type) => {
 		return {
-			toon: new self.Class(
+			toon: new self.Factory(
 				"" +
 					new Date()
 						.toISOString()
@@ -19,7 +19,7 @@ const self = {
 			)
 		};
 	},
-	Class: function Toon(
+	Factory: function Toon(
 		toon_idx,
 		toon_sort_type,
 		toon_week_day,

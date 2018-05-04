@@ -145,42 +145,9 @@ const commonUtil = {
 							if (err) {
 								reject(err);
 							} else {
-								let image_idx =
-									//"" +
-									//new Date()
-									//	.toISOString()
-									//	.substr(0, 16)
-									//	.replace(/-/gi, "") +
-									res.req.path.substr(
-										res.req.path.lastIndexOf("/") + 1
-									);
-								let image_type = res.headers["content-type"];
-								let file_idx = image_idx;
-								let image_create_at = new Date();
-								let file_name = res.req.path.substr(
-									res.req.path.lastIndexOf("/") + 1
-								);
-								let file_path = path;
-								let file_url = url;
-								let file_ext = res.headers[
-									"content-type"
-								].slice(
-									res.headers["content-type"].indexOf("/") + 1
-								);
 								resolve({
-									file: new File(
-										file_idx,
-										file_name,
-										file_path,
-										file_url,
-										file_ext
-									),
-									image: new Image(
-										image_idx,
-										image_type,
-										image_create_at,
-										options
-									)
+									file: File.instance(res, path, url),
+									image: Image.instance(res, options)
 								});
 							}
 						}
