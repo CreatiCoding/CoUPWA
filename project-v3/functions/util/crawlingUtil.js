@@ -34,10 +34,27 @@ const self = {
 				properties.url.crawlToonInfo.value.referer
 			])
 			.then(result => {
+				if ((result.match(/class=\"lst/g) || []).length >= 30) {
+					return commonUtil
+						.requestHTML([
+							properties.url.crawlToonInfo.value +
+								week +
+								"&page=2",
+							properties.url.crawlToonInfo.value.referer
+						])
+						.then(result2 => {
+							return result + result2;
+						});
+				} else {
+					return result;
+				}
+			})
+			.then(result3 => {
 				return commonUtil
-					.crawlingHTMLArray([result, ".lst"])
-					.then(result2 => {
-						return result2.map((i, ele) => {
+					.crawlingHTMLArray([result3, ".lst"])
+					.then(result4 => {
+						console.log(week, result4.length);
+						return result4.map((i, ele) => {
 							return ToonInfo.instance(ele);
 						});
 					});
