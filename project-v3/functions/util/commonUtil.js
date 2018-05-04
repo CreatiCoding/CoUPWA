@@ -243,6 +243,11 @@ const commonUtil = {
 			format = format.replace(new RegExp(i, "g"), form[i]);
 		}
 		return format;
+	},
+	removeDuplicate: (arr, key) => {
+		return arr.filter((obj, index) => {
+			return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === index;
+		});
 	}
 };
 
