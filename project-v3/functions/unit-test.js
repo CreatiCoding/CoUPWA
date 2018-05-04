@@ -1,17 +1,15 @@
-const commonUtil = require("./common-util");
-const crawlService = require("./service/crawlService");
-const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
-const controllerBannerImage = require("./controller/BannerImage");
-const controllerThumbImage = require("./controller/ThumbImage");
-const fs = require("./service/firestoreService");
-let toonController = undefined;
-let toonInfoController = undefined;
 
-if (process.argv[2] != undefined) {
-	toonController = require("./controller/ToonController");
-	toonInfoController = require("./controller/toonInfoController");
-}
+const commonUtil = require("./util/commonUtil");
+const firestoreUtil = require("./util/firestoreUtil");
+const crawlingUtil = require("./util/crawlingUtil");
+const imageDownloadUtil = require("./util/imageDownloadUtil");
+
+const BannerImageService = require("./service/BannerImageService");
+const ThumbImageService = require("./service/ThumbImageService");
+const toonService = require("./service/ToonService");
+const toonInfoService = require("./service/ToonInfoService");
+
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
@@ -161,7 +159,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlToon",
 			() => {
-				return crawlService.crawlToon("ViewCount").then(result => {
+				return crawlingUtil.crawlToon("ViewCount").then(result => {
 					return result[0].toon.toon_info_idx == 183559;
 				});
 			},
@@ -176,7 +174,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlToonInfo",
 			() => {
-				return crawlService.crawlToonInfo("mon").then(result => {
+				return crawlingUtil.crawlToonInfo("mon").then(result => {
 					if (result.length == 28) return true;
 					console.log(result.length);
 					return false;
@@ -208,7 +206,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlBannerImage",
 			args => {
-				return imageDownloader.crawlBannerImage().then(result => {
+				return imageDownloadUtil.crawlBannerImage().then(result => {
 					// console.log(result);
 					return true;
 				});
@@ -221,7 +219,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlThumbImage",
 			() => {
-				return imageDownloader.crawlThumbImage().then(result => {
+				return imageDownloadUtil.crawlThumbImage().then(result => {
 					if (result[0].length == 202) return true;
 					console.log(result[0].length);
 					return false;
@@ -271,11 +269,11 @@ const unitTest = {
 			"testConvertObj2Doc",
 			args => {
 				let result1;
-				return crawlService
+				return crawlingUtil
 					.crawlToon()
 					.then(result => {
 						result1 = result;
-						return fs.convertObj2Doc(result);
+						return firestoreUtil.convertObj2Doc(result);
 					})
 					.then(result2 => {
 						if (result1.length == result2.length) {
@@ -334,17 +332,13 @@ const unitTest = {
 		);
 	},
 	DownloadBannerImage: () => {
-		let bannerImage = new BannerImage(
-			"20180427027",
-			"http://imgcomic.naver.net/webtoon/710649/thumbnail/" +
-				"thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
-			"710649"
-		);
 		return jsTester.assertResult(
 			"DownloadBannerImage",
 			args => {
-				return imageDownloader.crawlBannerImage().then(result => {
-					return imageDownloader.downloadBannerImage([result[0][0]]);
+				return imageDownloadUtil.crawlBannerImage().then(result => {
+					return imageDownloadUtil.downloadBannerImage([
+						result[0][0]
+					]);
 				});
 			},
 			[]
@@ -355,10 +349,10 @@ const unitTest = {
 		return jsTester.assertResult(
 			"FirestoreInsert",
 			args => {
-				return fs
+				return firestoreUtil
 					.insert(args)
 					.then(() => {
-						return fs.selectList(args[0].model);
+						return firestoreUtil.selectList(args[0].model);
 					})
 					.then(result => {
 						for (i in result)
@@ -389,9 +383,11 @@ const unitTest = {
 		return jsTester.assertResult(
 			"DownloadBannerImageList",
 			args => {
-				return imageDownloader
+				return imageDownloadUtil
 					.crawlBannerImage()
-					.then(result => imageDownloader.downloadImageList(result));
+					.then(result =>
+						imageDownloadUtil.downloadImageList(result)
+					);
 			},
 			[]
 		);
@@ -400,9 +396,11 @@ const unitTest = {
 		return jsTester.assertResult(
 			"DownloadThumbImageList",
 			args => {
-				return imageDownloader
+				return imageDownloadUtil
 					.crawlThumbImage()
-					.then(result => imageDownloader.downloadImageList(result));
+					.then(result =>
+						imageDownloadUtil.downloadImageList(result)
+					);
 			},
 			[]
 		);
@@ -411,11 +409,11 @@ const unitTest = {
 		return jsTester.assertResult(
 			"ProcessBannerImageList",
 			() => {
-				return controllerBannerImage
-					.processBannerImageList()
-					.then(result => {
+				return BannerImageService.processBannerImageList().then(
+					result => {
 						console.log(result);
-					});
+					}
+				);
 			},
 			[]
 		);
@@ -425,11 +423,11 @@ const unitTest = {
 		return jsTester.assertResult(
 			"ProcessThumbImageList",
 			() => {
-				return controllerThumbImage
-					.processThumbImageList()
-					.then(result => {
+				return ThumbImageService.processThumbImageList().then(
+					result => {
 						console.log(result);
-					});
+					}
+				);
 			},
 			[]
 		);
@@ -438,7 +436,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"CreateToonBySortType",
 			() => {
-				return toonController.createToonBySortType().then(result => {
+				return toonService.createToonBySortType().then(result => {
 					return result;
 				});
 			},
@@ -449,7 +447,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"CreateToonToday",
 			() => {
-				return toonController.createToonToday();
+				return toonService.createToonToday();
 			},
 			[]
 		);
@@ -458,7 +456,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"CreateToonInfoByWeekDay",
 			() => {
-				return toonInfoController.createToonInfoByWeekDay();
+				return toonInfoService.createToonInfoByWeekDay();
 			},
 			[]
 		);
@@ -467,7 +465,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"CreateToonInfoToday",
 			() => {
-				return toonInfoController.createToonInfoToday();
+				return toonInfoService.createToonInfoToday();
 			},
 			[]
 		);

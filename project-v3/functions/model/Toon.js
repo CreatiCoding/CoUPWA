@@ -1,10 +1,10 @@
-const commonUtil = require("../common-util");
+const commonUtil = require("../util/commonUtil");
 
 //웹툰
 const self = {
 	instance: (ele, i, sort_type) => {
 		return {
-			toon: new self.Object(
+			toon: new self.Class(
 				"" +
 					new Date()
 						.toISOString()
@@ -19,7 +19,7 @@ const self = {
 			)
 		};
 	},
-	Object: function Toon(
+	Class: function Toon(
 		toon_idx,
 		toon_sort_type,
 		toon_week_day,

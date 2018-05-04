@@ -1,11 +1,11 @@
-const firestoreService = require("../service/firestoreService");
-const crawlService = require("../service/crawlService");
+const firestoreUtil = require("../util/firestoreUtil");
+const crawlingUtil = require("../util/crawlingUtil");
 const self = {
-	createToonInfoToday: () => {
-		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+	createToonToday: () => {
+		let sort_type = ["ViewCount", "Update", "StarScore", "TitleName"];
 		let promises = [];
-		for (let i in week) {
-			promises.push(self.createToonInfoByWeekDay(week[i]));
+		for (let i in sort_type) {
+			promises.push(self.createToonBySortType(sort_type[i]));
 		}
 		return Promise.all(promises).then(result => {
 			let arr = [];
@@ -15,20 +15,20 @@ const self = {
 			return arr;
 		});
 	},
-	createToonInfoByWeekDay: week => {
-		week = week != undefined ? week : "mon";
+	createToonBySortType: sort_type => {
+		sort_type = sort_type != undefined ? sort_type : "ViewCount";
 		let resultArr = [];
-		return crawlService
-			.crawlToonInfo(week)
+		return crawlingUtil
+			.crawlToon(sort_type)
 			.then(result => {
-				return firestoreService.convertObj2Doc(result);
+				return firestoreUtil.convertObj2Doc(result);
 			})
 			.then(result2 => {
 				resultArr.push(result2);
 				return result2;
 			})
 			.then(result3 => {
-				return firestoreService.insert(result3);
+				return firestoreUtil.insert(result3);
 			})
 			.then(result4 => {
 				if (resultArr[0].length == result4[0].length) {

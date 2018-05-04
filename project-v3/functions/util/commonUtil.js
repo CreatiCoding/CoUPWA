@@ -1,10 +1,10 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const gm = require("gm");
-const properties = require("./properties.json");
+const properties = require("../properties.json");
 const gcloud = require("google-cloud");
-const File = require("./model/File");
-const Image = require("./model/Image");
+const File = require("../model/File");
+const Image = require("../model/Image");
 
 const bucket = gcloud
 	.storage({

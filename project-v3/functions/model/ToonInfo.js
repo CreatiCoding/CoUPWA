@@ -1,10 +1,10 @@
-const commonUtil = require("../common-util");
+const commonUtil = require("../util/commonUtil");
 
 //웹툰 정보
 const self = {
 	instance: ele => {
 		return {
-			toonInfo: new self.Object(
+			toonInfo: new self.Class(
 				commonUtil.sliceString(ele, "titleId=", "&amp;").trim(),
 				commonUtil.strCodePoint(
 					commonUtil.sliceString(ele, "<strong>", "</strong>").trim()
@@ -36,7 +36,7 @@ const self = {
 			)
 		};
 	},
-	Object: function ToonInfo(
+	Class: function ToonInfo(
 		toon_info_idx,
 		toon_info_name,
 		toon_info_author,
