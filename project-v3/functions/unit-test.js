@@ -141,7 +141,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							if (result2.length == 202) return true;
+							if (result2.length == 203) return true;
 							console.log(result2.length);
 							return false;
 						});
@@ -220,7 +220,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloadUtil.crawlThumbImage().then(result => {
-					if (result[0].length == 202) return true;
+					if (result[0].length == 203) return true;
 					console.log(result[0].length);
 					return false;
 				});
