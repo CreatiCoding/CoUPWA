@@ -4,11 +4,10 @@ const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 const controllerBannerImage = require("./controller/BannerImage");
 const controllerThumbImage = require("./controller/ThumbImage");
+const fs = require("./service/firestoreService");
 let toonController = undefined;
-let fs = undefined;
 
 if (process.argv[2] != undefined) {
-	fs = require("./service/firestoreService");
 	toonController = require("./controller/ToonController");
 }
 const jsTester = {
@@ -17,18 +16,36 @@ const jsTester = {
 			unitTest(args)
 				.then(result => {
 					if (result === false) {
-						console.log("[failure]:", caller);
+						console.log(
+							"\x1b[1;31m",
+							"\b✘[failure]",
+							"\x1b[30m",
+							":",
+							caller
+						);
 						console.trace(result);
 						reject(result);
 						process.exit(1);
 					} else {
-						console.log("[success]:", caller);
+						console.log(
+							"\x1b[1;32m",
+							"\b✔[success]",
+							"\x1b[30m",
+							":",
+							caller
+						);
 						// console.log(result);
 						resolve(true);
 					}
 				})
 				.catch(result => {
-					console.log("[failure]:", caller);
+					console.log(
+						"\x1b[1;31m",
+						"\b✘[failure]",
+						"\x1b[30m",
+						":",
+						caller
+					);
 					console.trace(result);
 					process.exit(1);
 				});
@@ -219,7 +236,6 @@ const unitTest = {
 				{
 					func: a => {
 						return new Promise(resolve => {
-							console.log(a);
 							resolve(a);
 						});
 					},
@@ -228,7 +244,6 @@ const unitTest = {
 				{
 					func: a => {
 						return new Promise(resolve => {
-							console.log(a);
 							resolve(a);
 						});
 					},
@@ -237,7 +252,6 @@ const unitTest = {
 				{
 					func: a => {
 						return new Promise(resolve => {
-							console.log(a);
 							resolve(a);
 						});
 					},
@@ -246,6 +260,30 @@ const unitTest = {
 			]
 		);
 	},
+	testConvertObj2Doc: () => {
+		return jsTester.assertResult(
+			"testConvertObj2Doc",
+			args => {
+				let result1;
+				return crawlService
+					.crawlToon()
+					.then(result => {
+						result1 = result;
+						return fs.convertObj2Doc(result);
+					})
+					.then(result2 => {
+						if (result1.length == result2.length) {
+							return true;
+						} else {
+							console.log(result1.length, result2.length);
+							return false;
+						}
+					});
+			},
+			[]
+		);
+	},
+
 	StoreImageToBucket: () => {
 		return jsTester.assertResult(
 			"StoreImageToBucket",

@@ -2,19 +2,36 @@ const admin = require("firebase-admin");
 const properties = require("../properties.json");
 const serviceAccount = require("../" + properties.index.serviceAccount);
 const commonUtil = require("../common-util");
+let db;
+if (process.argv[2] != undefined) {
+	try {
+		admin.app();
+	} catch (e) {
+		admin.initializeApp({
+			credential: admin.credential.cert(serviceAccount),
+			databaseURL: properties.admin.databaseURL,
+			storageBucket: properties.admin.storageBucket
+		});
+	}
 
-try {
-	admin.app();
-} catch (e) {
-	admin.initializeApp({
-		credential: admin.credential.cert(serviceAccount),
-		databaseURL: properties.admin.databaseURL,
-		storageBucket: properties.admin.storageBucket
-	});
+	db = admin.firestore();
 }
 
-const db = admin.firestore();
 const self = {
+	convertObj2Doc: obj => {
+		let arr = [];
+		for (let i = 0; i < obj.length; i++) {
+			let model = Object.keys(obj[i])[0];
+			let data = obj[i][model];
+			let key = data[Object.keys(data)[0]];
+			arr.push({
+				model: model,
+				key: key,
+				data: data
+			});
+		}
+		return arr;
+	},
 	insert: insertInfo => {
 		//let insertInfo =
 		//	args.insertInfo != undefined ? args.insertInfo : args[0];
