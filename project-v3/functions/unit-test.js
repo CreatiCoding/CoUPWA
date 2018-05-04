@@ -220,7 +220,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloadUtil.crawlThumbImage().then(result => {
-					if (result[0].length == 203) return true;
+					if (result[0].length == 172) return true;
 					console.log(result[0].length);
 					return false;
 				});
@@ -389,7 +389,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"ProcessBannerImageList",
 			() => {
-				return BannerImageService.processBannerImageList().then(
+				return BannerImageService.createBannerImageToday().then(
 					result => {
 						return result;
 					}
@@ -403,7 +403,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"ProcessThumbImageList",
 			() => {
-				return ThumbImageService.processThumbImageList().then(
+				return ThumbImageService.createThumbImageToday().then(
 					result => {
 						return result;
 					}
