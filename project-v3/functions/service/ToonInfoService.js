@@ -2,20 +2,6 @@ const firestoreUtil = require("../util/firestoreUtil");
 const crawlingUtil = require("../util/crawlingUtil");
 const commonUtil = require("../util/commonUtil");
 const self = {
-	createToonInfoToday: () => {
-		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-		let promises = [];
-		for (let i in week) {
-			promises.push(self.createToonInfoByWeekDay(week[i]));
-		}
-		return Promise.all(promises).then(result => {
-			let arr = [];
-			for (let i in result) {
-				arr = arr.concat(result[i]);
-			}
-			return arr;
-		});
-	},
 	createDataOfToonInfo: () => {
 		let returnValue = [];
 		let promises = [];
@@ -33,13 +19,17 @@ const self = {
 			})
 			.then(() => {
 				return commonUtil.removeDuplicate(returnValue, "toon_info_idx");
+			})
+			.then(result => {
+				return result.map(ele => {
+					return {toonInfo: ele};
+				});
 			});
 	},
-	createToonInfoByWeekDay: week => {
-		week = week != undefined ? week : "mon";
+	createToonInfoToday: () => {
 		let lastResult;
-		return crawlingUtil
-			.crawlToonInfo(week)
+		return self
+			.createDataOfToonInfo()
 			.then(result => {
 				return firestoreUtil.convertObj2Doc(result);
 			})
@@ -54,7 +44,7 @@ const self = {
 				if (lastResult.length == result4[0].length) {
 					return lastResult;
 				} else {
-					console.log(resultArr[0].length, result4[0].length);
+					console.log(lastResult.length, result4[0].length);
 					return false;
 				}
 			});
