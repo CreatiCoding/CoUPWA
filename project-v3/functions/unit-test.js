@@ -308,18 +308,15 @@ const unitTest = {
 								{}
 							])
 							.then(() => {
-								return path;
+								return commonUtil
+									.isValidImage([path])
+									.then(result => {
+										return result;
+									});
 							});
 					})
 					.catch(err => {
 						return err;
-					})
-					.then(result3 => {
-						return commonUtil
-							.isValidImage([result3])
-							.then(result => {
-								return result;
-							});
 					});
 			},
 			[
@@ -368,11 +365,9 @@ const unitTest = {
 		return jsTester.assertResult(
 			"DownloadBannerImageList",
 			args => {
-				return imageDownloadUtil
-					.crawlBannerImage()
-					.then(result =>
-						imageDownloadUtil.downloadImageList(result)
-					);
+				return imageDownloadUtil.crawlBannerImage().then(result => {
+					return imageDownloadUtil.downloadImageList(result);
+				});
 			},
 			[]
 		);
