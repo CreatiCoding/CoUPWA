@@ -4,36 +4,36 @@ const commonUtil = require("../common-util");
 const self = {
 	instance: ele => {
 		return {
-			toon_info_idx: commonUtil
-				.sliceString(ele, "titleId=", "&amp;")
-				.trim(),
-			toon_info_name: commonUtil.strCodePoint(
-				commonUtil.sliceString(ele, "<strong>", "</strong>").trim()
-			),
-			toon_info_author: commonUtil.strCodePoint(
+			toonInfo: new self.Object(
+				commonUtil.sliceString(ele, "titleId=", "&amp;").trim(),
+				commonUtil.strCodePoint(
+					commonUtil.sliceString(ele, "<strong>", "</strong>").trim()
+				),
+				commonUtil.strCodePoint(
+					commonUtil
+						.sliceString(
+							ele,
+							's="sub_info">',
+							"</p>\n\t\t\t\t\t\t\t\t<div"
+						)
+						.trim()
+				),
 				commonUtil
 					.sliceString(
 						ele,
-						's="sub_info">',
-						"</p>\n\t\t\t\t\t\t\t\t<div"
+						'xt_score">',
+						'</span>\n\t\t\t\t\t\t\t\t\t<span class="if1'
+					)
+					.trim(),
+				ele.indexOf("badge badge_up") != -1,
+				commonUtil
+					.sliceStr(
+						ele,
+						'"if1">\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t',
+						8
 					)
 					.trim()
-			),
-			toon_info_star: commonUtil
-				.sliceString(
-					ele,
-					'xt_score">',
-					'</span>\n\t\t\t\t\t\t\t\t\t<span class="if1'
-				)
-				.trim(),
-			toon_info_update: ele.indexOf("badge badge_up") != -1,
-			toon_info_update_at: commonUtil
-				.sliceStr(
-					ele,
-					'"if1">\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t',
-					8
-				)
-				.trim()
+			)
 		};
 	},
 	Object: function ToonInfo(
