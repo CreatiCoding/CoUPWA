@@ -1,14 +1,16 @@
 const admin = require("firebase-admin");
 const properties = require("../properties.json");
-const serviceAccount = require("../" + properties.index.serviceAccount);
 const commonUtil = require("../common-util");
 let db;
+
 if (process.argv[2] != undefined) {
 	try {
 		admin.app();
 	} catch (e) {
 		admin.initializeApp({
-			credential: admin.credential.cert(serviceAccount),
+			credential: admin.credential.cert(
+				require("../" + properties.index.serviceAccount)
+			),
 			databaseURL: properties.admin.databaseURL,
 			storageBucket: properties.admin.storageBucket
 		});
