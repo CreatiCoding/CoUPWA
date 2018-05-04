@@ -4,7 +4,7 @@ const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 const controllerBannerImage = require("./controller/BannerImage");
 const controllerThumbImage = require("./controller/ThumbImage");
-
+const toonController = require("./controller/ToonController");
 let fs = undefined;
 
 if (process.argv[2] != undefined) {
@@ -138,7 +138,7 @@ const unitTest = {
 			"testCrawlToon",
 			() => {
 				return crawlService.crawlToon("ViewCount").then(result => {
-					return result[0].toon_info_idx == 183559;
+					return result[0].toon.toon_info_idx == 183559;
 				});
 			},
 			[]
@@ -313,7 +313,7 @@ const unitTest = {
 				return fs
 					.insert(args)
 					.then(() => {
-						return fs.select(args[0].model);
+						return fs.selectList(args[0].model);
 					})
 					.then(result => {
 						for (i in result)
@@ -385,6 +385,17 @@ const unitTest = {
 					.then(result => {
 						console.log(result);
 					});
+			},
+			[]
+		);
+	},
+	CreateToonToday: () => {
+		return jsTester.assertResult(
+			"CreateToonToday",
+			() => {
+				return toonController.createToonToday().then(result => {
+					console.log(result);
+				});
 			},
 			[]
 		);
