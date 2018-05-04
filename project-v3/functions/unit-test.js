@@ -19,7 +19,7 @@ const jsTester = {
 						console.log(
 							"\x1b[1;31m",
 							"\b✘[failure]",
-							"\x1b[30m",
+							"\x1b[0;30m",
 							":",
 							caller
 						);
@@ -30,7 +30,7 @@ const jsTester = {
 						console.log(
 							"\x1b[1;32m",
 							"\b✔[success]",
-							"\x1b[30m",
+							"\x1b[0;30m",
 							":",
 							caller
 						);
@@ -42,7 +42,7 @@ const jsTester = {
 					console.log(
 						"\x1b[1;31m",
 						"\b✘[failure]",
-						"\x1b[30m",
+						"\x1b[0;30m",
 						":",
 						caller
 					);
@@ -428,7 +428,7 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonBySortType: () => {
+	zzzzCreateToonBySortType: () => {
 		return jsTester.assertResult(
 			"CreateToonBySortType",
 			() => {
@@ -439,7 +439,7 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonToday: () => {
+	zzzzCreateToonToday: () => {
 		return jsTester.assertResult(
 			"CreateToonToday",
 			() => {
