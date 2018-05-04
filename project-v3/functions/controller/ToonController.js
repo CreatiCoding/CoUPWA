@@ -19,29 +19,20 @@ const self = {
 		return crawlService
 			.crawlToon(sort_type)
 			.then(result => {
-				let arr = [];
-
-				for (let i = 0; i < result.length; i++) {
-					let model = Object.keys(result[i])[0];
-					let data = result[i][model];
-					let key = data[Object.keys(data)[0]];
-					arr.push({
-						model: model,
-						key: key,
-						data: data
-					});
-				}
-				resultArr.push(arr);
-				return arr;
-			})
-			.then(result => {
-				return firestoreService.insert(result);
+				return firestoreService.convertObj2Doc(result);
 			})
 			.then(result2 => {
-				if (resultArr[0].length == result2[0].length) {
-					return result2[0];
+				resultArr.push(result2);
+				return result2;
+			})
+			.then(result3 => {
+				return firestoreService.insert(result3);
+			})
+			.then(result4 => {
+				if (resultArr[0].length == result4[0].length) {
+					return result4[0];
 				} else {
-					console.log(resultArr[0].length, result2[0].length);
+					console.log(resultArr[0].length, result4[0].length);
 					return false;
 				}
 			});
