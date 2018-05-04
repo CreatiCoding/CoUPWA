@@ -6,9 +6,11 @@ const controllerBannerImage = require("./controller/BannerImage");
 const controllerThumbImage = require("./controller/ThumbImage");
 const fs = require("./service/firestoreService");
 let toonController = undefined;
+let toonInfoController = undefined;
 
 if (process.argv[2] != undefined) {
 	toonController = require("./controller/ToonController");
+	toonInfoController = require("./controller/toonInfoController");
 }
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
@@ -71,7 +73,11 @@ const jsTester = {
 				)
 					testList[testList.length] = unitTest[i];
 			} else if (process.argv[2] == 1) {
-				testList[testList.length] = unitTest[i];
+				if (
+					unitTest[i].name != undefined &&
+					!unitTest[i].name.includes("test")
+				)
+					testList[testList.length] = unitTest[i];
 			} else if (process.argv[2] == 2) {
 				if (
 					unitTest[i].name != undefined &&
@@ -428,24 +434,40 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzCreateToonBySortType: () => {
+	CreateToonBySortType: () => {
 		return jsTester.assertResult(
 			"CreateToonBySortType",
 			() => {
 				return toonController.createToonBySortType().then(result => {
-					console.log(result);
+					return result;
 				});
 			},
 			[]
 		);
 	},
-	zzzzCreateToonToday: () => {
+	CreateToonToday: () => {
 		return jsTester.assertResult(
 			"CreateToonToday",
 			() => {
-				return toonController.createToonToday().then(result => {
-					console.log(result);
-				});
+				return toonController.createToonToday();
+			},
+			[]
+		);
+	},
+	CreateToonInfoByWeekDay: () => {
+		return jsTester.assertResult(
+			"CreateToonInfoByWeekDay",
+			() => {
+				return toonInfoController.createToonInfoByWeekDay();
+			},
+			[]
+		);
+	},
+	CreateToonInfoToday: () => {
+		return jsTester.assertResult(
+			"CreateToonInfoToday",
+			() => {
+				return toonInfoController.createToonInfoToday();
 			},
 			[]
 		);
