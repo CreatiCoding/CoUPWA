@@ -53,7 +53,6 @@ const self = {
 				return commonUtil
 					.crawlingHTMLArray([result3, ".lst"])
 					.then(result4 => {
-						console.log(week, result4.length);
 						return result4.map((i, ele) => {
 							return ToonInfo.instance(ele);
 						});
