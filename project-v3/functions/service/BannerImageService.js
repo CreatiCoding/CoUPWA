@@ -1,7 +1,7 @@
 const firestoreUtil = require("../util/firestoreUtil");
 const imageDownloadUtil = require("../util/imageDownloadUtil");
 const self = {
-	processBannerImageList: () => {
+	createBannerImageToday: () => {
 		return imageDownloadUtil
 			.crawlBannerImage()
 			.then(result => imageDownloadUtil.downloadImageList(result))

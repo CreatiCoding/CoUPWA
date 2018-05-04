@@ -1,7 +1,7 @@
 const firestoreUtil = require("../util/firestoreUtil");
 const imageDownloadUtil = require("../util/imageDownloadUtil");
 const self = {
-	processThumbImageList: () => {
+	createThumbImageToday: () => {
 		return imageDownloadUtil
 			.crawlThumbImage()
 			.then(result => imageDownloadUtil.downloadImageList(result))
