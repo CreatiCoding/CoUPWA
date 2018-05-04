@@ -5,12 +5,7 @@ const self = {
 	instance: (ele, i) => {
 		return {
 			thumbImage: new self.Factory(
-				"" +
-					new Date()
-						.toISOString()
-						.substr(0, 10)
-						.replace(/-/gi, "") +
-					"" +
+				commonUtil.getDateFormat("YYYYMMDD") +
 					(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
 				commonUtil.sliceString(
 					ele,

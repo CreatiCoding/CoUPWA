@@ -2,10 +2,10 @@ const firestoreUtil = require("../util/firestoreUtil");
 const crawlingUtil = require("../util/crawlingUtil");
 const self = {
 	createToonToday: () => {
-		let sort_type = ["ViewCount", "Update", "StarScore", "TitleName"];
+		let sortType = ["ViewCount", "Update", "StarScore", "TitleName"];
 		let promises = [];
-		for (let i in sort_type) {
-			promises.push(self.createToonBySortType(sort_type[i]));
+		for (let i in sortType) {
+			promises.push(self.createToonBySortType(sortType[i]));
 		}
 		return Promise.all(promises).then(result => {
 			let arr = [];
@@ -15,11 +15,11 @@ const self = {
 			return arr;
 		});
 	},
-	createToonBySortType: sort_type => {
-		sort_type = sort_type != undefined ? sort_type : "ViewCount";
+	createToonBySortType: sortType => {
+		sortType = sortType != undefined ? sortType : "ViewCount";
 		let resultArr = [];
 		return crawlingUtil
-			.crawlToon(sort_type)
+			.crawlToon(sortType)
 			.then(result => {
 				return firestoreUtil.convertObj2Doc(result);
 			})

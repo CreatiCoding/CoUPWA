@@ -404,7 +404,7 @@ const unitTest = {
 		);
 	},
 
-	zzzzProcessThumbImageList: () => {
+	ProcessThumbImageList: () => {
 		return jsTester.assertResult(
 			"ProcessThumbImageList",
 			() => {
@@ -417,7 +417,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzCreateToonBySortType: () => {
+	CreateToonBySortType: () => {
 		return jsTester.assertResult(
 			"CreateToonBySortType",
 			() => {
@@ -428,7 +428,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzCreateToonToday: () => {
+	CreateToonToday: () => {
 		return jsTester.assertResult(
 			"CreateToonToday",
 			() => {
@@ -437,7 +437,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzCreateToonInfoByWeekDay: () => {
+	CreateToonInfoByWeekDay: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoByWeekDay",
 			() => {
@@ -446,11 +446,49 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzCreateToonInfoToday: () => {
+	CreateToonInfoToday: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoToday",
 			() => {
 				return toonInfoService.createToonInfoToday();
+			},
+			[]
+		);
+	},
+	SelectOneToon: () => {
+		return jsTester.assertResult(
+			"SelectOneToon",
+			() => {
+				return crawlingUtil
+					.crawlToon()
+					.then(result => {
+						return firestoreUtil.convertObj2Doc(result);
+					})
+					.then(result2 => {
+						return firestoreUtil.selectOne(
+							result2[0].model,
+							result2[0].key
+						);
+					});
+			},
+			[]
+		);
+	},
+	SelectOneToonInfo: () => {
+		return jsTester.assertResult(
+			"SelectOneToonInfo",
+			() => {
+				return crawlingUtil
+					.crawlToonInfo()
+					.then(result => {
+						return firestoreUtil.convertObj2Doc(result);
+					})
+					.then(result2 => {
+						return firestoreUtil.selectOne(
+							result2[0].model,
+							result2[0].key
+						);
+					});
 			},
 			[]
 		);

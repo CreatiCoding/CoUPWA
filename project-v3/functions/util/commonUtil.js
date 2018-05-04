@@ -205,7 +205,7 @@ const commonUtil = {
 		return Promise.all(processPromises);
 	},
 	promiseSeq: promises => {
-		let oneFunc = (fc, args) => {
+		const oneFunc = (fc, args) => {
 			return new Promise(resolve => {
 				resolve(fc(args));
 			});
@@ -217,6 +217,34 @@ const commonUtil = {
 			});
 		}
 		return current;
+	},
+	getDateFormat: format => {
+		const date = new Date();
+		if (format === "DATE") return date;
+		let src = date.toString().split(" ");
+		let time = src[4].split(":");
+		let month = date.getMonth() + 1;
+		const form = {
+			yyyy: src[3],
+			YYYY: src[3],
+			yy: src[3].substr(0, 2),
+			YY: src[3].substr(0, 2),
+			MMM: src[1],
+			MM: parseInt(month / 10) > 0 ? month : "0" + (month + ""),
+			DD: src[2],
+			dd: src[2],
+			EEE: src[0],
+			eee: src[0].toLowerCase(),
+			HH: time[0],
+			hh: parseInt(time[0]) % 12 + "",
+			mm: time[1],
+			SS: time[2],
+			ss: time[2]
+		};
+		for (i in form) {
+			format = format.replace(new RegExp(i, "g"), form[i]);
+		}
+		return format;
 	}
 };
 

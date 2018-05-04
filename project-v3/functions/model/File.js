@@ -1,3 +1,5 @@
+const commonUtil = require("../util/commonUtil");
+
 //파일 정보
 const self = {
 	instance: (res, path, url) => {
@@ -10,7 +12,7 @@ const self = {
 				res.headers["content-type"].slice(
 					res.headers["content-type"].indexOf("/") + 1
 				),
-				new Date().getTime()
+				commonUtil.getDateFormat("DATE")
 			)
 		};
 	},

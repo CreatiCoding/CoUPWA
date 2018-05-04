@@ -1,3 +1,4 @@
+const commonUtil = require("../util/commonUtil");
 //이미지 정보
 const self = {
 	instance: (res, options) => {
@@ -5,7 +6,7 @@ const self = {
 			image: new self.Factory(
 				res.req.path.substr(res.req.path.lastIndexOf("/") + 1),
 				res.headers["content-type"],
-				new Date(),
+				commonUtil.getDateFormat("DATE"),
 				options
 			)
 		};

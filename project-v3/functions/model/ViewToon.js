@@ -2,16 +2,28 @@ const commonUtil = require("../util/commonUtil");
 
 //웹툰 정보
 const self = {
-	instance: ele => {
+	instance: (toonInfo, thumbImage, sortType) => {
 		return {
-			ViewInfo: new self.Factory()
+			ViewToon: new self.Factory(
+				commonUtil.getDateFormat("YYMMDD_eee_") + sortType[0],
+				data[1].map((ele, i) => {
+					return new self.FactoryData(
+						data[2],
+						data[3],
+						data[4],
+						data[5],
+						data[6],
+						data[7]
+					);
+				})
+			)
 		};
 	},
-	Factory: function ViewInfo(view_info_idx, view_info_list) {
-		this.view_info_idx = view_info_idx;
-		this.view_info_list = view_info_list;
+	Factory: function ViewToon(view_toon_idx, view_toon_list) {
+		this.view_toon_idx = view_toon_idx;
+		this.view_toon_list = view_toon_list;
 	},
-	FactoryData: function ViewInfoData(
+	FactoryData: function ViewToonData(
 		toon_info_name,
 		toon_info_star,
 		toon_info_author,

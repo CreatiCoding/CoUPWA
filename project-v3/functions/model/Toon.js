@@ -2,17 +2,12 @@ const commonUtil = require("../util/commonUtil");
 
 //웹툰
 const self = {
-	instance: (ele, i, sort_type) => {
+	instance: (ele, i, sortType) => {
 		return {
 			toon: new self.Factory(
-				"" +
-					new Date()
-						.toISOString()
-						.substr(0, 10)
-						.replace(/-/gi, "") +
-					"" +
+				commonUtil.getDateFormat("YYYYMMDD") +
 					(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
-				sort_type,
+				sortType,
 				commonUtil.sliceString(ele, "weekday=", '" onclick'),
 				i,
 				commonUtil.sliceString(ele, "titleId=", "&amp;")
