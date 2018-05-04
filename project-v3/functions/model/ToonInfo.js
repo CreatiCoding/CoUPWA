@@ -29,7 +29,9 @@ const self = {
 				commonUtil
 					.sliceStr(
 						ele,
-						'"if1">\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t',
+						'"if1">\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t' +
+							"\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t" +
+							"\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t",
 						8
 					)
 					.trim()
