@@ -2,9 +2,22 @@ const firestoreService = require("../service/firestoreService");
 const crawlService = require("../service/crawlService");
 const self = {
 	createToonToday: () => {
+		let sort_type = ["ViewCount", "Update", "StarScore", "TitleName"];
+		let promises = [];
+		for (i in sort_type) {
+			promises.push(self.createToonBySortType(sort_type[i]));
+		}
+		return Promise.all(promises).then(result => {
+			let arr = [];
+			for (let i in result) arr = arr.concat(result[i]);
+			return arr;
+		});
+	},
+	createToonBySortType: sort_type => {
+		sort_type = sort_type != undefined ? sort_type : "ViewCount";
 		let resultArr = [];
 		return crawlService
-			.crawlToon()
+			.crawlToon(sort_type)
 			.then(result => {
 				let arr = [];
 
@@ -20,18 +33,13 @@ const self = {
 				}
 				resultArr.push(arr);
 				return arr;
-				// arr.push({
-				// 	key: result[ele],
-				// 	model: ,
-				// 	data: result[ele]
-				// });
 			})
 			.then(result => {
 				return firestoreService.insert(result);
 			})
 			.then(result2 => {
 				if (resultArr[0].length == result2[0].length) {
-					return result2;
+					return result2[0];
 				} else {
 					console.log(resultArr[0].length, result2[0].length);
 					return false;

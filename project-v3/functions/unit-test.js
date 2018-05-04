@@ -390,6 +390,17 @@ const unitTest = {
 			[]
 		);
 	},
+	CreateToonBySortType: () => {
+		return jsTester.assertResult(
+			"CreateToonBySortType",
+			() => {
+				return toonController.createToonBySortType().then(result => {
+					console.log(result);
+				});
+			},
+			[]
+		);
+	},
 	CreateToonToday: () => {
 		return jsTester.assertResult(
 			"CreateToonToday",
