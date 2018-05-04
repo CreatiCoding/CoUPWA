@@ -1,5 +1,6 @@
 const firestoreUtil = require("../util/firestoreUtil");
 const crawlingUtil = require("../util/crawlingUtil");
+const commonUtil = require("../util/commonUtil");
 const self = {
 	createToonInfoToday: () => {
 		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
@@ -14,6 +15,25 @@ const self = {
 			}
 			return arr;
 		});
+	},
+	createDataOfToonInfo: () => {
+		let returnValue = [];
+		let promises = [];
+		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+		for (let i = 0; i < week.length; i++) {
+			promises.push(crawlingUtil.crawlToonInfo(week[i]));
+		}
+		return Promise.all(promises)
+			.then(result => {
+				for (let i in result) {
+					result[i].map((i, ele) => {
+						returnValue.push(ele.toonInfo);
+					});
+				}
+			})
+			.then(() => {
+				return commonUtil.removeDuplicate(returnValue, "toon_info_idx");
+			});
 	},
 	createToonInfoByWeekDay: week => {
 		week = week != undefined ? week : "mon";
