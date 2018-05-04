@@ -100,6 +100,33 @@ const self = {
 					return doc.data();
 				}
 			});
+	},
+	deleteCollection: model => {
+		return db
+			.collection(model)
+			.get()
+			.then(snapshot => {
+				if (snapshot.size == 0) {
+					return 0;
+				}
+
+				// Get a new write batch
+				const batch = [];
+				const result = [];
+				for (let i = 0; i < snapshot.size / 500; i++) {
+					let index = batch.length;
+					batch[index] = db.batch();
+					for (
+						let j = i * 500;
+						j < (i + 1) * 500 && j < snapshot.size;
+						j++
+					) {
+						batch[index].delete(snapshot.docs[j].ref);
+					}
+					result.push(batch[index].commit());
+				}
+				return Promise.all(result);
+			});
 	}
 };
 
