@@ -17,22 +17,22 @@ const self = {
 	},
 	createToonBySortType: sortType => {
 		sortType = sortType != undefined ? sortType : "ViewCount";
-		let resultArr = [];
+		let lastResult;
 		return crawlingUtil
 			.crawlToon(sortType)
 			.then(result => {
 				return firestoreUtil.convertObj2Doc(result);
 			})
 			.then(result2 => {
-				resultArr.push(result2);
+				lastResult = result2;
 				return result2;
 			})
 			.then(result3 => {
 				return firestoreUtil.insert(result3);
 			})
 			.then(result4 => {
-				if (resultArr[0].length == result4[0].length) {
-					return result4[0];
+				if (lastResult.length == result4[0].length) {
+					return lastResult;
 				} else {
 					console.log(resultArr[0].length, result4[0].length);
 					return false;
