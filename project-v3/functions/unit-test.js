@@ -4,11 +4,12 @@ const imageDownloader = require("./service/imageDownloader");
 const BannerImage = require("./model/BannerImage");
 const controllerBannerImage = require("./controller/BannerImage");
 const controllerThumbImage = require("./controller/ThumbImage");
-const toonController = require("./controller/ToonController");
+let toonController = undefined;
 let fs = undefined;
 
 if (process.argv[2] != undefined) {
 	fs = require("./service/firestoreService");
+	toonController = require("./controller/ToonController");
 }
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
