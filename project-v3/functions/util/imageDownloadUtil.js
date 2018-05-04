@@ -42,6 +42,13 @@ const self = {
 				});
 			})
 			.then(result3 => {
+				let result = [];
+				for (let i = 0; i < result3.length; i++)
+					result.push(result3[i]["thumbImage"]);
+
+				result = commonUtil.removeDuplicate(result, "thumb_url");
+				result3 = [];
+				for (let i in result) result3.push({thumbImage: result[i]});
 				return [result3, self.downloadThumbImage];
 			});
 	},
