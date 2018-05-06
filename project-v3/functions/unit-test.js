@@ -1,11 +1,13 @@
-const commonUtil = require("./common-util");
-const crawlService = require("./service/crawlService");
-const imageDownloader = require("./service/imageDownloader");
-const BannerImage = require("./model/BannerImage");
+const ViewService = require("./service/ViewService");
+const commonUtil = require("./util/commonUtil");
+const firestoreUtil = require("./util/firestoreUtil");
+const crawlingUtil = require("./util/crawlingUtil");
+const imageDownloadUtil = require("./util/imageDownloadUtil");
 
-if (process.argv[2] != undefined) {
-	const fs = require("./service/firestoreService");
-}
+const BannerImageService = require("./service/BannerImageService");
+const ThumbImageService = require("./service/ThumbImageService");
+const toonService = require("./service/ToonService");
+const toonInfoService = require("./service/ToonInfoService");
 
 const jsTester = {
 	assertResult: (caller, unitTest, args) => {
@@ -13,18 +15,36 @@ const jsTester = {
 			unitTest(args)
 				.then(result => {
 					if (result === false) {
-						console.log("[failure]:", caller);
+						console.log(
+							"\x1b[1;31m",
+							"\b✘[failure]",
+							"\x1b[0;30m",
+							":",
+							caller
+						);
 						console.trace(result);
 						reject(result);
 						process.exit(1);
 					} else {
-						console.log("[success]:", caller);
+						console.log(
+							"\x1b[1;32m",
+							"\b✔[success]",
+							"\x1b[0;30m",
+							":",
+							caller
+						);
 						// console.log(result);
 						resolve(true);
 					}
 				})
 				.catch(result => {
-					console.log("[failure]:", caller);
+					console.log(
+						"\x1b[1;31m",
+						"\b✘[failure]",
+						"\x1b[0;30m",
+						":",
+						caller
+					);
 					console.trace(result);
 					process.exit(1);
 				});
@@ -50,7 +70,11 @@ const jsTester = {
 				)
 					testList[testList.length] = unitTest[i];
 			} else if (process.argv[2] == 1) {
-				testList[testList.length] = unitTest[i];
+				if (
+					unitTest[i].name != undefined &&
+					!unitTest[i].name.includes("test")
+				)
+					testList[testList.length] = unitTest[i];
 			} else if (process.argv[2] == 2) {
 				if (
 					unitTest[i].name != undefined &&
@@ -116,7 +140,9 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							return result2.length == 198;
+							if (result2.length == 204) return true;
+							console.log(result2.length);
+							return false;
 						});
 				});
 			},
@@ -132,8 +158,8 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlToon",
 			() => {
-				return crawlService.crawlToon("ViewCount").then(result => {
-					return result[0].toon_info_idx == 183559;
+				return crawlingUtil.crawlToon("ViewCount").then(result => {
+					return result[0].toon.toon_info_idx == 183559;
 				});
 			},
 			[]
@@ -147,8 +173,10 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlToonInfo",
 			() => {
-				return crawlService.crawlToonInfo("mon").then(result => {
-					return result.length == 27;
+				return crawlingUtil.crawlToonInfo("mon").then(result => {
+					if (result.length == 28) return true;
+					console.log(result.length);
+					return false;
 				});
 			},
 			[]
@@ -177,7 +205,7 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlBannerImage",
 			args => {
-				return imageDownloader.crawlBannerImage().then(result => {
+				return imageDownloadUtil.crawlBannerImage().then(result => {
 					// console.log(result);
 					return true;
 				});
@@ -190,9 +218,70 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testCrawlThumbImage",
 			() => {
-				return imageDownloader.crawlThumbImage().then(result => {
-					return result.length == 198;
+				return imageDownloadUtil.crawlThumbImage().then(result => {
+					if (result[0].length == 173) return true;
+					console.log(result[0].length);
+					return false;
 				});
+			},
+			[]
+		);
+	},
+	testPromiseSeqOneSec: () => {
+		return jsTester.assertResult(
+			"testPromiseSeqOneSec",
+			args => {
+				return commonUtil.promiseSeqOneSec(args).then(result => {
+					return true;
+				});
+			},
+			[
+				{
+					func: a => {
+						return new Promise(resolve => {
+							resolve(a);
+						});
+					},
+					args: 1
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							resolve(a);
+						});
+					},
+					args: 2
+				},
+				{
+					func: a => {
+						return new Promise(resolve => {
+							resolve(a);
+						});
+					},
+					args: 3
+				}
+			]
+		);
+	},
+	testConvertObj2Doc: () => {
+		return jsTester.assertResult(
+			"testConvertObj2Doc",
+			args => {
+				let result1;
+				return crawlingUtil
+					.crawlToon()
+					.then(result => {
+						result1 = result;
+						return firestoreUtil.convertObjs2Doc(result);
+					})
+					.then(result2 => {
+						if (result1.length == result2.length) {
+							return true;
+						} else {
+							console.log(result1.length, result2.length);
+							return false;
+						}
+					});
 			},
 			[]
 		);
@@ -218,18 +307,15 @@ const unitTest = {
 								{}
 							])
 							.then(() => {
-								return path;
+								return commonUtil
+									.isValidImage([path])
+									.then(result => {
+										return result;
+									});
 							});
 					})
 					.catch(err => {
 						return err;
-					})
-					.then(result3 => {
-						return commonUtil
-							.isValidImage([result3])
-							.then(result => {
-								return result;
-							});
 					});
 			},
 			[
@@ -240,32 +326,14 @@ const unitTest = {
 			]
 		);
 	},
-	DownloadBannerImage: () => {
-		let bannerImage = new BannerImage(
-			"20180427027",
-			"http://imgcomic.naver.net/webtoon/710649/thumbnail/" +
-				"thumbnail_IMAG02_7956ae54-647e-4ff2-9d69-91241c6bdb31.jpg",
-			"710649"
-		);
-		return jsTester.assertResult(
-			"DownloadBannerImage",
-			args => {
-				return imageDownloader.crawlBannerImage().then(result => {
-					return imageDownloader.downloadBannerImage([result[0]]);
-				});
-			},
-			[]
-		);
-	},
-
 	FirestoreInsert: () => {
 		return jsTester.assertResult(
 			"FirestoreInsert",
 			args => {
-				return fs
+				return firestoreUtil
 					.insert(args)
 					.then(() => {
-						return fs.select(args[0].model);
+						return firestoreUtil.selectList(args[0].model);
 					})
 					.then(result => {
 						for (i in result)
@@ -296,17 +364,9 @@ const unitTest = {
 		return jsTester.assertResult(
 			"DownloadBannerImageList",
 			args => {
-				return imageDownloader
-					.crawlBannerImage()
-					.then(result => {
-						return imageDownloader.downloadImageList([
-							result,
-							imageDownloader.downloadBannerImage
-						]);
-					})
-					.then(result2 => {
-						return result2;
-					});
+				return imageDownloadUtil.crawlBannerImage().then(result => {
+					return imageDownloadUtil.downloadImageList(result);
+				});
 			},
 			[]
 		);
@@ -315,59 +375,134 @@ const unitTest = {
 		return jsTester.assertResult(
 			"DownloadThumbImageList",
 			args => {
-				return imageDownloader
+				return imageDownloadUtil
 					.crawlThumbImage()
+					.then(result =>
+						imageDownloadUtil.downloadImageList(result)
+					);
+			},
+			[]
+		);
+	},
+	ProcessBannerImageList: () => {
+		return jsTester.assertResult(
+			"ProcessBannerImageList",
+			() => {
+				return BannerImageService.createBannerImageToday().then(
+					result => {
+						return result;
+					}
+				);
+			},
+			[]
+		);
+	},
+
+	ProcessThumbImageList: () => {
+		return jsTester.assertResult(
+			"ProcessThumbImageList",
+			() => {
+				return ThumbImageService.createThumbImageToday().then(
+					result => {
+						return result;
+					}
+				);
+			},
+			[]
+		);
+	},
+	CreateToonBySortType: () => {
+		return jsTester.assertResult(
+			"CreateToonBySortType",
+			() => {
+				return toonService.createToonBySortType().then(result => {
+					return result;
+				});
+			},
+			[]
+		);
+	},
+	CreateToonToday: () => {
+		return jsTester.assertResult(
+			"CreateToonToday",
+			() => {
+				return toonService.createToonToday();
+			},
+			[]
+		);
+	},
+	zzzzcreateDataOfToonInfo: () => {
+		return jsTester.assertResult(
+			"CreateToonInfoByWeekDay",
+			() => {
+				return toonInfoService.createDataOfToonInfo();
+			},
+			[]
+		);
+	},
+	CreateToonInfoToday: () => {
+		return jsTester.assertResult(
+			"CreateToonInfoToday",
+			() => {
+				return toonInfoService.createToonInfoToday();
+			},
+			[]
+		);
+	},
+	SelectOneToon: () => {
+		return jsTester.assertResult(
+			"SelectOneToon",
+			() => {
+				return crawlingUtil
+					.crawlToon()
 					.then(result => {
-						return imageDownloader.downloadImageList([
-							result,
-							imageDownloader.downloadThumbImage
-						]);
+						return firestoreUtil.convertObjs2Doc(result);
 					})
 					.then(result2 => {
-						console.log(result2);
-						return result2;
+						return firestoreUtil.selectOne(
+							result2[0].model,
+							result2[0].key
+						);
 					});
 			},
 			[]
 		);
 	},
-	testPromiseSeqOneSec: () => {
+	SelectOneToonInfo: () => {
 		return jsTester.assertResult(
-			"testPromiseSeqOneSec",
-			args => {
-				return commonUtil.promiseSeqOneSec(args).then(result => {
-					return true;
-				});
+			"SelectOneToonInfo",
+			() => {
+				return crawlingUtil
+					.crawlToonInfo()
+					.then(result => {
+						return firestoreUtil.convertObjs2Doc(result);
+					})
+					.then(result2 => {
+						return firestoreUtil.selectOne(
+							result2[0].model,
+							result2[0].key
+						);
+					});
 			},
-			[
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 1
-				},
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 2
-				},
-				{
-					func: a => {
-						return new Promise(resolve => {
-							console.log(a);
-							resolve(a);
-						});
-					},
-					args: 3
-				}
-			]
+			[]
+		);
+	},
+	TodayMain: () => {
+		return jsTester.assertResult(
+			"TodayMain",
+			() => {
+				return ViewService.resetMain()
+					.then(() => {
+						return ViewService.todayMain();
+					})
+					.then(result => {
+						return (
+							result[0][0].length == 28 &&
+							result[1][0].length == 1
+						);
+					});
+			},
+			[]
 		);
 	}
 };

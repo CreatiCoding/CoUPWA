@@ -8,8 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "node unit-test.js",
-    "test2": "node test2.js"
+    "test": "node unit-test.js"
   },
   "devDependencies": {
     "eslint": "^4.12.0",

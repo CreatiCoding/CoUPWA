@@ -1,17 +1,10 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const gm = require("gm");
-const properties = require("./properties.json");
+const properties = require("../properties.json");
 const gcloud = require("google-cloud");
-const File = require("./model/File");
-const Image = require("./model/Image");
-
-function sliceString(str, from, end) {
-	return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
-}
-function sliceStr(str, from, size) {
-	return str.substr(str.indexOf(from) + from.length, size);
-}
+const File = require("../model/File");
+const Image = require("../model/Image");
 
 const bucket = gcloud
 	.storage({
@@ -21,6 +14,26 @@ const bucket = gcloud
 	.bucket("react-pwa-webtoon");
 
 const commonUtil = {
+	sliceString: (str, from, end) => {
+		return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
+	},
+	sliceStr: (str, from, size) => {
+		return str.substr(str.indexOf(from) + from.length, size);
+	},
+	strCodePoint: a => {
+		while (a.indexOf("&#x") != -1) {
+			a =
+				a.slice(0, a.indexOf("&#x")) +
+				String.fromCodePoint(
+					parseInt(
+						"0" +
+							a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
+					)
+				) +
+				a.slice(a.indexOf("&#x") + 8);
+		}
+		return a;
+	},
 	/**
 	 * request module
 	 * ex) commonUtil.requestHTML("http://www.naver.com","")
@@ -91,6 +104,7 @@ const commonUtil = {
 				if (!err && res.statusCode == 200) {
 					resolve(res);
 				} else {
+					console.log(err);
 					if (res == undefined) reject(err);
 					else reject([res.statusCode, res.statusMessage]);
 				}
@@ -131,42 +145,9 @@ const commonUtil = {
 							if (err) {
 								reject(err);
 							} else {
-								let image_idx =
-									"" +
-									new Date()
-										.toISOString()
-										.substr(0, 16)
-										.replace(/-/gi, "") +
-									res.req.path.substr(
-										res.req.path.lastIndexOf("/")
-									);
-								let image_type = res.headers["content-type"];
-								let file_idx = image_idx;
-								let image_create_at = new Date();
-								let file_name = res.req.path.substr(
-									res.req.path.lastIndexOf("/") + 1
-								);
-								let file_path = path;
-								let file_url = url;
-								let file_ext = res.headers[
-									"content-type"
-								].slice(
-									res.headers["content-type"].indexOf("/") + 1
-								);
 								resolve({
-									fileModel: new File(
-										file_idx,
-										file_name,
-										file_path,
-										file_url,
-										file_ext
-									),
-									imageModel: new Image(
-										image_idx,
-										image_type,
-										image_create_at,
-										options
-									)
+									file: File.instance(res, path, url).file,
+									image: Image.instance(res, options).image
 								});
 							}
 						}
@@ -185,7 +166,6 @@ const commonUtil = {
 	isValidImage: args => {
 		let path = args.path != undefined ? args.path : args[0];
 		let file = bucket.file(path);
-
 		return new Promise((resolve, reject) => {
 			file.download((err, contents) => {
 				gm(contents).identify((err, data) => {
@@ -222,6 +202,52 @@ const commonUtil = {
 			);
 		}
 		return Promise.all(processPromises);
+	},
+	promiseSeq: promises => {
+		const oneFunc = (fc, args) => {
+			return new Promise(resolve => {
+				resolve(fc(args));
+			});
+		};
+		let current = oneFunc(promises[0].func, promises[0].args);
+		for (let i = 1; i < promises.length; i++) {
+			current = current.then(() => {
+				return oneFunc(promises[1].func, promises[i].args);
+			});
+		}
+		return current;
+	},
+	getDateFormat: format => {
+		const date = new Date();
+		let src = date.toString().split(" ");
+		let time = src[4].split(":");
+		let month = date.getMonth() + 1;
+		const form = {
+			yyyy: src[3],
+			YYYY: src[3],
+			yy: src[3].substr(2, 2),
+			YY: src[3].substr(2, 2),
+			MMM: src[1],
+			MM: parseInt(month / 10) > 0 ? month : "0" + (month + ""),
+			DD: src[2],
+			dd: src[2],
+			EEE: src[0],
+			eee: src[0].toLowerCase(),
+			HH: time[0],
+			hh: parseInt(time[0]) % 12 + "",
+			mm: time[1],
+			SS: time[2],
+			ss: time[2]
+		};
+		for (i in form) {
+			format = format.replace(new RegExp(i, "g"), form[i]);
+		}
+		return format;
+	},
+	removeDuplicate: (arr, key) => {
+		return arr.filter((obj, index) => {
+			return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === index;
+		});
 	}
 };
 
