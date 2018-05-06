@@ -19,7 +19,7 @@ if (process.argv[2] != undefined) {
 }
 
 const self = {
-	convertObj2Doc: obj => {
+	convertObjs2Doc: obj => {
 		let arr = [];
 		for (let i = 0; i < obj.length; i++) {
 			let model = Object.keys(obj[i])[0];
@@ -34,15 +34,6 @@ const self = {
 		return arr;
 	},
 	insert: insertInfo => {
-		//let insertInfo =
-		//	args.insertInfo != undefined ? args.insertInfo : args[0];
-		if (insertInfo.length == 1) {
-			return db
-				.collection(insertInfo[0].model)
-				.doc(insertInfo[0].key)
-				.set(insertInfo[0].data);
-		}
-
 		// Get a new write batch
 		const batch = [];
 		const result = [];
@@ -61,16 +52,7 @@ const self = {
 				);
 			}
 			result.push(batch[index].commit());
-			//console.log(index, batch[index]);
-			//result.push({
-			//	func: () => {
-			//		return batch[index].commit();
-			//	},
-			//	args: undefined
-			//});
 		}
-		// console.log(batch);
-		//return commonUtil.promiseSeq(result);
 		return Promise.all(result);
 	},
 	selectList: model => {
@@ -127,6 +109,12 @@ const self = {
 				}
 				return Promise.all(result);
 			});
+	},
+	reset: docNames => {
+		let promises = [];
+		for (let i in docNames)
+			promises.push(self.deleteCollection(docNames[i]));
+		return Promise.all(promises).then(result => console.log(result));
 	}
 };
 

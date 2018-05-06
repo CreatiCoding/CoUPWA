@@ -225,8 +225,8 @@ const commonUtil = {
 		const form = {
 			yyyy: src[3],
 			YYYY: src[3],
-			yy: src[3].substr(0, 2),
-			YY: src[3].substr(0, 2),
+			yy: src[3].substr(2, 2),
+			YY: src[3].substr(2, 2),
 			MMM: src[1],
 			MM: parseInt(month / 10) > 0 ? month : "0" + (month + ""),
 			DD: src[2],

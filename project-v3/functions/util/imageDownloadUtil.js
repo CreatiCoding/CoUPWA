@@ -24,6 +24,7 @@ const self = {
 				});
 			})
 			.then(result4 => {
+				// result4 = [result4[0], result4[1]];
 				return [result4, self.downloadBannerImage];
 			});
 	},
@@ -49,6 +50,7 @@ const self = {
 				result = commonUtil.removeDuplicate(result, "thumb_url");
 				result3 = [];
 				for (let i in result) result3.push({thumbImage: result[i]});
+				//result3 = [{thumbImage: result[0]}, {thumbImage: result[1]}];
 				return [result3, self.downloadThumbImage];
 			});
 	},

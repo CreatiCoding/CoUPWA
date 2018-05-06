@@ -1,5 +1,4 @@
-const BannerImage = require("./model/BannerImage");
-
+const ViewService = require("./service/ViewService");
 const commonUtil = require("./util/commonUtil");
 const firestoreUtil = require("./util/firestoreUtil");
 const crawlingUtil = require("./util/crawlingUtil");
@@ -141,7 +140,7 @@ const unitTest = {
 					return commonUtil
 						.crawlingHTMLArray([result, args[1]])
 						.then(result2 => {
-							if (result2.length == 203) return true;
+							if (result2.length == 204) return true;
 							console.log(result2.length);
 							return false;
 						});
@@ -220,7 +219,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloadUtil.crawlThumbImage().then(result => {
-					if (result[0].length == 172) return true;
+					if (result[0].length == 173) return true;
 					console.log(result[0].length);
 					return false;
 				});
@@ -273,7 +272,7 @@ const unitTest = {
 					.crawlToon()
 					.then(result => {
 						result1 = result;
-						return firestoreUtil.convertObj2Doc(result);
+						return firestoreUtil.convertObjs2Doc(result);
 					})
 					.then(result2 => {
 						if (result1.length == result2.length) {
@@ -432,11 +431,11 @@ const unitTest = {
 			[]
 		);
 	},
-	CreateToonInfoByWeekDay: () => {
+	zzzzcreateDataOfToonInfo: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoByWeekDay",
 			() => {
-				return toonInfoService.createToonInfoByWeekDay();
+				return toonInfoService.createDataOfToonInfo();
 			},
 			[]
 		);
@@ -457,7 +456,7 @@ const unitTest = {
 				return crawlingUtil
 					.crawlToon()
 					.then(result => {
-						return firestoreUtil.convertObj2Doc(result);
+						return firestoreUtil.convertObjs2Doc(result);
 					})
 					.then(result2 => {
 						return firestoreUtil.selectOne(
@@ -476,12 +475,30 @@ const unitTest = {
 				return crawlingUtil
 					.crawlToonInfo()
 					.then(result => {
-						return firestoreUtil.convertObj2Doc(result);
+						return firestoreUtil.convertObjs2Doc(result);
 					})
 					.then(result2 => {
 						return firestoreUtil.selectOne(
 							result2[0].model,
 							result2[0].key
+						);
+					});
+			},
+			[]
+		);
+	},
+	TodayMain: () => {
+		return jsTester.assertResult(
+			"TodayMain",
+			() => {
+				return ViewService.resetMain()
+					.then(() => {
+						return ViewService.todayMain();
+					})
+					.then(result => {
+						return (
+							result[0][0].length == 28 &&
+							result[1][0].length == 1
 						);
 					});
 			},

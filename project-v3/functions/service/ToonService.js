@@ -21,7 +21,7 @@ const self = {
 		return crawlingUtil
 			.crawlToon(sortType)
 			.then(result => {
-				return firestoreUtil.convertObj2Doc(result);
+				return firestoreUtil.convertObjs2Doc(result);
 			})
 			.then(result2 => {
 				lastResult = result2;

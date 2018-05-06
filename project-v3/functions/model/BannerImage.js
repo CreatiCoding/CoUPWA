@@ -5,8 +5,9 @@ const self = {
 	instance: (ele, i) => {
 		return {
 			bannerImage: new self.Factory(
-				commonUtil.getDateFormat("YYYYMMDD") +
-					(i > 99 ? i : i > 9 ? "0" + i : "00" + i),
+				ele.bigImg[0].slice(
+					ele.bigImg[0].indexOf("/thumbnail/") + "/thumbnail/".length
+				),
 				ele.bigImg[0],
 				commonUtil.sliceString(ele.url[0], "titleId=", "&no=")
 			)
