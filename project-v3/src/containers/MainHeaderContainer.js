@@ -5,6 +5,8 @@ import * as actions from "../actions";
 import $ from "jquery";
 import "../css/MainHeaderContainer.css";
 
+let sortTypes = ["ViewCount", "Update", "StarScore", "TitleName"];
+
 class MainHeaderContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -24,18 +26,32 @@ class MainHeaderContainer extends Component {
 		});
 	}
 	clickLeft() {
-		this.props.handleChangeListType(this.props.curListType - 1);
+		let n;
+		for (let i = 0; i < 4; i++) {
+			if (this.props.currentSortType === sortTypes[i]) {
+				if (i == 0) n = 3;
+				else n = i - 1;
+			}
+		}
+		this.props.handleChangeSortType(sortTypes[n]);
 	}
 	clickRight() {
-		this.props.handleChangeListType(this.props.curListType + 1);
+		let n;
+		for (let i = 0; i < 4; i++) {
+			if (this.props.currentSortType === sortTypes[i]) {
+				if (i == 3) n = 0;
+				else n = i + 1;
+			}
+		}
+		this.props.handleChangeSortType(sortTypes[n]);
 	}
 	clickTypes(n) {
-		this.props.handleChangeListType(n);
+		this.props.handleChangeSortType(sortTypes[n]);
 	}
 	render() {
 		return (
 			<MainHeader
-				curListType={this.props.curListType}
+				currentSortType={this.props.currentSortType}
 				clickLeft={this.clickLeft}
 				clickRight={this.clickRight}
 				clickTypes={n => {
@@ -48,14 +64,14 @@ class MainHeaderContainer extends Component {
 
 const mapStateToPrpos = state => {
 	return {
-		curListType: state.mainHeaderReducer.curListType
+		currentSortType: state.mainHeaderReducer.currentSortType
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		handleChangeListType: curListType => {
-			dispatch(actions.changeListType(curListType));
+		handleChangeSortType: currentSortType => {
+			dispatch(actions.changeSortType(currentSortType));
 		}
 	};
 };

@@ -1,43 +1,35 @@
 import * as types from "../actions/ActionTypes";
-// import Swiper from "swiper";
+import Firebase from "../lib/Firebase";
+import commonUtil from "../lib/commonUtil";
 
 const initialState = {
-	//weekAllToon: [],
-	//curWeekDay: (new Date().getDay() + 6) % 7
-	//contentsSwiper: new Swiper(".main-contents-swiper-container", {
-	//	initialSlide: (new Date().getDay() + 6) % 7
-	//})
+	weekNum: new Date().getDay() === 0 ? 6 : new Date().getDay() - 1
 };
-
-//initialState.contentsSwiper.on("slideChange", function() {
-//$(".main-contents-dow-btn")[initialState.curWeekDay].className = $(
-//	".main-contents-dow-btn"
-//)[initialState.curWeekDay].className.replace("clicked", "unclcked");
-//$(".main-contents-dow-btn")[
-//	initialState.contentsSwiper.activeIndex
-//].className = $(".main-contents-dow-btn")[
-//	initialState.contentsSwiper.activeIndex
-//].className.replace("unclcked", "clicked");
-//initialState.curWeekDay = initialState.contentsSwiper.activeIndex;
-//});
 
 export default function mainContentsReducer(state = initialState, action) {
 	switch (action.type) {
-		//case types.CHANGE_WEEKDAY:
-		//	return {
-		//		...state,
-		//		curWeekDay: action.curWeekDay
-		//	};
-		//case types.INIT_CONTENTS_SWIPER:
-		//	return {
-		//		...state,
-		//		contentsSwiper: action.contentsSwiper
-		//	};
-		//case types.RECEIVE_WEEKALLTOON:
-		//	return {
-		//		...state,
-		//		weekAllToon: action.weekAllToon
-		//	};
+		case types.CHANGE_WEEKNUM:
+			return {
+				...state,
+				weekNum: action.weekNum
+			};
+		// 	state["viewToon_" + action.weekday] = action.value;
+		// 	return state;
+
+		// {
+		// 		...state,
+		// 		viewToon: {
+		// 			...state.viewToon,
+		// 			action['sortType'] : {
+		//
+		// 			}
+		// 		}
+		// 	};
+		// case types.CHANGE_WEEKNUM:
+		// 	return {
+		// 		...state,
+		// 		currentWeekNum: action.currentWeekNum
+		// 	};
 		default:
 			return state;
 	}

@@ -1,15 +1,15 @@
 import * as types from "../actions/ActionTypes";
 
 const initialState = {
-	curListType: 0
+	currentSortType: "ViewCount"
 };
 
 export default function mainHeaderReducer(state = initialState, action) {
 	switch (action.type) {
-		case types.CHANGE_LISTTYPE:
+		case types.CHANGE_SORTTYPE:
 			return {
 				...state,
-				curListType: action.curListType
+				currentSortType: action.currentSortType
 			};
 		default:
 			return state;

@@ -1,38 +1,45 @@
 import * as types from "./ActionTypes";
+import mainContentsAction from "./MainContentsAction";
+import commonUtil from "../lib/commonUtil";
+//
+// export function initViewToon(sortType, weekday, value) {
+// 	return {
+// 		type: types.INIT_VIEWTOON,
+// 		weekday: weekday,
+// 		value: value
+// 	};
+// }
 
-export function changeListType(curListType) {
-	if (curListType < 0) curListType = 0;
-	else if (curListType > 3) curListType = 3;
+export function changeSortType(currentSortType) {
 	return {
-		type: types.CHANGE_LISTTYPE,
-		curListType
-	};
-}
-
-/*
-export function changeWeekDay(curWeekDay) {
-	if (curWeekDay < 0) curWeekDay = 0;
-	else if (curWeekDay > 6) curWeekDay = 6;
-	return {
-		type: types.CHANGE_WEEKDAY,
-		curWeekDay
+		type: types.CHANGE_SORTTYPE,
+		currentSortType: currentSortType
 	};
 }
 
-export function initContentsSlick(callback, n) {
-	let swiper = new Swiper(".main-contents-swiper-container", {
-		initialSlide: (new Date().getDay() + 6) % 7
-	});
-	swiper.on("slideChange", callback);
+export function changeWeekNum(weekNum) {
+	console.log("weekNum", weekNum);
 	return {
-		type: types.INIT_CONTENTS_SWIPER,
-		contentsSwiper: swiper
+		type: types.CHANGE_WEEKNUM,
+		weekNum
 	};
 }
-export function receiveWeekAllToon(weekAllToon) {
-	return {
-		type: types.RECEIVE_WEEKALLTOON,
-		weekAllToon,
-	};
-}
-*/
+//
+// export function dispatchViewToon(args) {
+// 	let weekday = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+// 	if (args === undefined) {
+// 		return function(dispatch) {
+// 			return mainContentsAction.getTodayViewToon().then(result => {
+// 				return dispatch(
+// 					initViewToon(commonUtil.getDateFormat("eee"), result)
+// 				);
+// 			});
+// 		};
+// 	} else {
+// 		return function(dispatch) {
+// 			return mainContentsAction.getViewToon(args[0]).then(result => {
+// 				return dispatch(initViewToon(weekday[args[0]], result));
+// 			});
+// 		};
+// 	}
+// }
