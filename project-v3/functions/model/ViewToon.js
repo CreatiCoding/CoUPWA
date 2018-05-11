@@ -8,8 +8,7 @@ const self = {
 			let thumbImage = thumbImages.filter(
 				ele => toons[i].data.toon_info_idx === ele.data.toon_info_idx
 			);
-			if (thumbImage[0] === undefined) {
-			} else {
+			if (thumbImage[0] !== undefined) {
 				thumbImage = thumbImage[0];
 			}
 			list.push(
