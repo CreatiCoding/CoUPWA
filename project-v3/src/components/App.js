@@ -14,7 +14,7 @@ class App extends Component {
 			<Router>
 				<div className="app">
 					<Route exact path="/" component={MainRoute} />
-					<Route path="/list" component={ListRoute} />
+					<Route path="/list/:toon_info_idx" component={ListRoute} />
 					<Route path="/detail" component={DetailRoute} />
 				</div>
 			</Router>
