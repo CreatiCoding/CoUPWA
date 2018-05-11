@@ -5,7 +5,7 @@
       "storageBucket": "react-pwa-webtoon.appspot.com"
   },
   "index": {
-      "customLoader": "firebase-functions.custom.loader",
+      "customLoader": "./firebase-functions.custom.loader",
       "serviceAccount": "./react-pwa-webtoon-firebase-adminsdk-lzrho-adcfb9cf63.json"
   },
   "url": {

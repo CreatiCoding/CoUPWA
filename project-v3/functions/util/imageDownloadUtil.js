@@ -12,9 +12,13 @@ const self = {
 				properties.url.bannerImageList.referer
 			])
 			.then(result => {
-				return new Promise(resolve => {
-					xmlParser.parseString(result, function(err, result2) {
-						resolve(result2);
+				return new Promise((resolve, reject) => {
+					xmlParser.parseString(result, (err, result2) => {
+						if (err) {
+							reject(err);
+						} else {
+							resolve(result2);
+						}
 					});
 				});
 			})
@@ -56,29 +60,24 @@ const self = {
 	},
 	downloadBannerImage: args => {
 		let bannerImage =
-			args.bannerImage != undefined ? args.bannerImage : args[0];
+			args.bannerImage !== undefined ? args.bannerImage : args[0];
 		return new Promise((resolve, reject) => {
-			commonUtil
+			return commonUtil
 				.requestImage([
 					bannerImage.banner_url,
 					properties.url.bannerImage.referer
 				])
 				.then(result => {
-					return commonUtil
-						.storeImageToBucket([
-							result.body,
-							"/banner/" +
-								result.req.path.substr(
-									result.req.path.lastIndexOf("/") + 1
-								),
-							result.headers["content-type"],
-							result,
-							{}
-						])
-						.then(result2 => {
-							result2.bannerImage = bannerImage;
-							resolve(result2);
-						});
+					return commonUtil.storeImageToBucket([
+						result.body,
+						"/banner/" +
+							result.req.path.substr(
+								result.req.path.lastIndexOf("/") + 1
+							),
+						result.headers["content-type"],
+						result,
+						{}
+					]);
 				})
 				.catch(err => {
 					console.log([
@@ -86,67 +85,74 @@ const self = {
 						properties.url.bannerImage.referer
 					]);
 					reject(err);
+				})
+				.then(result2 => {
+					result2["bannerImage"] = bannerImage;
+					return resolve(result2);
 				});
 		});
 	},
 	downloadThumbImage: args => {
 		let thumbImage =
-			args.thumbImage != undefined ? args.thumbImage : args[0];
+			args.thumbImage !== undefined ? args.thumbImage : args[0];
 		return new Promise((resolve, reject) => {
-			commonUtil
+			return commonUtil
 				.requestImage([
 					thumbImage.thumb_url,
 					properties.url.thumbImage.referer
 				])
 				.then(result => {
-					return commonUtil
-						.storeImageToBucket([
-							result.body,
-							"/thumb/" +
-								result.req.path.substr(
-									result.req.path.lastIndexOf("/") + 1
-								),
-							result.headers["content-type"],
-							result,
-							{
-								toon_info_idx: commonUtil.sliceString(
-									result.req.path,
-									"/webtoon/",
-									"/thumbnail/"
-								)
-							}
-						])
-						.then(result2 => {
-							result2.thumbImage = thumbImage;
-							resolve(result2);
-						});
+					return commonUtil.storeImageToBucket([
+						result.body,
+						"/thumb/" +
+							result.req.path.substr(
+								result.req.path.lastIndexOf("/") + 1
+							),
+						result.headers["content-type"],
+						result,
+						{
+							toon_info_idx: commonUtil.sliceString(
+								result.req.path,
+								"/webtoon/",
+								"/thumbnail/"
+							)
+						}
+					]);
 				})
 				.catch(err => {
 					reject(err);
+				})
+				.then(result2 => {
+					result2["thumbImage"] = thumbImage;
+					return resolve(result2);
 				});
 		});
 	},
 	downloadImageList: args => {
-		let list = args.list != undefined ? args.list : args[0];
-		let func = args.func != undefined ? args.func : args[1];
+		let list = args.list !== undefined ? args.list : args[0];
+		let func = args.func !== undefined ? args.func : args[1];
 		var promises = [];
+		var funcFactory = args => {
+			console.log(
+				"[start ] :\t" + (args.time + 1) + "/" + String(list.length)
+			);
+
+			return new Promise(resolve => {
+				resolve(func([args.data]));
+			}).then(result => {
+				console.log(
+					"[finish] :\t" + (args.time + 1) + "/" + String(list.length)
+				);
+				return result;
+			});
+		};
 		for (let i = 0; i < list.length; i++) {
 			promises.push({
-				func: data => {
-					console.log(
-						"[start ] :\t" + (i + 1) + "/" + list.length + ""
-					);
-
-					return new Promise(resolve => {
-						resolve(func([data]));
-					}).then(result => {
-						console.log(
-							"[finish] :\t" + (i + 1) + "/" + list.length + ""
-						);
-						return result;
-					});
-				},
-				args: list[i][Object.keys(list[i])[0]]
+				func: funcFactory,
+				args: {
+					data: list[i][Object.keys(list[i])[0]],
+					time: i
+				}
 			});
 		}
 		return commonUtil.promiseSeqOneSec(promises);

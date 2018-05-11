@@ -6,15 +6,15 @@ const self = {
 		let list = [];
 		for (let i = 0; i < toons.length; i++) {
 			const thumbImage = thumbImages.filter(
-				ele => toons[i].data.toon_info_idx == ele.data.toon_info_idx
+				ele => toons[i].data.toon_info_idx === ele.data.toon_info_idx
 			)[0];
 			list.push(
 				self.innerInstance(
 					toons[i],
 					toonInfos.filter(
-						ele => toons[i].data.toon_info_idx == ele.key
+						ele => toons[i].data.toon_info_idx === ele.key
 					)[0],
-					files.filter(ele => thumbImage.key == ele.key)[0]
+					files.filter(ele => thumbImage.key === ele.key)[0]
 				)
 			);
 		}

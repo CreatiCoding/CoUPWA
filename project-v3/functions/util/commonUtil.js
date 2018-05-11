@@ -21,7 +21,7 @@ const commonUtil = {
 		return str.substr(str.indexOf(from) + from.length, size);
 	},
 	strCodePoint: a => {
-		while (a.indexOf("&#x") != -1) {
+		while (a.indexOf("&#x") !== -1) {
 			a =
 				a.slice(0, a.indexOf("&#x")) +
 				String.fromCodePoint(
@@ -40,8 +40,8 @@ const commonUtil = {
 	 * 				.then(result=>{console.log(result);});
 	 * */
 	requestHTML: args => {
-		let url = args.url != undefined ? args.url : args[0];
-		let referer = args.referer != undefined ? args.referer : args[1];
+		let url = args.url !== undefined ? args.url : args[0];
+		let referer = args.referer !== undefined ? args.referer : args[1];
 		var options = {
 			url: url,
 			headers: {
@@ -51,7 +51,7 @@ const commonUtil = {
 		};
 		return new Promise((resolve, reject) => {
 			request(options, (err, res, body) => {
-				if (!err && res.statusCode == 200) {
+				if (!err && res.statusCode === 200) {
 					resolve(body);
 				} else {
 					reject(err);
@@ -66,20 +66,20 @@ const commonUtil = {
 	 * 		.then(result=>{console.log(result);});
 	 * */
 	crawlingHTMLArray: args => {
-		let src = args.src != undefined ? args.src : args[0];
-		let selector = args.selector != undefined ? args.selector : args[1];
+		let src = args.src !== undefined ? args.src : args[0];
+		let selector = args.selector !== undefined ? args.selector : args[1];
 		//return
 		return new Promise((resolve, reject) => {
 			let $ = cheerio.load(src);
 			let result = $(selector);
 			//console.log("result");
-			if (result.length == 0) {
+			if (result.length === 0) {
 				//console.log("result.length", result.length);
-				reject(false);
-			} else if (result != undefined) {
+				reject(new Error("result length is zero"));
+			} else if (result !== undefined) {
 				resolve(result.map((i, ele) => cheerio(ele).html()));
 			} else {
-				reject(result);
+				reject(new Error("result is undefined"));
 			}
 		});
 	},
@@ -89,8 +89,8 @@ const commonUtil = {
 	 * @returns {Promise<any>}
 	 */
 	requestImage: args => {
-		let url = args.url != undefined ? args.url : args[0];
-		let referer = args.referer != undefined ? args.referer : args[1];
+		let url = args.url !== undefined ? args.url : args[0];
+		let referer = args.referer !== undefined ? args.referer : args[1];
 		const options = {
 			url: url,
 			headers: {
@@ -101,12 +101,17 @@ const commonUtil = {
 		};
 		return new Promise((resolve, reject) => {
 			request(options, (err, res) => {
-				if (!err && res.statusCode == 200) {
+				if (!err && res.statusCode === 200) {
 					resolve(res);
 				} else {
 					console.log(err);
-					if (res == undefined) reject(err);
-					else reject([res.statusCode, res.statusMessage]);
+					if (res === undefined) reject(err);
+					else
+						reject(
+							new Error(
+								String(res.statusCode) + res.statusMessage
+							)
+						);
 				}
 			});
 		});
@@ -119,11 +124,11 @@ const commonUtil = {
 	 *
 	 */
 	storeImageToBucket: args => {
-		let body = args.body != undefined ? args.body : args[0];
-		let path = args.path != undefined ? args.path : args[1];
-		let type = args.type != undefined ? args.type : args[2];
-		let res = args.res != undefined ? args.res : args[3];
-		let options = args.options != undefined ? args.options : args[4];
+		let body = args.body !== undefined ? args.body : args[0];
+		let path = args.path !== undefined ? args.path : args[1];
+		let type = args.type !== undefined ? args.type : args[2];
+		let res = args.res !== undefined ? args.res : args[3];
+		let options = args.options !== undefined ? args.options : args[4];
 		let file = bucket.file(path);
 		return new Promise((resolve, reject) => {
 			file
@@ -132,16 +137,16 @@ const commonUtil = {
 						contentType: type
 					}
 				})
-				.on("error", function(err) {
+				.on("error", err => {
 					reject(err);
 				})
-				.on("finish", function() {
+				.on("finish", () => {
 					file.getSignedUrl(
 						{
 							action: "read",
 							expires: "31-12-2030"
 						},
-						function(err, url) {
+						(err, url) => {
 							if (err) {
 								reject(err);
 							} else {
@@ -164,17 +169,21 @@ const commonUtil = {
 	 * @returns {Promise<any>}
 	 */
 	isValidImage: args => {
-		let path = args.path != undefined ? args.path : args[0];
+		let path = args.path !== undefined ? args.path : args[0];
 		let file = bucket.file(path);
 		return new Promise((resolve, reject) => {
 			file.download((err, contents) => {
-				gm(contents).identify((err, data) => {
-					if (!err) {
-						resolve(true);
-					} else {
-						reject(err);
-					}
-				});
+				if (err) {
+					reject(err);
+				} else {
+					gm(contents).identify((err, data) => {
+						if (!err) {
+							resolve(true);
+						} else {
+							reject(err);
+						}
+					});
+				}
 			});
 		});
 	},
@@ -191,7 +200,7 @@ const commonUtil = {
 				);
 			});
 		};
-		if (promises == undefined) {
+		if (promises === undefined) {
 			console.log("promises is undefined");
 			return null;
 		}
@@ -228,13 +237,13 @@ const commonUtil = {
 			yy: src[3].substr(2, 2),
 			YY: src[3].substr(2, 2),
 			MMM: src[1],
-			MM: parseInt(month / 10) > 0 ? month : "0" + (month + ""),
+			MM: parseInt(month / 10) > 0 ? month : "0" + String(month),
 			DD: src[2],
 			dd: src[2],
 			EEE: src[0],
 			eee: src[0].toLowerCase(),
 			HH: time[0],
-			hh: parseInt(time[0]) % 12 + "",
+			hh: String(parseInt(time[0]) % 12),
 			mm: time[1],
 			SS: time[2],
 			ss: time[2]

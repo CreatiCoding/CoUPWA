@@ -2,7 +2,7 @@ const admin = require("firebase-admin");
 const properties = require("../properties.json");
 let db;
 
-if (process.argv[2] != undefined) {
+if (process.argv[2] !== undefined) {
 	try {
 		admin.app();
 	} catch (e) {
@@ -77,7 +77,7 @@ const self = {
 			.get()
 			.then(doc => {
 				if (!doc.exists) {
-					throw "No such document!";
+					throw new Error("No such document!");
 				} else {
 					return doc.data();
 				}
@@ -88,7 +88,7 @@ const self = {
 			.collection(model)
 			.get()
 			.then(snapshot => {
-				if (snapshot.size == 0) {
+				if (snapshot.size === 0) {
 					return 0;
 				}
 

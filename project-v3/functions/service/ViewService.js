@@ -45,8 +45,8 @@ const self = {
 		const weekDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 		const toonInfos = param[0];
 		const toons = param[1];
-		const thumbImages = param[2].filter(ele => ele.model == "thumbImage");
-		const files = param[2].filter(ele => ele.model == "file");
+		const thumbImages = param[2].filter(ele => ele.model === "thumbImage");
+		const files = param[2].filter(ele => ele.model === "file");
 
 		for (let s = 0; s < sortTypes.length; s++) {
 			for (let w = 0; w < weekDays.length; w++) {
@@ -54,8 +54,8 @@ const self = {
 					ViewToon.instance(
 						toons.filter(ele => {
 							return (
-								ele.data.toon_sort_type == sortTypes[s] &&
-								ele.data.toon_week_day == weekDays[w]
+								ele.data.toon_sort_type === sortTypes[s] &&
+								ele.data.toon_week_day === weekDays[w]
 							);
 						}),
 						toonInfos,
@@ -69,8 +69,8 @@ const self = {
 		return firestoreUtil.insert(resultArr);
 	},
 	todayBannerImage: param => {
-		const bannerImages = param.filter(ele => ele.model == "bannerImage");
-		const files = param.filter(ele => ele.model == "file");
+		const bannerImages = param.filter(ele => ele.model === "bannerImage");
+		const files = param.filter(ele => ele.model === "file");
 		let result = ViewBannerImage.instance(bannerImages, files);
 		result = firestoreUtil.convertObjs2Doc([result]);
 		return firestoreUtil.insert(result);

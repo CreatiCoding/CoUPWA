@@ -5,7 +5,9 @@ const self = {
 	instance: (bannerImages, files) => {
 		let list = [];
 		for (let i = 0; i < bannerImages.length; i++) {
-			const file = files.filter(ele => ele.key == bannerImages[i].key)[0];
+			const file = files.filter(
+				ele => ele.key === bannerImages[i].key
+			)[0];
 			list.push(self.innerInstance(bannerImages[i], file));
 		}
 		return {
