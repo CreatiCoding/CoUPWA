@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import InfiniteScroll from "react-infinite-scroller";
 import * as actions from "../actions";
 import coupwaFetch from "../lib/coupwaFetch";
+import ListContents from "../components/ListContents";
+import "../css/ListContentsContainer.css";
 
 class ListContentsContainer extends Component {
 	constructor(props) {
@@ -24,25 +26,18 @@ class ListContentsContainer extends Component {
 	componentDidMount() {}
 	render() {
 		const loader = <div className="loader">Loading ...</div>;
-		let items = [];
-		this.state.tracks.map((track, i) => {
-			items.push(
-				<div className="track" key={i}>
-					{track}
-				</div>
-			);
-		});
 
-		let style = {height: "700px", overflow: "auto"};
 		return (
-			<InfiniteScroll
-				pageStart={0}
-				loadMore={this.loadItems.bind(this)}
-				hasMore={true}
-				loader={loader}
-			>
-				<div className="tracks">{items}</div>
-			</InfiniteScroll>
+			<div className="list-contents-container">
+				<InfiniteScroll
+					pageStart={0}
+					loadMore={this.loadItems.bind(this)}
+					hasMore={true}
+					loader={loader}
+				>
+					<ListContents items={this.state.tracks} />
+				</InfiniteScroll>
+			</div>
 		);
 	}
 }

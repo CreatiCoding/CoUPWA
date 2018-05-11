@@ -10,7 +10,7 @@ const MainBannerInfo = ({ele}) => {
 	let isLinkable = true;
 	return (
 		<Link
-			to={ele.banner_image_href}
+			to={ele.banner_image_href + "/testoelloblelo"}
 			onMouseMove={() => {
 				if (isMouseDown) {
 					isLinkable = false;

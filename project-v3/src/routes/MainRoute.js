@@ -13,11 +13,3 @@ const MainRoute = () => {
 	);
 };
 export default MainRoute;
-/*
-			<Wrapper />
-			<MainMenu />
-			<Link to="/list">리스트 페이지</Link>
-			<Link to="/detail">상세 페이지</Link>
-
-			<Wrapper />
-* */

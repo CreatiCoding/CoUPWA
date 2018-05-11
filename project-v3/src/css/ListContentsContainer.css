@@ -1,0 +1,16 @@
+@media all and (max-width: 979px) {
+	.list-contents-container {
+		width:100%;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.list-contents-container {
+		width:980px;
+	}
+}
+
+
+.list-contents-container{
+
+}

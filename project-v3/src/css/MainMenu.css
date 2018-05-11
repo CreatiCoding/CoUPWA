@@ -3,12 +3,18 @@
 		height: 16vw;
 		margin: -16vw 0 0 0;
 	}
+	.main-menu-row{
+		width: 100%;
+	}
 }
 
 @media (min-width: 400px) and (max-width: 800px) {
 	.main-menu {
 		height: 19vw;
 		margin: -19vw 0 0 0;
+	}
+	.main-menu-row{
+		width: 100%;
 	}
 }
 
@@ -17,12 +23,18 @@
 		height: 16vw;
 		margin: -16vw 0 0 0;
 	}
+	.main-menu-row{
+		width: 100%;
+	}
 }
 
 @media all and (min-width: 980px) {
 	.main-menu {
 		height: 160px;
 		margin: -160px 0 0 0;
+	}
+	.main-menu-row{
+		width: 980px;
 	}
 }
 
@@ -79,14 +91,18 @@
 	top: 100%;
 	position: fixed;
 	padding: 0;
-	width: 100%;
 	z-index: 99;
+	text-align: center;
 }
 
 .main-menu-row {
 	margin: 2px 4px 0px 4px;
+	display: inline-flex;
 }
 
 .main-menu-btn-text-contents {
 	font-weight: bold;
+}
+.main-menu-wrapper{
+	background-color: #000000;
 }
