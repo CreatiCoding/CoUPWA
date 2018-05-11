@@ -33,30 +33,97 @@ const self = {
 			});
 	},
 	crawlThumbImage: () => {
-		return commonUtil
-			.requestHTML([
-				properties.url.thumbImageList.value,
-				properties.url.thumbImageList.referer
-			])
+		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+		let promises = [];
+		for (let i = 0; i < 7; i++) {
+			let resultHTML;
+			promises.push(
+				commonUtil
+					.requestHTML([
+						properties.url.thumbImageList.value + week[i],
+						properties.url.thumbImageList.referer
+					])
+					.then(result => {
+						resultHTML = result;
+						if ((result.match(/class="lst/g) || []).length >= 30) {
+							return commonUtil.requestHTML([
+								properties.url.thumbImageList.value +
+									week[i] +
+									"&page=2",
+								properties.url.thumbImageList.referer
+							]);
+						} else {
+							return true;
+						}
+					})
+					.then(result2 => {
+						if (result2 !== true) {
+							let a = commonUtil.sliceString(
+								resultHTML,
+								'class="toon_name"><strong>',
+								"</strong></span>"
+							);
+							let b = commonUtil.sliceString(
+								result2,
+								'class="toon_name"><strong>',
+								"</strong></span>"
+							);
+							if (a === b) {
+								return resultHTML;
+							} else {
+								resultHTML = resultHTML + result2;
+								return resultHTML;
+							}
+						} else {
+							return resultHTML;
+						}
+					})
+					.then(result => {
+						return commonUtil.crawlingHTMLArray([result, ".lst"]);
+					})
+					.then(result2 => {
+						return result2.map((i, ele) => {
+							return ThumbImage.instance(ele, i);
+						});
+					})
+					.then(result3 => {
+						let result = [];
+						for (let i = 0; i < result3.length; i++)
+							result.push(result3[i]["thumbImage"]);
+
+						result = commonUtil.removeDuplicate(
+							result,
+							"thumb_url"
+						);
+						result3 = [];
+						for (let i in result)
+							result3.push({thumbImage: result[i]});
+						//result3 = [{thumbImage: result[0]}, {thumbImage: result[1]}];
+						return result3;
+					})
+			);
+		}
+		return Promise.all(promises)
 			.then(result => {
-				return commonUtil.crawlingHTMLArray([result, ".thumb a"]);
+				let resultArr = [];
+				result.map((ele, i) => {
+					return ele.map((eele, j) => {
+						return resultArr.push(eele.thumbImage);
+					});
+				});
+				resultArr = commonUtil
+					.removeDuplicate(resultArr, "thumb_image_idx")
+					.map(ele => {
+						return {
+							thumbImage: ele
+						};
+					});
+				return resultArr;
 			})
 			.then(result2 => {
-				return result2.map((i, ele) => {
-					return ThumbImage.instance(ele, i);
-				});
-			})
-			.then(result3 => {
-				let result = [];
-				for (let i = 0; i < result3.length; i++)
-					result.push(result3[i]["thumbImage"]);
-
-				result = commonUtil.removeDuplicate(result, "thumb_url");
-				result3 = [];
-				for (let i in result) result3.push({thumbImage: result[i]});
-				//result3 = [{thumbImage: result[0]}, {thumbImage: result[1]}];
-				return [result3, self.downloadThumbImage];
+				return [result2, self.downloadThumbImage];
 			});
+		// return [result3, self.downloadThumbImage];
 	},
 	downloadBannerImage: args => {
 		let bannerImage =

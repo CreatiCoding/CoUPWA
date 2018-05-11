@@ -26,12 +26,18 @@
       "referer": "http://comic.naver.com/index.nhn"
     },
     "thumbImageList": {
-      "value": "http://comic.naver.com/webtoon/weekday.nhn",
+      "value": "http://m.comic.naver.com/webtoon/weekday.nhn?week=",
       "referer": ""
     },
     "thumbImage": {
       "value": "",
       "referer": "http://thumb.comic.naver.net/"
+    },
+    "comment":{
+      "thumbImageList": {
+        "value": "http://comic.naver.com/webtoon/weekday.nhn",
+        "referer": ""
+      }
     }
   }
 }

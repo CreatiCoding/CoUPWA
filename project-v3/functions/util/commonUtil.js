@@ -193,7 +193,7 @@ const commonUtil = {
 					() => {
 						resolve(fc(args));
 					},
-					1000 * sec,
+					200 * sec,
 					{}
 				);
 			});

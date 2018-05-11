@@ -5,15 +5,11 @@ const self = {
 	instance: (ele, i) => {
 		return {
 			thumbImage: new self.Factory(
-				commonUtil.sliceString(ele, "/thumbnail/", '" width="83" hei'),
+				commonUtil.sliceString(ele, "/thumbnail/", '" width="100%"'),
+				commonUtil.sliceString(ele, '<img src="', '" width="100%"'),
 				commonUtil.sliceString(
 					ele,
-					'&apos;" src="',
-					'" width="83" hei'
-				),
-				commonUtil.sliceString(
-					ele,
-					"ic.naver.net/webtoon/",
+					"thumb.comic.naver.net/webtoon/",
 					"/thumbnail/"
 				)
 			)

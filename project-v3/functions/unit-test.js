@@ -369,7 +369,7 @@ const unitTest = {
 			[]
 		);
 	},
-	DownloadThumbImageList: () => {
+	_DownloadThumbImageList: () => {
 		return jsTester.assertResult(
 			"DownloadThumbImageList",
 			args => {
@@ -485,7 +485,7 @@ const unitTest = {
 			[]
 		);
 	},
-	TodayResetAndMain: () => {
+	zzzzTodayResetAndMain: () => {
 		return jsTester.assertResult(
 			"TodayResetAndMain",
 			() => {
@@ -503,7 +503,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzTodayMain: () => {
+	TodayMain: () => {
 		return jsTester.assertResult(
 			"TodayMain",
 			() => {

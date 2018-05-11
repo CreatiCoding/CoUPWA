@@ -5,9 +5,13 @@ const self = {
 	instance: (toons, toonInfos, thumbImages, files) => {
 		let list = [];
 		for (let i = 0; i < toons.length; i++) {
-			const thumbImage = thumbImages.filter(
+			let thumbImage = thumbImages.filter(
 				ele => toons[i].data.toon_info_idx === ele.data.toon_info_idx
-			)[0];
+			);
+			if (thumbImage[0] === undefined) {
+			} else {
+				thumbImage = thumbImage[0];
+			}
 			list.push(
 				self.innerInstance(
 					toons[i],
