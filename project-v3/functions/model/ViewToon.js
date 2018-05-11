@@ -60,7 +60,8 @@ const self = {
 		this.toon_info_author = toon_info_author;
 		this.toon_info_update = toon_info_update;
 		this.toon_info_idx = toon_info_idx;
-		this.image_path = image_path;
+		this.image_path =
+			"https://storage.googleapis.com/react-pwa-webtoon" + image_path;
 		this.image_href = image_href;
 		this.image_alt = image_alt;
 	}

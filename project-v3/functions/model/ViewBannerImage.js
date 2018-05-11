@@ -39,7 +39,9 @@ const self = {
 		banner_image_alt
 	) {
 		this.toon_info_idx = toon_info_idx;
-		this.banner_image_path = banner_image_path;
+		this.banner_image_path =
+			"https://storage.googleapis.com/react-pwa-webtoon" +
+			banner_image_path;
 		this.banner_image_href = banner_image_href;
 		this.banner_image_alt = banner_image_alt;
 	}

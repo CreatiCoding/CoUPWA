@@ -141,23 +141,21 @@ const commonUtil = {
 					reject(err);
 				})
 				.on("finish", () => {
-					file.getSignedUrl(
-						{
-							action: "read",
-							expires: "31-12-2030"
-						},
-						(err, url) => {
-							if (err) {
-								reject(err);
-							} else {
-								resolve({
-									file: File.instance(res, path, url).file,
-									image: Image.instance(res, options).image
-								});
-							}
-						}
-					);
-					// The file upload is complete.
+					let preUrl =
+						"https://storage.googleapis.com/react-pwa-webtoon";
+					let url = preUrl + path;
+					return file
+						.makePublic()
+						.then(() => {
+							return resolve({
+								file: File.instance(res, path, url).file,
+								image: Image.instance(res, options).image
+							});
+						})
+						.catch(e => {
+							console.log("storeImageToBucket:getSignedUrl");
+							reject(e);
+						});
 				})
 				.end(body);
 		});
