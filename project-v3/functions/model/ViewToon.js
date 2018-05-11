@@ -40,7 +40,7 @@ const self = {
 			toonInfo.data.toon_info_update,
 			toonInfo.data.toon_info_idx,
 			file.data.file_path,
-			toonInfo.data.toon_info_idx + "_test_url",
+			"/list/" + toonInfo.data.toon_info_idx,
 			toonInfo.data.toon_info_name + "의 썸네일 이미지"
 		);
 	},
