@@ -2,28 +2,33 @@ import * as types from "./ActionTypes";
 import mainContentsAction from "./MainContentsAction";
 import commonUtil from "../lib/commonUtil";
 //
-// export function initViewToon(sortType, weekday, value) {
-// 	return {
-// 		type: types.INIT_VIEWTOON,
-// 		weekday: weekday,
-// 		value: value
-// 	};
-// }
+export function changeViewBannerImage(viewBannerImage) {
+	return {
+		type: types.CHANGE_VIEWBANNERIMAGE,
+		viewBannerImage
+	};
+}
+export function changeViewToon(viewToon) {
+	return {
+		type: types.CHANGE_VIEWTOON,
+		viewToon
+	};
+}
 
 export function changeSortType(currentSortType) {
 	return {
 		type: types.CHANGE_SORTTYPE,
-		currentSortType: currentSortType
+		currentSortType
 	};
 }
-
-export function changeWeekNum(weekNum) {
-	console.log("weekNum", weekNum);
-	return {
-		type: types.CHANGE_WEEKNUM,
-		weekNum
-	};
-}
+//
+// export function changeWeekNum(weekNum) {
+// 	console.log("weekNum", weekNum);
+// 	return {
+// 		type: types.CHANGE_WEEKNUM,
+// 		weekNum
+// 	};
+// }
 //
 // export function dispatchViewToon(args) {
 // 	let weekday = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];

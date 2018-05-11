@@ -5,8 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "../css/MainContents.css";
 
 const MainContents = ({
-	viewToon,
-	changeWeekNum
+	viewToon
+	// changeWeekNum
 	//sortType /*, currentWeekNum, changeWeekNum*/
 }) => {
 	let initSlide = new Date().getDay() == 0 ? 6 : new Date().getDay() - 1;

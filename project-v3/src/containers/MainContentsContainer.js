@@ -2,62 +2,19 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as actions from "../actions";
 import MainContents from "../components/MainContents";
-import Firebase from "../lib/Firebase";
-import commonUtil from "../lib/commonUtil";
+import coupwaFetch from "../lib/coupwaFetch";
 
 class MainContentsContainer extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			viewToon: []
-		};
 	}
 	componentDidMount() {
-		let self = this;
-
-		let week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-		let promises = week.map((ele, i) => {
-			let key =
-				commonUtil.getDateFormat("YYMMDD") +
-				"_" +
-				"ViewCount" +
-				"_" +
-				ele;
-			return Firebase.selectDoc("viewToon", key).then(result => {
-				return result.view_toon_list;
-			});
-		});
-		Promise.all(promises).then(result => {
-			console.log(result);
-			self.setState({
-				viewToon: result
-			});
-		});
-		// Firebase.selectDoc("viewToon", key).then(result => {
-		// 	console.log(result);
-		// 	self.setState({
-		// 		viewToon: result.view_toon_list
-		// 	});
-		// });
-
-		// this.props.handleInitViewToon();
+		coupwaFetch.fetchViewToon("ViewCount", this.props.handleChangeViewToon);
 	}
-
-	changeWeekNum(weekNum) {
-		this.props.handleChangeWeekNum(weekNum);
-	}
-
 	render() {
 		return (
 			<div>
-				<MainContents
-					viewToon={this.state.viewToon}
-					// sortType={this.props.sortType}
-					// currentWeekNum={this.props.currentWeekNum}
-					changeWeekNum={n => {
-						this.changeWeekNum(n);
-					}}
-				/>
+				<MainContents viewToon={this.props.viewToon} />
 			</div>
 		);
 	}
@@ -65,19 +22,15 @@ class MainContentsContainer extends Component {
 
 const mapStateToPrpos = state => {
 	return {
-		weekNum: state.mainContentsReducer.weekNum
-		// currentWeekNum: state.mainContentsReducer.currentWeekNum
+		viewToon: state.mainContentsReducer.viewToon
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		handleChangeWeekNum: weekNum => {
-			dispatch(actions.changeWeekNum(weekNum));
+		handleChangeViewToon: viewToon => {
+			dispatch(actions.changeViewToon(viewToon));
 		}
-		// handleChangeCurrentWeekNum: nextWeekNum => {
-		// 	dispatch(actions.changeWeekNum(nextWeekNum));
-		// }
 	};
 };
 export default connect(mapStateToPrpos, mapDispatchToProps)(

@@ -3,15 +3,15 @@ import Firebase from "../lib/Firebase";
 import commonUtil from "../lib/commonUtil";
 
 const initialState = {
-	viewToon: []
+	viewBannerImage: []
 };
 
-export default function mainContentsReducer(state = initialState, action) {
+export default function mainBannerReducer(state = initialState, action) {
 	switch (action.type) {
-		case types.CHANGE_VIEWTOON:
+		case types.CHANGE_VIEWBANNERIMAGE:
 			return {
 				...state,
-				viewToon: action.viewToon
+				viewBannerImage: action.viewBannerImage
 			};
 		// 	state["viewToon_" + action.weekday] = action.value;
 		// 	return state;

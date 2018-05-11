@@ -1,22 +1,36 @@
 import React, {Component} from "react";
-import MainBanner from "../components/MainBanner";
 import {connect} from "react-redux";
+import * as actions from "../actions";
+import MainBanner from "../components/MainBanner";
+import coupwaFetch from "../lib/coupwaFetch";
 
 class MainBannerContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
+	componentDidMount() {
+		coupwaFetch.fetchViewBannerImage(
+			this.props.handleChangeViewBannerImage
+		);
+	}
 	render() {
-		const bannerList = [
-			"/bannerImage?num=0",
-			"/bannerImage?num=1",
-			"/bannerImage?num=2",
-			"/bannerImage?num=3",
-			"/bannerImage?num=4",
-			"/bannerImage?num=5"
-		];
-		return <MainBanner bannerList={bannerList} />;
+		return <MainBanner viewBannerImage={this.props.viewBannerImage} />;
 	}
 }
 
-export default MainBannerContainer;
+const mapStateToPrpos = state => {
+	return {
+		viewBannerImage: state.mainBannerReducer.viewBannerImage
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		handleChangeViewBannerImage: viewBannerImage => {
+			dispatch(actions.changeViewBannerImage(viewBannerImage));
+		}
+	};
+};
+export default connect(mapStateToPrpos, mapDispatchToProps)(
+	MainBannerContainer
+);

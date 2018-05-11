@@ -4,27 +4,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/MainBanner.css";
 
-const MainBannerInfo = ({src, alt}) => {
-	const errfunc = e => {
-		e.target.src = "/images/banner_naver.png";
-	};
+const MainBannerInfo = ({ele}) => {
 	return (
 		<div className="main-banner-swiper-slide">
 			<img
 				className="main-banner-img"
-				onError={errfunc}
-				src={src}
-				alt={alt}
+				onError={e => {
+					e.target.src = "/images/banner_naver.png";
+				}}
+				src={ele.banner_image_path}
 			/>
 		</div>
 	);
 };
-const MainBanner = ({bannerList}) => {
+const MainBanner = ({
+	viewBannerImage
+	//,some
+}) => {
 	const mapToMainBannerInfo = data => {
-		return data.map((src, i, arr) => {
-			return (
-				<MainBannerInfo src={src} key={i} alt={"banner-image-" + i} />
-			);
+		return data.map((ele, i, arr) => {
+			return <MainBannerInfo key={i} ele={ele} />;
 		});
 	};
 	let settings = {
@@ -37,10 +36,11 @@ const MainBanner = ({bannerList}) => {
 		arrows: false,
 		dotsClass: "main-banner-slick-dots slick-dots"
 	};
-
 	return (
 		<div className="main-banner-swiper-container">
-			<Slider {...settings}>{mapToMainBannerInfo(bannerList)}</Slider>
+			<Slider {...settings}>
+				{mapToMainBannerInfo(viewBannerImage)}
+			</Slider>
 		</div>
 	);
 };

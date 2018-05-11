@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as actions from "../actions";
 import $ from "jquery";
 import "../css/MainHeaderContainer.css";
+import coupwaFetch from "../lib/coupwaFetch";
 
 let sortTypes = ["ViewCount", "Update", "StarScore", "TitleName"];
 
@@ -69,11 +70,19 @@ const mapStateToPrpos = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-	return {
+	let self = {
 		handleChangeSortType: currentSortType => {
+			coupwaFetch.fetchViewToon(
+				currentSortType,
+				self.handleChangeViewToon
+			);
 			dispatch(actions.changeSortType(currentSortType));
+		},
+		handleChangeViewToon: viewToon => {
+			dispatch(actions.changeViewToon(viewToon));
 		}
 	};
+	return self;
 };
 
 export default connect(mapStateToPrpos, mapDispatchToProps)(
