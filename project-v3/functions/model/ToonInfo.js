@@ -25,7 +25,7 @@ const self = {
 						'</span>\n\t\t\t\t\t\t\t\t\t<span class="if1'
 					)
 					.trim(),
-				ele.indexOf("badge badge_up") != -1,
+				ele.indexOf("badge badge_up") !== -1,
 				commonUtil
 					.sliceStr(
 						ele,
@@ -46,6 +46,7 @@ const self = {
 		toon_info_update,
 		toon_info_update_at
 	) {
+		// console.log(toon_info_update_at);
 		this.toon_info_idx = toon_info_idx;
 		this.toon_info_name = toon_info_name;
 		this.toon_info_author = toon_info_author;

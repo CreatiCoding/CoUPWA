@@ -5,16 +5,20 @@ const self = {
 	instance: (toons, toonInfos, thumbImages, files) => {
 		let list = [];
 		for (let i = 0; i < toons.length; i++) {
-			const thumbImage = thumbImages.filter(
-				ele => toons[i].data.toon_info_idx == ele.data.toon_info_idx
-			)[0];
+			let thumbImage = thumbImages.filter(
+				ele => toons[i].data.toon_info_idx === ele.data.toon_info_idx
+			);
+			if (thumbImage[0] === undefined) {
+			} else {
+				thumbImage = thumbImage[0];
+			}
 			list.push(
 				self.innerInstance(
 					toons[i],
 					toonInfos.filter(
-						ele => toons[i].data.toon_info_idx == ele.key
+						ele => toons[i].data.toon_info_idx === ele.key
 					)[0],
-					files.filter(ele => thumbImage.key == ele.key)[0]
+					files.filter(ele => thumbImage.key === ele.key)[0]
 				)
 			);
 		}
@@ -60,7 +64,8 @@ const self = {
 		this.toon_info_author = toon_info_author;
 		this.toon_info_update = toon_info_update;
 		this.toon_info_idx = toon_info_idx;
-		this.image_path = image_path;
+		this.image_path =
+			"https://storage.googleapis.com/react-pwa-webtoon" + image_path;
 		this.image_href = image_href;
 		this.image_alt = image_alt;
 	}

@@ -13,11 +13,12 @@ const self = {
 			.then(result => {
 				for (let i in result) {
 					result[i].map((i, ele) => {
-						returnValue.push(ele.toonInfo);
+						return returnValue.push(ele.toonInfo);
 					});
 				}
+				return returnValue;
 			})
-			.then(() => {
+			.then(returnValue => {
 				return commonUtil.removeDuplicate(returnValue, "toon_info_idx");
 			})
 			.then(result => {
@@ -41,7 +42,7 @@ const self = {
 				return firestoreUtil.insert(result3);
 			})
 			.then(result4 => {
-				if (lastResult.length == result4[0].length) {
+				if (lastResult.length === result4[0].length) {
 					return lastResult;
 				} else {
 					console.log(lastResult.length, result4[0].length);

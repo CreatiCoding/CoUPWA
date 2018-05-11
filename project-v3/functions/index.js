@@ -4,12 +4,13 @@ const properties = require("./properties.json");
 const customLoader = require(properties.index.customLoader);
 const serviceAccount = require(properties.index.serviceAccount);
 
-admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
-	databaseURL: properties.admin.databaseURL,
-	storageBucket: properties.admin.storageBucket
-});
-
+if (!admin.apps.length) {
+	admin.initializeApp({
+		credential: admin.credential.cert(serviceAccount),
+		databaseURL: properties.admin.databaseURL,
+		storageBucket: properties.admin.storageBucket
+	});
+}
 for (var i in customLoader) {
 	exports[i] = customLoader[i];
 }

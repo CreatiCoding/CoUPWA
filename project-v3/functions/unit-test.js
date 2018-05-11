@@ -25,6 +25,7 @@ const jsTester = {
 						console.trace(result);
 						reject(result);
 						process.exit(1);
+						return false;
 					} else {
 						console.log(
 							"\x1b[1;32m",
@@ -34,7 +35,7 @@ const jsTester = {
 							caller
 						);
 						// console.log(result);
-						resolve(true);
+						return resolve(true);
 					}
 				})
 				.catch(result => {
@@ -63,21 +64,21 @@ const jsTester = {
 		let testList = [];
 
 		for (var i in unitTest) {
-			if (process.argv[2] == undefined) {
+			if (process.argv[2] === undefined) {
 				if (
-					unitTest[i].name != undefined &&
+					unitTest[i].name !== undefined &&
 					unitTest[i].name.includes("test")
 				)
 					testList[testList.length] = unitTest[i];
-			} else if (process.argv[2] == 1) {
+			} else if (process.argv[2] === "1") {
 				if (
-					unitTest[i].name != undefined &&
+					unitTest[i].name !== undefined &&
 					!unitTest[i].name.includes("test")
 				)
 					testList[testList.length] = unitTest[i];
-			} else if (process.argv[2] == 2) {
+			} else if (process.argv[2] === "2") {
 				if (
-					unitTest[i].name != undefined &&
+					unitTest[i].name !== undefined &&
 					unitTest[i].name.includes("zzzz")
 				)
 					testList[testList.length] = unitTest[i];
@@ -136,15 +137,16 @@ const unitTest = {
 		return jsTester.assertResult(
 			"testNaverWebtoon",
 			args => {
-				return commonUtil.requestHTML([args[0], ""]).then(result => {
-					return commonUtil
-						.crawlingHTMLArray([result, args[1]])
-						.then(result2 => {
-							if (result2.length == 204) return true;
-							console.log(result2.length);
-							return false;
-						});
-				});
+				return commonUtil
+					.requestHTML([args[0], ""])
+					.then(result => {
+						return commonUtil.crawlingHTMLArray([result, args[1]]);
+					})
+					.then(result2 => {
+						if (result2.length > 180) return true;
+						console.log(result2.length);
+						return false;
+					});
 			},
 			["http://comic.naver.com/webtoon/weekday.nhn", ".title"]
 		);
@@ -159,7 +161,7 @@ const unitTest = {
 			"testCrawlToon",
 			() => {
 				return crawlingUtil.crawlToon("ViewCount").then(result => {
-					return result[0].toon.toon_info_idx == 183559;
+					return result[0].toon.toon_info_idx !== undefined;
 				});
 			},
 			[]
@@ -174,7 +176,7 @@ const unitTest = {
 			"testCrawlToonInfo",
 			() => {
 				return crawlingUtil.crawlToonInfo("mon").then(result => {
-					if (result.length == 28) return true;
+					if (result.length >= 20) return true;
 					console.log(result.length);
 					return false;
 				});
@@ -219,7 +221,7 @@ const unitTest = {
 			"testCrawlThumbImage",
 			() => {
 				return imageDownloadUtil.crawlThumbImage().then(result => {
-					if (result[0].length == 173) return true;
+					if (result[0].length >= 170) return true;
 					console.log(result[0].length);
 					return false;
 				});
@@ -275,7 +277,7 @@ const unitTest = {
 						return firestoreUtil.convertObjs2Doc(result);
 					})
 					.then(result2 => {
-						if (result1.length == result2.length) {
+						if (result1.length === result2.length) {
 							return true;
 						} else {
 							console.log(result1.length, result2.length);
@@ -290,32 +292,28 @@ const unitTest = {
 		return jsTester.assertResult(
 			"StoreImageToBucket",
 			args => {
+				let path;
 				return commonUtil
 					.requestImage([args[0], args[1]])
 					.then(result => {
-						let path =
+						path =
 							args[2] +
 							result.req.path.substr(
 								result.req.path.lastIndexOf("/") + 1
 							);
-						return commonUtil
-							.storeImageToBucket([
-								result.body,
-								path,
-								result.headers["content-type"],
-								result,
-								{}
-							])
-							.then(() => {
-								return commonUtil
-									.isValidImage([path])
-									.then(result => {
-										return result;
-									});
-							});
+						return commonUtil.storeImageToBucket([
+							result.body,
+							path,
+							result.headers["content-type"],
+							result,
+							{}
+						]);
 					})
 					.catch(err => {
 						return err;
+					})
+					.then(() => {
+						return commonUtil.isValidImage([path]);
 					});
 			},
 			[
@@ -337,7 +335,7 @@ const unitTest = {
 					})
 					.then(result => {
 						for (i in result)
-							if (result[i].value != 10 && result.length != 2)
+							if (result[i].value !== 10 && result.length !== 2)
 								return false;
 						return true;
 					});
@@ -371,7 +369,7 @@ const unitTest = {
 			[]
 		);
 	},
-	DownloadThumbImageList: () => {
+	_DownloadThumbImageList: () => {
 		return jsTester.assertResult(
 			"DownloadThumbImageList",
 			args => {
@@ -431,7 +429,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzcreateDataOfToonInfo: () => {
+	CreateDataOfToonInfo: () => {
 		return jsTester.assertResult(
 			"CreateToonInfoByWeekDay",
 			() => {
@@ -487,9 +485,9 @@ const unitTest = {
 			[]
 		);
 	},
-	TodayMain: () => {
+	zzzzTodayResetAndMain: () => {
 		return jsTester.assertResult(
-			"TodayMain",
+			"TodayResetAndMain",
 			() => {
 				return ViewService.resetMain()
 					.then(() => {
@@ -497,10 +495,23 @@ const unitTest = {
 					})
 					.then(result => {
 						return (
-							result[0][0].length == 28 &&
-							result[1][0].length == 1
+							result[0][0].length === 28 &&
+							result[1][0].length === 1
 						);
 					});
+			},
+			[]
+		);
+	},
+	TodayMain: () => {
+		return jsTester.assertResult(
+			"TodayMain",
+			() => {
+				return ViewService.todayMain().then(result => {
+					return (
+						result[0][0].length === 28 && result[1][0].length === 1
+					);
+				});
 			},
 			[]
 		);

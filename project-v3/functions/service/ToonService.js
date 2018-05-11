@@ -16,7 +16,7 @@ const self = {
 		});
 	},
 	createToonBySortType: sortType => {
-		sortType = sortType != undefined ? sortType : "ViewCount";
+		sortType = sortType !== undefined ? sortType : "ViewCount";
 		let lastResult;
 		return crawlingUtil
 			.crawlToon(sortType)
@@ -31,7 +31,7 @@ const self = {
 				return firestoreUtil.insert(result3);
 			})
 			.then(result4 => {
-				if (lastResult.length == result4[0].length) {
+				if (lastResult.length === result4[0].length) {
 					return lastResult;
 				} else {
 					console.log(resultArr[0].length, result4[0].length);

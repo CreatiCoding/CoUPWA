@@ -5,7 +5,9 @@ const self = {
 	instance: (bannerImages, files) => {
 		let list = [];
 		for (let i = 0; i < bannerImages.length; i++) {
-			const file = files.filter(ele => ele.key == bannerImages[i].key)[0];
+			const file = files.filter(
+				ele => ele.key === bannerImages[i].key
+			)[0];
 			list.push(self.innerInstance(bannerImages[i], file));
 		}
 		return {
@@ -37,7 +39,9 @@ const self = {
 		banner_image_alt
 	) {
 		this.toon_info_idx = toon_info_idx;
-		this.banner_image_path = banner_image_path;
+		this.banner_image_path =
+			"https://storage.googleapis.com/react-pwa-webtoon" +
+			banner_image_path;
 		this.banner_image_href = banner_image_href;
 		this.banner_image_alt = banner_image_alt;
 	}
