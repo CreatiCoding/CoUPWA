@@ -21,7 +21,7 @@ const self = {
 		return new self.innerFactory(
 			bannerImage.data.toon_info_idx,
 			file.data.file_path,
-			bannerImage.data.toon_info_idx + "_test_url",
+			"/list/" + bannerImage.data.toon_info_idx,
 			bannerImage.data.toon_info_idx + "의 배너 이미지"
 		);
 	},
