@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.13.1",
+    "firebase-admin": "^5.12.0",
+    "firebase-functions": "^1.0.2",
     "jquery": "^3.3.1",
     "react": "^16.3.0",
     "react-bootstrap": "^0.32.1",
@@ -18,8 +21,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && sw-precache --config=sw-precache-config.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "sw-precache": "^5.2.1",
+    "sw-precache-webpack-plugin": "^0.11.5"
   }
 }
