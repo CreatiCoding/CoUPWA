@@ -1,31 +1,38 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-// import * as actions from "../actions";
+import * as actions from "../actions";
 import MainContents from "../components/MainContents";
+import coupwaFetch from "../lib/coupwaFetch";
 
 class MainContentsContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
-	componentDidMount() {}
-
+	componentDidMount() {
+		coupwaFetch.fetchViewToon("ViewCount", this.props.handleChangeViewToon);
+	}
 	render() {
 		return (
 			<div>
-				<MainContents />
+				<MainContents viewToon={this.props.viewToon} />
 			</div>
 		);
 	}
 }
 
 const mapStateToPrpos = state => {
-	return {};
+	return {
+		viewToon: state.mainContentsReducer.viewToon
+	};
 };
 
 const mapDispatchToProps = dispatch => {
-	return {};
+	return {
+		handleChangeViewToon: viewToon => {
+			dispatch(actions.changeViewToon(viewToon));
+		}
+	};
 };
-
 export default connect(mapStateToPrpos, mapDispatchToProps)(
 	MainContentsContainer
 );

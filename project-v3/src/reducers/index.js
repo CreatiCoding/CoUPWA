@@ -1,10 +1,12 @@
 import {combineReducers} from "redux";
 import mainHeaderReducer from "./mainHeaderReducer";
 import mainContentsReducer from "./mainContentsReducer";
+import mainBannerReducer from "./mainBannerReducer";
 
 const reducers = combineReducers({
 	mainHeaderReducer,
-	mainContentsReducer
+	mainContentsReducer,
+	mainBannerReducer
 	//, reducer2
 });
 
