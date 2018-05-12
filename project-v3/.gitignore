@@ -25,3 +25,4 @@ yarn-error.log*
 
 # custom
 package-lock.json
+service-worker.js
