@@ -5,6 +5,7 @@ const customLoader = require(properties.index.customLoader);
 const serviceAccount = require(properties.index.serviceAccount);
 const crawlingUtil = require("./util/crawlingUtil");
 const commonUtil = require("./util/commonUtil");
+const request = require("request");
 
 if (!admin.apps.length) {
 	admin.initializeApp({
@@ -16,20 +17,26 @@ if (!admin.apps.length) {
 for (var i in customLoader) {
 	exports[i] = customLoader[i];
 }
-exports.images = functions.https.onRequest((request, response) => {
+
+/**
+ * imagePipe
+ * @paramter	url, referer
+ * referer로 이미지(url)요청해 받습니다.
+ */
+exports.images = functions.https.onRequest((req, res) => {
 	const url =
-		request.body.url === undefined
-			? request.query.url === undefined ? 0 : request.query.url
-			: request.body.url;
-	crawlingUtil
-		.requestImageCache(url)
-		.then(r => {
-			response.end(r);
-			return true;
-		})
-		.catch(err => {
-			response.json({Err: err});
-		});
+		req.body.url === undefined
+			? req.query.url === undefined ? "" : req.query.url
+			: req.body.url;
+	const options = {
+		headers: {
+			Referer: properties.url.toonDetail.referer,
+			"User-Agent": properties.userAgent
+		},
+		url: url,
+		encoding: null
+	};
+	return request(options).pipe(res);
 });
 
 exports.toonDetail = functions.https.onRequest((request, response) => {

@@ -4,8 +4,6 @@ const commonUtil = require("./commonUtil");
 const properties = require("../properties");
 const ToonList = require("../model/ToonList");
 
-const requestCache = require("request-promise-cache");
-
 const self = {
 	/**
 	 * crawlToon
@@ -177,25 +175,6 @@ const self = {
 			.then(exceptNotFree)
 			.then(() => {
 				return ToonList.instance(toon_info_idx, first_page, resultList);
-			});
-	},
-	requestImageCache: url => {
-		return requestCache({
-			headers: {
-				Referer: properties.url.toonDetail.referer,
-				"user-agent": properties.userAgent
-			},
-			url: url,
-			cacheKey: url,
-			cacheTTL: 300000,
-			cacheLimit: 300000,
-			encoding: null
-		})
-			.then(ret => {
-				return ret.body; // {body: body, response: response, error: error}
-			})
-			.catch(ret => {
-				console.error(ret); // {response: response, error: error}
 			});
 	}
 };

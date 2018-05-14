@@ -34,7 +34,6 @@
     "jquery": "^3.3.1",
     "path": "^0.12.7",
     "request": "^2.83.0",
-    "request-promise-cache": "^1.1.1",
     "tinify": "^1.5.0",
     "url": "^0.11.0",
     "xml2js": "^0.4.19"
