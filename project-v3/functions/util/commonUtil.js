@@ -271,7 +271,7 @@ const commonUtil = {
 	},
 	justHtmlText: html => {
 		let i = 0;
-		while (i != html.length) {
+		while (i !== html.length) {
 			if (html[i] === "<") {
 				let j = i;
 				while (html[i] !== ">") i++;

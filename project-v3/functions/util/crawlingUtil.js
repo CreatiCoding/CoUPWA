@@ -4,6 +4,8 @@ const commonUtil = require("./commonUtil");
 const properties = require("../properties");
 const ToonList = require("../model/ToonList");
 
+const requestCache = require("request-promise-cache");
+
 const self = {
 	/**
 	 * crawlToon
@@ -105,12 +107,12 @@ const self = {
 		};
 
 		let htmlToArray = (result, selector) => {
-			if (result.indexOf("연령 확인") != -1)
+			if (result.indexOf("연령 확인") !== -1)
 				return Promise.resolve().then(() => []);
 			return commonUtil
 				.crawlingHTMLArray([result, selector])
 				.catch(err => {
-					console.log(toon_info_idx, "@@@@@@@@");
+					console.log(toon_info_idx, "@@@@@@@@", err);
 				});
 		};
 
@@ -120,14 +122,14 @@ const self = {
 		};
 
 		let getFirstToonName = r => {
-			htmlToArray(r, ".lst .toon_name").then(r => {
-				if (r.length == 0) return "19금 웹툰";
+			return htmlToArray(r, ".lst .toon_name").then(r => {
+				if (r.length === 0) return "19금 웹툰";
 				return r[0];
 			});
 		};
 
 		let checkEndPoint = r => {
-			if (preName == r) {
+			if (preName === r) {
 				htmlCode.pop();
 				nextPage--;
 				return false;
@@ -144,7 +146,7 @@ const self = {
 				.then(r => checkEndPoint(r))
 				.then(isContinue => {
 					if (isContinue) return resolver();
-					else return;
+					else return false;
 				});
 		};
 
@@ -157,6 +159,7 @@ const self = {
 							let htmlData = commonUtil.strCodePoint(r[j].trim());
 							resultList.push(htmlData);
 						}
+						return r;
 					})
 				);
 			}
@@ -165,7 +168,7 @@ const self = {
 
 		let exceptNotFree = () => {
 			resultList = resultList.filter(
-				ele => ele.indexOf('class="blind">') == -1
+				ele => ele.indexOf('class="blind">') === -1
 			);
 		};
 		return Promise.resolve()
@@ -174,6 +177,25 @@ const self = {
 			.then(exceptNotFree)
 			.then(() => {
 				return ToonList.instance(toon_info_idx, first_page, resultList);
+			});
+	},
+	requestImageCache: url => {
+		return requestCache({
+			headers: {
+				Referer: properties.url.toonDetail.referer,
+				"user-agent": properties.userAgent
+			},
+			url: url,
+			cacheKey: url,
+			cacheTTL: 300000,
+			cacheLimit: 300000,
+			encoding: null
+		})
+			.then(ret => {
+				return ret.body; // {body: body, response: response, error: error}
+			})
+			.catch(ret => {
+				console.error(ret); // {response: response, error: error}
 			});
 	}
 };
