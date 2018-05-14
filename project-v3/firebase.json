@@ -21,11 +21,11 @@
     "rewrites":[
       {
         "source": "/fc/images",
-        "functions": "images"
+        "function": "images"
       },
       {
         "source": "/fc/toonDetail",
-        "functions": "toonDetail"
+        "function": "toonDetail"
       }
     ]
   },
