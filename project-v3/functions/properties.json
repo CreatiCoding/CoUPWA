@@ -37,6 +37,10 @@
       "value":"http://m.comic.naver.com/webtoon/list.nhn?titleId=",
       "referer":""
     },
+    "toonDetail":{
+      "value":"http://comic.naver.com/webtoon/detail.nhn?titleId=",
+      "referer":"http://comic.naver.com/webtoon/detail.nhn"
+    },
     "comment":{
       "thumbImageList": {
         "value": "http://comic.naver.com/webtoon/weekday.nhn",
