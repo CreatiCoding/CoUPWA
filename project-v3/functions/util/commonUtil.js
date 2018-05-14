@@ -75,6 +75,8 @@ const commonUtil = {
 			//console.log("result");
 			if (result.length === 0) {
 				//console.log("result.length", result.length);
+				console.log("src", args.src);
+				console.log("selector", args.selector);
 				reject(new Error("result length is zero"));
 			} else if (result !== undefined) {
 				resolve(result.map((i, ele) => cheerio(ele).html()));
@@ -191,6 +193,7 @@ const commonUtil = {
 			return new Promise(resolve => {
 				setTimeout(
 					() => {
+						console.log(sec + " second(s) passed");
 						resolve(fc(args));
 					},
 					200 * sec,
@@ -255,6 +258,31 @@ const commonUtil = {
 		return arr.filter((obj, index) => {
 			return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === index;
 		});
+	},
+	convert2Dto1D: arr => {
+		let result = [];
+		for (let i in arr) for (let j in arr[i]) result.push(arr[i][j]);
+		return result;
+	},
+	convert1DtoStr: arr => {
+		let result = "";
+		for (let i in arr) result += arr[i];
+		return result;
+	},
+	justHtmlText: html => {
+		let i = 0;
+		while (i !== html.length) {
+			if (html[i] === "<") {
+				let j = i;
+				while (html[i] !== ">") i++;
+				html = html.substring(0, j) + html.substring(i + 1);
+				console.log(html);
+				i = j - 1;
+			} else {
+				i++;
+			}
+		}
+		return html;
 	}
 };
 
