@@ -45,45 +45,41 @@ const self = {
 		};
 	},
 	innerInstance: data_list => {
-		return {
-			toonData: data_list.map((ele, seq, arr) => {
-				return new self.innerFactory(
-					seq + 1,
-					commonUtil
-						.sliceString(
-							ele,
-							'<span class="toon_name"><strong>',
-							"</strong></span>"
-						)
-						.trim()
-						.replace(/&gt;/gi, ">")
-						.replace(/&lt;/gi, "<"),
-					commonUtil
-						.sliceStr(ele, '<span class="txt_score">', 4)
-						.trim(),
+		return data_list.map((ele, seq, arr) => {
+			return new self.innerFactory(
+				seq + 1,
+				commonUtil
+					.sliceString(
+						ele,
+						'<span class="toon_name"><strong>',
+						"</strong></span>"
+					)
+					.trim()
+					.replace(/&gt;/gi, ">")
+					.replace(/&lt;/gi, "<"),
+				commonUtil.sliceStr(ele, '<span class="txt_score">', 4).trim(),
 
-					commonUtil
-						.sliceString(
-							ele,
-							'<img src="',
-							'" width="100%" height="100%" '
-						)
-						.trim(),
-					commonUtil
-						.sliceString(
-							ele,
-							'height="100%" alt="',
-							'"></span>\n\t\t\t\t\t\t\t\t<div'
-						)
-						.trim()
-						.replace(/&gt;/gi, ">")
-						.replace(/&lt;/gi, "<"),
-					ele.indexOf('"ico_badge">UP</span>') !== -1 ? true : false,
+				commonUtil
+					.sliceString(
+						ele,
+						'<img src="',
+						'" width="100%" height="100%" '
+					)
+					.trim(),
+				commonUtil
+					.sliceString(
+						ele,
+						'height="100%" alt="',
+						'"></span>\n\t\t\t\t\t\t\t\t<div'
+					)
+					.trim()
+					.replace(/&gt;/gi, ">")
+					.replace(/&lt;/gi, "<"),
+				ele.indexOf('"ico_badge">UP</span>') !== -1 ? true : false,
 
-					commonUtil.sliceStr(ele, '<span class="if1">', 8).trim()
-				);
-			})
-		};
+				commonUtil.sliceStr(ele, '<span class="if1">', 8).trim()
+			);
+		});
 	},
 	Factory: function ToonList(
 		toon_info_idx,

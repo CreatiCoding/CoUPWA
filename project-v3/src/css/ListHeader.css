@@ -1,0 +1,322 @@
+@media all and (max-width: 400px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+		height: 60px;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+
+	.toon-data-title {
+		font-size: 5vw;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 3.5vw;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+		height: 16vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 4vw;
+	}
+}
+@media (min-width: 600px) and (max-width: 800px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+		height: 16vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 30px;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+		height: 14vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 30px;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.list-header-container {
+		height: 100px;
+	}
+
+	.list-header {
+		width: 980px;
+		height: 140px;
+	}
+
+	.list-header-right a {
+		font-size: 30px;
+	}
+
+	.backbutton a {
+		font-size: 50px;
+	}
+
+	.list-header-title {
+		font-size: 50px;
+		line-height: 100px;
+	}
+
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 30px;
+	}
+}
+
+.list-header-left {
+	float: left;
+}
+
+.list-header {
+	margin: auto;
+	color: white;
+	background-color: #03cc3a;
+}
+
+.list-header-container {
+	display: flex;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background: white;
+}
+
+.list-header span.backbutton {
+	font-size: 30px;
+	margin: 20px;
+}
+
+.list-header span.first-chapter {
+	float: right;
+	margin: 20px 20px 0 0;
+}
+
+.list-header span.like {
+	float: right;
+	margin: 20px 20px 0 0;
+}
+
+.frame {
+	background: #ececf6;
+	border: 1px solid #c0c0c0;
+	margin-bottom: 20px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.frame li {
+	padding: 10px;
+	border-top: 1px solid #9e9e9e;
+	list-style: none;
+}
+
+.sub_toon_lst {
+	display: block;
+	margin: 0 0 0px 0;
+	border-bottom: solid #000000 1px;
+}
+
+.sub_toon_lst:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	overflow: hidden;
+}
+
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+ul {
+	list-style: none;
+}
+
+.square {
+	display: block;
+	float: left;
+}
+
+.frame ul {
+	display: grid;
+}
+.toon_info{
+	text-align: left;
+	display: inline-block;
+	float: left;
+	margin: 10px 0 0 10px;
+}
+
+.frame strong {
+	display: block;
+	margin: 0 0 4px;
+}
+
+strong {
+	font-weight: bold;
+}
+
+.footer {
+	width: 100%;
+	height: 50px;
+	background: #9fcdff;
+	position: absolute;
+	z-index: 99;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.list-grid-container {
+	margin: 50px 0;
+}
+
+.backbutton a {
+	font-family: "HelveticaNeue-Medium", sans-serif;
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.backbutton a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+
+.list-contents-toon-update {
+	color: #03cc3a;
+	border-radius: 10px;
+	border: solid;
+	padding: 2px;
+}
+
+.list-contents-toon-update {
+	display: inline-block;
+	margin: 0 0 0 10px;
+}
+
+.list-contents-toon-star-date{
+	display: inline-flex;
+}
+
+.list-contents-toon-star{
+	flaot:left;
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.list-contents-toon-date{
+	float : right;
+	color: #000000;
+}

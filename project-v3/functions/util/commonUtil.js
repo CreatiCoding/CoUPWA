@@ -196,7 +196,7 @@ const commonUtil = {
 						console.log(sec + " second(s) passed");
 						resolve(fc(args));
 					},
-					200 * sec,
+					1000 * sec,
 					{}
 				);
 			});
