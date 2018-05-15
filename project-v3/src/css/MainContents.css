@@ -187,7 +187,7 @@
 }
 
 .main-contents-slick-dots .slick-active {
-	background: #000000;
+	background: #03cc3a;
 	color: #ffffff;
 }
 
@@ -224,4 +224,22 @@
 }
 .container .row a:hover{
 	text-decoration:none !important
+}
+.main-contents-toon-info{
+	text-align: left;
+	margin-left: 15px;
+}
+.main-contents-toon-title{
+	font-weight: bold;
+}
+.main-contents-toon-star{
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.main-contents-toon-update{
+	color: #03cc3a;
+	border-radius: 10px;
+	border: solid;
+	padding: 2px;
 }

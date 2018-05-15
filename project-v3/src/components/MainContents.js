@@ -29,6 +29,8 @@ const MainContents = ({viewToon}) => {
 		return data.map((ele, seq) => {
 			let isMouseDown = false;
 			let isLinkable = true;
+			let updateStyle = "main-contents-toon-update";
+			let noUpdateStyle = "main-contents-toon-update hide";
 			return (
 				<Link
 					key={seq}
@@ -68,11 +70,17 @@ const MainContents = ({viewToon}) => {
 							</div>
 							<div className="main-contents-toon-middle">
 								<div className="main-contents-toon-star">
-									{ele.toon_info_star}
+									✭{ele.toon_info_star}
 								</div>
 								<div>&nbsp;</div>
-								<div className="main-contents-toon-update">
-									{ele.toon_info_update.toString()}
+								<div
+									className={
+										ele.toon_info_update
+											? updateStyle
+											: noUpdateStyle
+									}
+								>
+									{ele.toon_info_update ? "UP" : ""}
 								</div>
 							</div>
 							<div className="main-contents-toon-author">
