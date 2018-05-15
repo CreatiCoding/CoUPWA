@@ -1,16 +1,34 @@
-@media all and (max-width: 979px) {
-	.list-contents-container {
+@media all and (max-width: 400px) {
+	.list-contents {
 		width:100%;
+		margin: 60px auto 0 auto;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	.list-contents {
+		width:100%;
+		margin: 16vw auto 0 auto;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.list-contents {
+		width:100%;
+		margin: 14vw auto 0 auto;
 	}
 }
 
 @media all and (min-width: 980px) {
-	.list-contents-container {
+	.list-contents {
 		width:980px;
+		margin: 140px auto 0 auto;
 	}
 }
 
-
 .list-contents-container{
-
+	width:100%;
+}
+.sub_toon_lst, .square{
+	height:10vh;
 }

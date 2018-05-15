@@ -17,7 +17,7 @@ class ListHeaderContainer extends Component {
 					<div>
 						<div className="list-header-left">
 							<span className="backbutton">
-								<Link to="/">&lt;</Link>
+								<Link to="/">〈</Link>
 							</span>
 							<span className="list-header-title">
 								{this.props.toonInfo.toon_info_title_name}
