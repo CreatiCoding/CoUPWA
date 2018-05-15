@@ -1,22 +1,123 @@
-.header {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	height: 50px;
+@media all and (max-width: 400px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.list-header {
+		width: 100%;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.list-header-container {
+		height: 100px;
+	}
+
+	.list-header {
+		width: 980px;
+	}
+
+	.list-header-right a {
+		font-size: 30px;
+	}
+
+	.backbutton a {
+		font-size: 50px;
+	}
+
+	.list-header-title {
+		font-size: 50px;
+		line-height: 100px;
+	}
+}
+
+.list-header-left {
+	float: left;
+}
+
+.list-header {
+	margin: auto;
 	background: whitesmoke;
 }
 
-.header span.backbutton {
+.list-header-container {
+	display: flex;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background: white;
+}
+
+.list-header span.backbutton {
 	font-size: 30px;
 	margin: 20px;
 }
 
-.header span.first-chapter {
+.list-header span.first-chapter {
 	float: right;
 	margin: 20px 20px 0 0;
 }
 
-.header span.like {
+.list-header span.like {
 	float: right;
 	margin: 20px 20px 0 0;
 }
@@ -105,4 +206,23 @@ strong {
 
 .list-grid-container {
 	margin: 50px 0;
+}
+
+.backbutton a {
+	font-family: "HelveticaNeue-Medium", sans-serif;
+	color: #000000;
+	text-decoration: none;
+}
+
+.backbutton a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a {
+	text-decoration: none;
+	color: #000000;
 }
