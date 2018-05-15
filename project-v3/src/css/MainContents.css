@@ -218,3 +218,10 @@
 .main-contents-toon-middle div{
 	display: inline;
 }
+.container .row a{
+	display: contents;
+	color: #000000;
+}
+.container .row a:hover{
+	text-decoration:none !important
+}
