@@ -5,8 +5,36 @@ const toonInfoService = require("../service/ToonInfoService");
 const toonService = require("../service/ToonService");
 const bannerImageService = require("../service/BannerImageService");
 const thumbImageService = require("../service/ThumbImageService");
+const commonUtil = require("../util/commonUtil");
+const crwalingUtil = require("../util/crawlingUtil");
 
 const self = {
+	resetList: () => {
+		return firestoreUtil.reset(["toonList"]);
+	},
+	todayList: () => {
+		return firestoreUtil
+			.selectList("toonInfo")
+			.then(result => {
+				return result.map(ele => {
+					return {
+						func: crwalingUtil.doCrwalingToonList,
+						args: ele.toon_info_idx
+					};
+				});
+			})
+			.then(r => commonUtil.promiseSeqOneSec(r))
+			.then(r =>
+				r.map(ele => {
+					return {
+						key: ele.toonList.toon_info_idx,
+						model: "toonList",
+						data: ele.toonList
+					};
+				})
+			)
+			.then(r => firestoreUtil.insert(r));
+	},
 	resetMain: () => {
 		return firestoreUtil.reset([
 			"image",

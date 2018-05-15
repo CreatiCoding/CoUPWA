@@ -21,6 +21,15 @@ export function changeSortType(currentSortType) {
 		currentSortType
 	};
 }
+
+export function loadToonList(toonInfo, toonList) {
+	return {
+		type: types.LOAD_TOONLIST,
+		toonInfo,
+		toonList
+	};
+}
+
 //
 // export function changeWeekNum(weekNum) {
 // 	console.log("weekNum", weekNum);

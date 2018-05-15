@@ -11,28 +11,67 @@ class ListContentsContainer extends Component {
 		super(props);
 		this.state = {
 			tracks: [],
-			hasMoreItems: true,
-			nextHref: null
+			hasMoreItems: true
 		};
 	}
-	loadItems(page) {
-		let tracks = this.state.tracks;
-		tracks.push(tracks.length);
-		this.setState({
-			tracks: tracks
-		});
+
+	loadItems(i) {
+		if (this.props.toonList.length === 0) {
+			return;
+		} else {
+			if (i - 2 === this.props.toonList.length) {
+				this.setState({
+					hasMoreItems: false
+				});
+				return;
+			}
+			let tracks = this.state.tracks;
+
+			let lastIdx = tracks[tracks.length - 1].toon_data_idx;
+			tracks.push(
+				this.props.toonList.filter(ele => {
+					return ele.toon_data_idx === lastIdx + 1;
+				})[0]
+			);
+			this.setState({
+				tracks: tracks
+			});
+			return;
+		}
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		coupwaFetch.fetchToonList(this.props.toon_info_idx, r => {
+			let toonInfo = {
+				toon_info_author: r.toon_info_author,
+				toon_info_count: r.toon_info_count,
+				toon_info_idx: r.toon_info_idx,
+				toon_info_intro: r.toon_info_intro,
+				toon_info_thumb: r.toon_info_thumb,
+				toon_info_title_name: r.toon_info_title_name
+			};
+			let toonList = r.toonListData;
+			let tracks = this.state.tracks;
+			tracks.push(toonList[0]);
+			this.setState({
+				tracks: tracks
+			});
+			this.props.handleLoadToonList(toonInfo, toonList);
+		});
+	}
 	render() {
-		const loader = <div className="loader">Loading ...</div>;
+		const loader = (
+			<div key={0} className="loader">
+				로딩중 ...
+			</div>
+		);
 
 		return (
 			<div className="list-contents-container">
 				<InfiniteScroll
 					pageStart={0}
 					loadMore={this.loadItems.bind(this)}
-					hasMore={true}
+					hasMore={this.state.hasMoreItems}
 					loader={loader}
 				>
 					<ListContents items={this.state.tracks} />
@@ -43,11 +82,18 @@ class ListContentsContainer extends Component {
 }
 
 const mapStateToPrpos = state => {
-	return {};
+	return {
+		toonInfo: state.listContentsReducer.toonInfo,
+		toonList: state.listContentsReducer.toonList
+	};
 };
 
 const mapDispatchToProps = dispatch => {
-	return {};
+	return {
+		handleLoadToonList: (toonInfo, toonList) => {
+			dispatch(actions.loadToonList(toonInfo, toonList));
+		}
+	};
 };
 export default connect(mapStateToPrpos, mapDispatchToProps)(
 	ListContentsContainer

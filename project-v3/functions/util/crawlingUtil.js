@@ -1,7 +1,8 @@
-const commonUtil = require("./commonUtil");
-const properties = require("../properties.json");
 const Toon = require("../model/Toon");
 const ToonInfo = require("../model/ToonInfo");
+const commonUtil = require("./commonUtil");
+const properties = require("../properties");
+const ToonList = require("../model/ToonList");
 
 const self = {
 	/**
@@ -73,6 +74,107 @@ const self = {
 				return result4.map((i, ele) => {
 					return ToonInfo.instance(ele);
 				});
+			});
+	},
+
+	doCrwalingToonList: toon_info_idx => {
+		let nextPage = 1;
+		let htmlCode = [];
+		let preName = "";
+		let resultList = [];
+		let first_page = "";
+		let requestHtml = (idx, page) => {
+			return commonUtil
+				.requestHTML([
+					properties.url.toonList.value +
+						idx +
+						"&page=" +
+						String(page),
+					properties.url.toonList.referer
+				])
+				.then(r => {
+					if (first_page === "") {
+						first_page = r;
+					}
+					htmlCode.push(r);
+					return r;
+				})
+				.catch(err => {
+					console.log(toon_info_idx, err);
+				});
+		};
+
+		let htmlToArray = (result, selector) => {
+			if (result.indexOf("연령 확인") !== -1)
+				return Promise.resolve().then(() => []);
+			return commonUtil
+				.crawlingHTMLArray([result, selector])
+				.catch(err => {
+					console.log(toon_info_idx, "@@@@@@@@", err);
+				});
+		};
+
+		let print = (name, result) => {
+			console.log(name, result);
+			return result;
+		};
+
+		let getFirstToonName = r => {
+			return htmlToArray(r, ".lst .toon_name").then(r => {
+				if (r.length === 0) return "19금 웹툰";
+				return r[0];
+			});
+		};
+
+		let checkEndPoint = r => {
+			if (preName === r) {
+				htmlCode.pop();
+				nextPage--;
+				return false;
+			} else {
+				preName = r;
+				return true;
+			}
+		};
+
+		let resolver = () => {
+			return Promise.resolve()
+				.then(() => requestHtml(toon_info_idx, nextPage++))
+				.then(r => getFirstToonName(r))
+				.then(r => checkEndPoint(r))
+				.then(isContinue => {
+					if (isContinue) return resolver();
+					else return false;
+				});
+		};
+
+		let arrToList = () => {
+			let promises = [];
+			for (let i = 0; i < htmlCode.length; i++) {
+				promises.push(
+					htmlToArray(htmlCode[i], ".lst").then(r => {
+						for (let j = 0; j < r.length; j++) {
+							let htmlData = commonUtil.strCodePoint(r[j].trim());
+							resultList.push(htmlData);
+						}
+						return r;
+					})
+				);
+			}
+			return Promise.all(promises);
+		};
+
+		let exceptNotFree = () => {
+			resultList = resultList.filter(
+				ele => ele.indexOf('class="blind">') === -1
+			);
+		};
+		return Promise.resolve()
+			.then(resolver)
+			.then(arrToList)
+			.then(exceptNotFree)
+			.then(() => {
+				return ToonList.instance(toon_info_idx, first_page, resultList);
 			});
 	}
 };

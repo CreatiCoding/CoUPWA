@@ -17,6 +17,16 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites":[
+      {
+        "source": "/fc/images",
+        "function": "images"
+      },
+      {
+        "source": "/fc/toonDetail",
+        "function": "toonDetail"
+      }
     ]
   },
   "storage": {
