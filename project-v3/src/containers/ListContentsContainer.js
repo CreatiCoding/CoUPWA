@@ -39,7 +39,9 @@ class ListContentsContainer extends Component {
 			return;
 		}
 	}
-
+	componentWillUnmount() {
+		this.props.handleLoadToonList({}, []);
+	}
 	componentDidMount() {
 		coupwaFetch.fetchToonList(this.props.toon_info_idx, r => {
 			let toonInfo = {
