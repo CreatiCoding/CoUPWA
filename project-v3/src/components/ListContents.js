@@ -1,19 +1,22 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import "../css/ListHeader.css";
-import InfiniteScroll from "react-infinite-scroller";
 
 const ListContents = ({items, toonInfo}) => {
-	console.log(items);
-
 	const mapToListContentsWebtoonList = data => {
 		return data.map((ele, seq) => {
+			let href =
+				"http://m.comic.naver.com/webtoon/detail.nhn?titleId=" +
+				toonInfo.toon_info_idx +
+				"&no=" +
+				ele.toon_data_idx;
 			let updateStyle = "list-contents-toon-update";
 			let noUpdateStyle = "list-contents-toon-update hide";
+			let onclick = e => {
+				e.preventDefault();
+				window.location.href = href;
+			};
 			return (
-				<li key={seq} className="sub_toon_lst">
+				<li onClick={onclick} key={seq} className="sub_toon_lst">
 					<img className="square" src={ele.toon_data_thumb} />
 					<div className="toon_info" key={ele.toon_data_idx}>
 						<div className="toon-data-title">
