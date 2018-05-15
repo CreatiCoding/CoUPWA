@@ -23,6 +23,7 @@ const coupwaFetch = {
 	},
 	fetchViewBannerImage: callback => {
 		let key = commonUtil.getDateFormat("YYMMDD");
+		console.log(key);
 		Firebase.selectDoc("viewBannerImage", key)
 			.then(result => {
 				return result.view_banner_image_list;
@@ -33,6 +34,14 @@ const coupwaFetch = {
 				console.log("fetchViewBannerImage", result);
 				callback(result);
 			});
+	},
+	fetchToonList: (toon_info_idx, callback) => {
+		let key = toon_info_idx;
+		Firebase.selectDoc("toonList", key)
+			.then(result => {
+				return result;
+			})
+			.then(r => callback(r));
 	}
 };
 

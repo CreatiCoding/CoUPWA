@@ -503,7 +503,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzTodayMain: () => {
+	TodayMain: () => {
 		return jsTester.assertResult(
 			"TodayMain",
 			() => {
