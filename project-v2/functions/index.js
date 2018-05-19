@@ -10,10 +10,13 @@ const fcModule = require('./functions');
 var serviceAccount = require('./coupwa-firebase-adminsdk-r3x8o-073413f00b.json');
 // 관리자 권한 설정
 admin.initializeApp({
+	apiKey: "AIzaSyD88cDgm2aG4i66QyR7OsFHEiigWaW-etw",
+	authDomain: "coupwa.firebaseapp.com",
+	databaseURL: "https://coupwa.firebaseio.com",
+	projectId: "coupwa",
+	storageBucket: "coupwa.appspot.com",
+	messagingSenderId: "323516523754",
 	credential: admin.credential.cert(serviceAccount),
-	databaseURL: 'https://coupwa.firebaseio.com',
-	storageBucket: 'coupwa.appspot.com',
-	projectId: 'coupwa',
 });
 for (var i in fcModule) {
 	exports[i] = fcModule[i];
