@@ -1,0 +1,64 @@
+[debug] [2018-03-28T09:17:36.394Z] ----------------------------------------------------------------------
+[debug] [2018-03-28T09:17:36.396Z] Command:       /Users/kyungjin/.nvm/versions/node/v8.10.0/bin/node /Users/kyungjin/.nvm/versions/node/v8.10.0/bin/firebase experimental:functions:shell
+[debug] [2018-03-28T09:17:36.396Z] CLI Version:   3.17.7
+[debug] [2018-03-28T09:17:36.396Z] Platform:      darwin
+[debug] [2018-03-28T09:17:36.396Z] Node Version:  v8.10.0
+[debug] [2018-03-28T09:17:36.397Z] Time:          Wed Mar 28 2018 18:17:36 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:36.397Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-28T09:17:36.405Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-28T09:17:36.405Z] > authorizing via signed-in user
+[debug] [2018-03-28T09:17:36.406Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-03-28T09:17:36.407Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/F4xa83co6n0QXyJGncJDG6B39loXnGX0zApkFgxwFoU',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Mar 28 2018 18:17:36 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:37.422Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-28T09:17:37.432Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/coupwa  
+  
+ Wed Mar 28 2018 18:17:37 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:39.795Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-28T09:17:39.795Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/coupwa/tokens  
+  
+ Wed Mar 28 2018 18:17:39 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:40.968Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-03-28T09:17:42.474Z] Fetching environment
+[debug] [2018-03-28T09:17:42.476Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/coupwa  
+  
+ Wed Mar 28 2018 18:17:42 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:48.202Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-28T09:17:48.203Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/323516523754:getServerAppConfig  
+  
+ Wed Mar 28 2018 18:17:48 GMT+0900 (KST)
+[debug] [2018-03-28T09:17:52.206Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-28T09:17:52.206Z] Starting @google-cloud/functions-emulator
+[debug] [2018-03-28T09:17:53.247Z] Parsing function triggers
+[info] ✔  functions: downloadChapter
+[info] ✔  functions: getImageTest
+[info] ✔  functions: sendNotification
+[info] ✔  functions: helloWorld1
+[info] ✔  functions: getMainBannerImage
+[info] ✔  functions: getMainContentList
+[info] ✔  functions: helloWorld2
+[info] ✔  functions: getUser
+[info] ✔  functions: requestRefererWebtoon
+[info] ✔  functions: time
+[info] ✔  functions: createSeq
+[info] ✔  functions: createToon
+[info] ✔  functions: createSeries
+[info] ✔  functions: askPermission
+[info] ✔  functions: getUserToon
+[info] ✔  functions: searchUser
+[info] ✔  functions: saveTodayWeekAllToonInfo
+[info] ✔  functions: saveTodayBannerInfo
+[info] ✔  functions: helloWorld4
+[info] ✔  functions: imagePipe
+[info] ✔  functions: testFc
+[info] ✔  functions: images
+[info] ✔  functions: getWeekAllToonInfoBySort
+[info] ✔  functions: bannerImage
+[info] ✔  functions: addReceiver
