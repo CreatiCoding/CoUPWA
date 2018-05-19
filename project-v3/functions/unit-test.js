@@ -324,6 +324,42 @@ const unitTest = {
 			]
 		);
 	},
+	StoreImageToBucket2: () => {
+		return jsTester.assertResult(
+			"StoreImageToBucket2",
+			args => {
+				let path;
+				return commonUtil
+					.requestImage([args[0], args[1]])
+					.then(result => {
+						path =
+							args[2] +
+							result.req.path.substr(
+								result.req.path.lastIndexOf("/") + 1
+							);
+						return commonUtil.storeImageToBucket2([
+							result.body,
+							path,
+							result.headers["content-type"],
+							result,
+							{}
+						]);
+					})
+					.catch(err => {
+						return err;
+					})
+					.then(() => {
+						return commonUtil.isValidImage([path]);
+					});
+			},
+			[
+				"http://imgcomic.naver.net/webtoon/641253/thumbnail/" +
+					"thumbnail_IMAG02_e046a3f5-9825-495b-a61c-fc8162fa6da4.jpg",
+				"http://comic.naver.com/index.nhn",
+				"/test/"
+			]
+		);
+	},
 	FirestoreInsert: () => {
 		return jsTester.assertResult(
 			"FirestoreInsert",
@@ -503,7 +539,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzTodayMain: () => {
+	TodayMain: () => {
 		return jsTester.assertResult(
 			"TodayMain",
 			() => {
