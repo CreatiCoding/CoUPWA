@@ -6,6 +6,7 @@
 	.main-menu-row{
 		width: 100%;
 	}
+
 }
 
 @media (min-width: 400px) and (max-width: 800px) {
@@ -96,8 +97,8 @@
 }
 
 .main-menu-row {
-	margin: 2px 4px 0px 4px;
-	display: inline-flex;
+	/*margin: 2px 4px 0px 4px;*/
+	margin: auto;
 }
 
 .main-menu-btn-text-contents {

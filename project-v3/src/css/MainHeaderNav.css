@@ -1,4 +1,18 @@
-@media all and (max-width: 979px) {
+@media all and (max-width: 400px) {
+	.header-nav-font {
+		font-size: 6vw;
+		line-height: 10vw;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+	.header-nav-font {
+		font-size: 6vw;
+		line-height: 10vw;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
 	.header-nav-font {
 		font-size: 6vw;
 		line-height: 10vw;

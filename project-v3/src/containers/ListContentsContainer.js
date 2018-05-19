@@ -39,7 +39,9 @@ class ListContentsContainer extends Component {
 			return;
 		}
 	}
-
+	componentWillUnmount() {
+		this.props.handleLoadToonList({}, []);
+	}
 	componentDidMount() {
 		coupwaFetch.fetchToonList(this.props.toon_info_idx, r => {
 			let toonInfo = {
@@ -68,14 +70,19 @@ class ListContentsContainer extends Component {
 
 		return (
 			<div className="list-contents-container">
-				<InfiniteScroll
-					pageStart={0}
-					loadMore={this.loadItems.bind(this)}
-					hasMore={this.state.hasMoreItems}
-					loader={loader}
-				>
-					<ListContents items={this.state.tracks} />
-				</InfiniteScroll>
+				<div className="list-contents">
+					<InfiniteScroll
+						pageStart={0}
+						loadMore={this.loadItems.bind(this)}
+						hasMore={this.state.hasMoreItems}
+						loader={loader}
+					>
+						<ListContents
+							items={this.state.tracks}
+							toonInfo={this.props.toonInfo}
+						/>
+					</InfiniteScroll>
+				</div>
 			</div>
 		);
 	}

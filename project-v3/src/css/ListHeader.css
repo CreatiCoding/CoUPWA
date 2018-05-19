@@ -1,22 +1,202 @@
-.header {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	height: 50px;
-	background: whitesmoke;
+@media all and (max-width: 400px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.square{
+		height: 60px;
+	}
+	.list-header {
+		width: 100%;
+		height: 60px;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+
+	.toon-data-title {
+		font-size: 5vw;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 3.5vw;
+	}
 }
 
-.header span.backbutton {
+@media (min-width: 400px) and (max-width: 600px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.square{
+		height: 16vw;
+	}
+	.list-header {
+		width: 100%;
+		height: 16vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 14px;
+	}
+}
+@media (min-width: 600px) and (max-width: 800px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.square{
+		height: 16vw;
+	}
+	.list-header {
+		width: 100%;
+		height: 16vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 14px;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	.list-header-container {
+		height: 10vw;
+	}
+
+	.square{
+		height: 14vw;
+	}
+	.list-header {
+		width: 100%;
+		height: 14vw;
+	}
+
+	.list-header-right a {
+		font-size: 3vw;
+	}
+
+	.backbutton a {
+		font-size: 5vw;
+	}
+
+	.list-header-title {
+		font-size: 5vw;
+		line-height: 100px;
+	}
+
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 14px;
+	}
+}
+
+@media all and (min-width: 980px) {
+	.list-header-container {
+		height: 100px;
+	}
+
+	.square{
+		height: 140px;
+	}
+	.list-header {
+		width: 980px;
+		height: 140px;
+	}
+
+	.list-header-right a {
+		font-size: 30px;
+	}
+
+	.backbutton a {
+		font-size: 50px;
+	}
+
+	.list-header-title {
+		font-size: 50px;
+		line-height: 100px;
+	}
+
+	.list-contents-toon-date,
+	.toon-data-title,
+	.list-contents-toon-update,
+	.list-contents-toon-star{
+		font-size: 14px;
+	}
+}
+
+.list-header-left {
+	float: left;
+}
+
+.list-header {
+	margin: auto;
+	color: white;
+	background-color: #03cc3a;
+}
+
+.list-header-container {
+	display: flex;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background: white;
+}
+
+.list-header span.backbutton {
 	font-size: 30px;
 	margin: 20px;
 }
 
-.header span.first-chapter {
+.list-header span.first-chapter {
 	float: right;
 	margin: 20px 20px 0 0;
 }
 
-.header span.like {
+.list-header span.like {
 	float: right;
 	margin: 20px 20px 0 0;
 }
@@ -38,6 +218,8 @@
 
 .sub_toon_lst {
 	display: block;
+	margin: 0 0 0px 0;
+	border-bottom: solid #000000 1px;
 }
 
 .sub_toon_lst:after {
@@ -69,19 +251,17 @@ ul {
 
 .square {
 	display: block;
-	height: 50px;
-	width: 90px;
 	float: left;
 }
 
 .frame ul {
 	display: grid;
 }
-
-.frame li .toon_info {
+.toon_info{
+	text-align: left;
+	display: inline-block;
 	float: left;
-	margin-left: 10px;
-	width: 155px;
+	margin: 10px 0 0 10px;
 }
 
 .frame strong {
@@ -105,4 +285,53 @@ strong {
 
 .list-grid-container {
 	margin: 50px 0;
+}
+
+.backbutton a {
+	font-family: "HelveticaNeue-Medium", sans-serif;
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.backbutton a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a:hover {
+	text-decoration: none;
+}
+
+.list-header-right a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+
+.list-contents-toon-update {
+	color: #03cc3a;
+	border-radius: 10px;
+	border: solid;
+	padding: 2px;
+}
+
+.list-contents-toon-update {
+	display: inline-block;
+	margin: 0 0 0 10px;
+}
+
+.list-contents-toon-star-date{
+	display: inline-flex;
+}
+
+.list-contents-toon-star{
+	flaot:left;
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.list-contents-toon-date{
+	float : right;
+	color: #000000;
 }

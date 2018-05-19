@@ -1,18 +1,34 @@
-html {
-	height: 200%;
-	margin: auto 0px;
+@media all and (max-width: 400px) {
+	html{
+		margin: 0 0 16vw 0;
+	}
 }
 
+@media (min-width: 400px) and (max-width: 800px) {
+	html{
+		margin: 0 0 19vw 0;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 979px) {
+	html{
+		margin: 0 0 16vw 0;
+	}
+}
+
+@media all and (min-width: 980px) {
+	html{
+		margin: 0 0 160px 0;
+	}
+}
 @font-face {
 	font-family: 'GoDoM';
 	src: url("/fonts/GodoM.ttf") format('truetype');
 }
-
 @font-face {
 	font-family: 'godoRounded';
 	src: url("/fonts/godoRoundedL.ttf") format('truetype');
 }
-
 .hide {
 	display: none;
 }
