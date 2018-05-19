@@ -41,18 +41,15 @@ const MainBannerInfo = ({ele}) => {
 		</Link>
 	);
 };
-const MainBanner = ({
-	viewBannerImage
-	//,some
-}) => {
+const MainBanner = ({viewBannerImage}) => {
 	const mapToMainBannerInfo = data => {
-		return data.map((ele, i, arr) => {
+		return data.map((ele, i) => {
 			return <MainBannerInfo key={i} ele={ele} />;
 		});
 	};
 	let settings = {
 		dots: true,
-		lazyLoad: true,
+		lazyLoad: "progressive",
 		infinite: true,
 		speed: 500,
 		slidesToShow: 1,
@@ -63,7 +60,7 @@ const MainBanner = ({
 	return (
 		<div className="main-banner-swiper-container">
 			<Slider {...settings}>
-				{mapToMainBannerInfo(viewBannerImage)}
+				{mapToMainBannerInfo(viewBannerImage.slice(0, 8))}
 			</Slider>
 		</div>
 	);

@@ -14,12 +14,31 @@ let fs;
 if (!Firebase.apps.length) {
 	Firebase.initializeApp(config);
 	fs = Firebase.firestore();
+	const settings = {/* your settings... */ timestampsInSnapshots: true};
+	fs.settings(settings);
+	fs
+		.enablePersistence()
+		.then(function() {
+			// Initialize Cloud Firestore through firebase
+			var db = firebase.firestore();
+		})
+		.catch(function(err) {
+			if (err.code == "failed-precondition") {
+				console.error("It is multi tab.");
+				// Multiple tabs open, persistence can only be enabled
+				// in one tab at a a time.
+				// ...
+			} else if (err.code == "unimplemented") {
+				console.error("It is not supported browser.");
+				// The current browser does not support all of the
+				// features required to enable persistence
+				// ...
+			}
+		});
 }
 
 const self = {
 	selectCol: model => {
-		const settings = {/* your settings... */ timestampsInSnapshots: true};
-		fs.settings(settings);
 		return fs
 			.collection(model)
 			.get()
@@ -31,8 +50,6 @@ const self = {
 			});
 	},
 	selectDoc: (model, key) => {
-		const settings = {/* your settings... */ timestampsInSnapshots: true};
-		fs.settings(settings);
 		return fs
 			.collection(model)
 			.doc(key)

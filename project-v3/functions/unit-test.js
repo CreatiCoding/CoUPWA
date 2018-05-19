@@ -503,7 +503,7 @@ const unitTest = {
 			[]
 		);
 	},
-	TodayMain: () => {
+	zzzzTodayMain: () => {
 		return jsTester.assertResult(
 			"TodayMain",
 			() => {
@@ -520,15 +520,17 @@ const unitTest = {
 		return jsTester.assertResult(
 			"TodayList",
 			() => {
-				return ViewService.resetList()
-					.then(() => ViewService.todayList())
-					.then(result => {
-						return (
-							result[0][0].length === 28 &&
-							result[1][0].length === 1
-						);
-					})
-					.then(r => console.log(JSON.stringify(r, null, 2)));
+				return (
+					ViewService.resetList()
+						.then(() => ViewService.todayList())
+						// .then(result => {
+						// 	return (
+						// 		result[0][0].length === 28 &&
+						// 		result[1][0].length === 1
+						// 	);
+						// })
+						.then(r => console.log(JSON.stringify(r, null, 2)))
+				);
 			},
 			[]
 		);

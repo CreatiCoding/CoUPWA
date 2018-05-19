@@ -20,20 +20,20 @@ const coupwaFetch = {
 		Promise.all(promises).then(result => {
 			callback(result);
 		});
+		return true;
 	},
 	fetchViewBannerImage: callback => {
 		let key = commonUtil.getDateFormat("YYMMDD");
-		console.log(key);
 		Firebase.selectDoc("viewBannerImage", key)
 			.then(result => {
 				return result.view_banner_image_list;
 			})
 			.then(result => {
 				result = commonUtil.shuffleArray(result);
-				result = result.slice(0, 8);
-				console.log("fetchViewBannerImage", result);
 				callback(result);
 			});
+
+		return true;
 	},
 	fetchToonList: (toon_info_idx, callback) => {
 		let key = toon_info_idx;
@@ -42,6 +42,7 @@ const coupwaFetch = {
 				return result;
 			})
 			.then(r => callback(r));
+		return true;
 	}
 };
 
