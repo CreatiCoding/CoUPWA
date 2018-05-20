@@ -49,6 +49,7 @@ const self = {
 	},
 	todayMain: () => {
 		return self.todayMainCrawl().then(result => {
+			console.log(result);
 			return self.todayMainInsert(result);
 		});
 	},
@@ -63,6 +64,7 @@ const self = {
 	},
 	todayMainInsert: param => {
 		let promises = [];
+		console.log(param);
 		promises.push(self.todayViewToon(param));
 		promises.push(self.todayBannerImage(param[3]));
 		return Promise.all(promises);

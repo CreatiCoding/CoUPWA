@@ -10,8 +10,7 @@ const self = {
 		return new Promise(resolve => {
 			let initImage = buf;
 			let prevSize = Number.MAX_SAFE_INTEGER,
-				prevSize2 = Number.MAX_SAFE_INTEGER - 1,
-				prevSize3 = Number.MAX_SAFE_INTEGER - 2;
+				prevSize2 = Number.MAX_SAFE_INTEGER - 1;
 			let oneProcess = buf =>
 				new Promise((resolve, reject) => {
 					return gm(buf, "test.jpg")
@@ -26,16 +25,11 @@ const self = {
 						});
 				});
 			let resolver = buf => {
-				if (
-					!(
-						prevSize != buf.length ||
-						prevSize2 != buf.length ||
-						prevSize3 != buf.length
-					)
-				) {
+				if (prevSize < buf.length && prevSize2 < buf.length) {
+					//console.log("end loop", prevSize, prevSize2, buf.length);
 					return initImage;
 				} else {
-					prevSize3 = prevSize2;
+					//console.log("in loop", prevSize, prevSize2, buf.length);
 					prevSize2 = prevSize;
 					prevSize = buf.length;
 					return oneProcess(buf).then(buf => {

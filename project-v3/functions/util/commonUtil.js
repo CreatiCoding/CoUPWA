@@ -219,7 +219,7 @@ const self = {
 						console.log(sec + " second(s) passed");
 						resolve(fc(args));
 					},
-					1000 * sec,
+					250 * sec,
 					{}
 				);
 			});

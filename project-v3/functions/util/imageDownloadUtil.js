@@ -154,6 +154,24 @@ const self = {
 					reject(err);
 				})
 				.then(result2 => {
+					let ext = result2.file.file_path.slice(
+						result2.file.file_path.lastIndexOf(".") + 1
+					);
+					result2.file.file_ext = ext;
+					result2.file.file_idx =
+						result2.file.file_idx.slice(
+							0,
+							result2.file.file_idx.lastIndexOf(".") + 1
+						) + ext;
+					result2.file.file_name = result2.file.file_idx;
+					result2.image.image_idx = result2.file.file_idx;
+					result2.image.image_type = "image/" + ext;
+					bannerImage.banner_url =
+						bannerImage.banner_url.slice(
+							0,
+							bannerImage.banner_url.lastIndexOf(".") + 1
+						) + ext;
+					bannerImage.banner_image_idx = result2.file.file_idx;
 					result2["bannerImage"] = bannerImage;
 					return resolve(result2);
 				});
@@ -190,6 +208,24 @@ const self = {
 					reject(err);
 				})
 				.then(result2 => {
+					let ext = result2.file.file_path.slice(
+						result2.file.file_path.lastIndexOf(".") + 1
+					);
+					result2.file.file_ext = ext;
+					result2.file.file_idx =
+						result2.file.file_idx.slice(
+							0,
+							result2.file.file_idx.lastIndexOf(".") + 1
+						) + ext;
+					result2.file.file_name = result2.file.file_idx;
+					result2.image.image_idx = result2.file.file_idx;
+					result2.image.image_type = "image/" + ext;
+					thumbImage.thumb_url =
+						thumbImage.thumb_url.slice(
+							0,
+							thumbImage.thumb_url.lastIndexOf(".") + 1
+						) + ext;
+					thumbImage.thumb_image_idx = result2.file.file_idx;
 					result2["thumbImage"] = thumbImage;
 					return resolve(result2);
 				});
@@ -199,6 +235,7 @@ const self = {
 		let list = args.list !== undefined ? args.list : args[0];
 		let func = args.func !== undefined ? args.func : args[1];
 		var promises = [];
+		console.log(args);
 		var funcFactory = args => {
 			console.log(
 				"[start ] :\t" + (args.time + 1) + "/" + String(list.length)

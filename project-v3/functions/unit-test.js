@@ -478,7 +478,9 @@ const unitTest = {
 		return jsTester.assertResult(
 			"CreateToonInfoToday",
 			() => {
-				return toonInfoService.createToonInfoToday();
+				return toonInfoService
+					.createToonInfoToday()
+					.then(r => console.log(r));
 			},
 			[]
 		);
