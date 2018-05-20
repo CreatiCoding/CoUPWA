@@ -21,14 +21,6 @@
 		margin: 0 0 160px 0;
 	}
 }
-@font-face {
-	font-family: 'GoDoM';
-	src: url("/fonts/GodoM.ttf") format('truetype');
-}
-@font-face {
-	font-family: 'godoRounded';
-	src: url("/fonts/godoRoundedL.ttf") format('truetype');
-}
 .hide {
 	display: none;
 }
