@@ -37,7 +37,7 @@ module.exports = {
 	bail: true,
 	runtimeCaching: [
 		{
-			urlPattern: /\/react-pwa-webtoon.appspot.com\/thumb\/.*.(jpg|png|webp)/,
+			urlPattern: /\/react-pwa-webtoon\/thumb\/.*.(jpg|png|webp)/,
 			handler: "cacheFirst"
 		},
 		{
@@ -45,7 +45,7 @@ module.exports = {
 			handler: "cacheFirst"
 		},
 		{
-			urlPattern: /\/react-pwa-webtoon.appspot.com\/banner\/.*.(jpg|png|webp)/,
+			urlPattern: /\/react-pwa-webtoon\/banner\/.*.(jpg|png|webp)/,
 			handler: "cacheFirst"
 		}
 	]
