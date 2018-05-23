@@ -135,7 +135,7 @@ const self = {
 					properties.url.bannerImage.referer
 				])
 				.then(result => {
-					return commonUtil.storeImageToBucket([
+					return commonUtil.storeImageToBucket2([
 						result.body,
 						"/banner/" +
 							result.req.path.substr(
@@ -169,7 +169,7 @@ const self = {
 					properties.url.thumbImage.referer
 				])
 				.then(result => {
-					return commonUtil.storeImageToBucket([
+					return commonUtil.storeImageToBucket2([
 						result.body,
 						"/thumb/" +
 							result.req.path.substr(

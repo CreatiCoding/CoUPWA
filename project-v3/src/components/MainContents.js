@@ -15,7 +15,7 @@ const MainContents = ({viewToon}) => {
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		lazyLoad: true,
+		lazyLoad: "progressive",
 		arrows: false,
 		className: "main-contents-slick",
 		dotsClass: "main-contents-slick-dots slick-dots",
@@ -26,11 +26,21 @@ const MainContents = ({viewToon}) => {
 	};
 
 	const mapToMainContentsWebtoon = data => {
+		let loadImgBackground = e => {
+			setTimeout(
+				ele => {
+					ele.attributes.src.value = ele.attributes.path.value;
+				},
+				10,
+				e.target
+			);
+		};
 		return data.map((ele, seq) => {
 			let isMouseDown = false;
 			let isLinkable = true;
 			let updateStyle = "main-contents-toon-update";
 			let noUpdateStyle = "main-contents-toon-update hide";
+			let altDefault = "기본 썸네일 이미지";
 			return (
 				<Link
 					key={seq}
@@ -57,11 +67,15 @@ const MainContents = ({viewToon}) => {
 						<div className="main-contents-toon-img">
 							<img
 								className="main-contents-toon-thumbnail"
-								src={ele.image_path}
+								src={"/images/thumbnail_default.png"}
+								onLoad={loadImgBackground}
+								path={ele.image_path}
+								alt={ele.image_alt}
 							/>
 							<img
 								className="default-thumbnail"
 								src={"/images/thumbnail_default.png"}
+								alt={altDefault}
 							/>
 						</div>
 						<div className="main-contents-toon-info">

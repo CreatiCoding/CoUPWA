@@ -72,10 +72,9 @@ const mapStateToPrpos = state => {
 const mapDispatchToProps = dispatch => {
 	let self = {
 		handleChangeSortType: currentSortType => {
-			coupwaFetch.fetchViewToon(
-				currentSortType,
-				self.handleChangeViewToon
-			);
+			coupwaFetch.fetchViewToonCaching(currentSortType).then(r => {
+				self.handleChangeViewToon(r);
+			});
 			dispatch(actions.changeSortType(currentSortType));
 		},
 		handleChangeViewToon: viewToon => {

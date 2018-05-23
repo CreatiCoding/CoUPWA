@@ -87,7 +87,6 @@ exports.getImageTest = functions.https.onRequest((req, res) => {
  * 웹툰 특정 회차를 다운받아 스토리지에 저장하는 함수
  * @type {HttpsFunction}
  */
-
 // http://url?id=asd&num=10	=> req.query.id, req.query.num
 // http://url post 			=> req.body.id, req.body.num
 exports.downloadChapter = functions.https.onRequest((req, res) => {

@@ -5,6 +5,7 @@ const properties = require("../properties.json");
 const gcloud = require("google-cloud");
 const File = require("../model/File");
 const Image = require("../model/Image");
+const imageUtil = require("../util/imageUtil");
 
 const bucket = gcloud
 	.storage({
@@ -13,7 +14,7 @@ const bucket = gcloud
 	})
 	.bucket("react-pwa-webtoon");
 
-const commonUtil = {
+const self = {
 	sliceString: (str, from, end) => {
 		return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
 	},
@@ -162,6 +163,28 @@ const commonUtil = {
 				.end(body);
 		});
 	},
+	storeImageToBucket2: args => {
+		let body = args[0];
+		let path = args[1];
+		let type = args[2];
+		path =
+			path.substring(0, path.lastIndexOf(".")) +
+			"2" +
+			path.substring(path.lastIndexOf("."));
+		type = type.substring(0, type.lastIndexOf("/")) + "/webp";
+		args[2] = type;
+		args[1] = path;
+		return imageUtil
+			.optimizeImage(body)
+			.then(r => imageUtil.convertPic2Webp(r))
+			.then(r => {
+				let path = args[1];
+				path = path.substring(0, path.lastIndexOf(".")) + ".webp";
+				args[1] = path;
+				args[0] = r;
+				return self.storeImageToBucket(args);
+			});
+	},
 	/**
 	 * isValidImage
 	 * valify image with gm library
@@ -286,4 +309,4 @@ const commonUtil = {
 	}
 };
 
-module.exports = commonUtil;
+module.exports = self;
