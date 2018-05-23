@@ -5,6 +5,21 @@ const indexedDB =
 	window.msIndexedDB;
 
 const self = {
+	isNotExistCreateTable: (dbName, tableName) => {
+		return self
+			.existsTable(dbName, tableName)
+			.then(exists => {
+				if (exists) {
+					return {name: tableName};
+				} else {
+					return self.createTable(dbName, tableName);
+				}
+			})
+			.then(r => {
+				if (r.name === tableName) return true;
+				else return false;
+			});
+	},
 	selectOne: (dbName, tableName, key, value) => {
 		return self.select(dbName, tableName).then(r => {
 			for (let i in r) {
@@ -12,88 +27,120 @@ const self = {
 			}
 		});
 	},
-	select: (dbName, tableName) => {
-		let flag = false;
-		return new Promise(resolve => {
-			let open = indexedDB.open(dbName);
-			open.onsuccess = e => {
-				let storeNames = open.result.objectStoreNames;
-				let db = open.result;
-				for (let i in storeNames) {
-					if (storeNames[i] === tableName) {
-						flag = true;
-						let tx = db.transaction(tableName, "readwrite");
-						let store = tx.objectStore(tableName);
-						let result = store.getAll();
-						result.onsuccess = r => {
-							resolve(r.target.result);
-							db.close();
-						};
-						break;
-					}
-				}
-				if (flag != true) resolve(false);
-			};
-		});
-	},
-	insert: (dbName, tableName, data) => {
+	createTable: (dbName, tableName, key) => {
 		let flag = false;
 		let dbVersion;
 		return new Promise(resolve => {
+			let request = indexedDB.open(dbName);
+			let db;
+
+			request.onsuccess = e => {
+				db = request.result;
+				dbVersion = parseInt(db.version);
+				db.close();
+				return resolve(true);
+			};
+			request.onerror = e => {
+				e.target.result.close();
+				return resolve(false);
+			};
+		}).then(result => {
+			if (result === false) {
+				return false;
+			}
+			return new Promise(resolve => {
+				let request = indexedDB.open(dbName, dbVersion + 1);
+				request.onupgradeneeded = e => {
+					let db = request.result;
+					let r = db.createObjectStore(tableName, {keyPath: key});
+					db.close();
+					resolve(r);
+				};
+			});
+		});
+	},
+	existsTable: (dbName, tableName) => {
+		return new Promise(resolve => {
 			let open = indexedDB.open(dbName);
-			open.onsuccess = e => {
-				dbVersion = parseInt(open.result.version);
-				console.log("dbVersion", dbVersion);
-				let storeNames = e.target.result.objectStoreNames;
-				for (let i in storeNames) {
-					if (storeNames[i] === tableName) {
-						flag = true;
-						let tx = e.target.result.transaction(
-							tableName,
-							"readwrite"
-						);
-						let store = tx.objectStore(tableName);
-						store.put(data);
-						tx.oncomplete = t => {
-							resolve(t);
-							open.result.close();
-						};
-						tx.onabort = e => {
-							resolve(e);
-							open.result.close();
-						};
-						break;
+			open.onsuccess = () => {
+				let db = open.result;
+				let nameList = db.objectStoreNames;
+				for (let i in nameList) {
+					if (nameList[i] === tableName) {
+						db.close();
+						return resolve(true);
 					}
 				}
-				if (!flag) {
-					open.result.close();
-					resolve(false);
-				}
+				db.close();
+				return resolve(false);
 			};
-		}).then(r => {
-			return new Promise(resolve => {
-				if (r === false) {
-					dbVersion++;
-					let open2 = indexedDB.open(dbName, dbVersion);
-					open2.onupgradeneeded = e => {
-						let db = open2.result;
-						let store = db.createObjectStore(tableName, {
-							autoIncrement: true
-						});
-						let result = store.put(data);
-						result.onsuccess = r => {
-							resolve(r);
-							db.close();
-						};
-					};
-				} else if (r.type === "abort") {
-					resolve(r);
-				} else if (r.type === "complete") {
-					resolve(r);
-				} else {
-					resolve(r);
-				}
-			});
+			open.onerror = e => {
+				return resolve(false);
+			};
+		});
+	},
+	selectByKey: (dbName, tableName, keyValue) => {
+		let flag = false;
+		return new Promise(resolve => {
+			let request = indexedDB.open(dbName);
+			request.onsuccess = e => {
+				let db = request.result;
+				let tx = db.transaction(tableName, "readwrite");
+				let store = tx.objectStore(tableName);
+				let result = store.get(keyValue);
+				result.onsuccess = s => {
+					db.close();
+					resolve(result);
+				};
+				result.onerror = e => {
+					db.close();
+					resolve(false);
+				};
+			};
+		});
+	},
+	select: (dbName, tableName) => {
+		let flag = false;
+		return new Promise(resolve => {
+			let request = indexedDB.open(dbName);
+			request.onsuccess = e => {
+				let db = request.result;
+				let tx = db.transaction(tableName, "readwrite");
+				let store = tx.objectStore(tableName);
+				let result = store.getAll();
+				result.onsuccess = s => {
+					db.close();
+					resolve(result);
+				};
+				result.onerror = e => {
+					db.close();
+					resolve(false);
+				};
+			};
+		});
+	},
+	insert: (dbName, tableName, arr) => {
+		let dbVersion;
+		return new Promise(resolve => {
+			let request = indexedDB.open(dbName);
+			request.onblocked = function(event) {
+				console.log("It is already opened.");
+			};
+			request.onsuccess = e => {
+				let db = request.result;
+				dbVersion = parseInt(db.version);
+				let tx = db.transaction(tableName, "readwrite");
+				let store = tx.objectStore(tableName);
+				for (let i in arr) store.add(arr[i].data, arr[i].key);
+				tx.oncomplete = t => {
+					db.close();
+					resolve(t);
+				};
+				tx.onerror = e => {
+					db.close();
+					resolve(e);
+				};
+			};
 		});
 	}
 };
