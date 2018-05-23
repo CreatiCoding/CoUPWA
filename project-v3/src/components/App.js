@@ -12,14 +12,16 @@ import coupwaFetch from "../lib/coupwaFetch";
 class App extends Component {
 	constructor(props) {
 		super(props);
-		offlineUtil.storeCacheViewToon(true).then(r => {
-			if (!r) console.log("이미 데이터가 있습니다.");
-			else console.log("정상적으로 저장되었습니다.");
-		});
-		offlineUtil.isCachedViewToon("ViewCount", "mon").then(r => {
-			if (r) console.log("caching이 되어있습니다.");
-			else console.log("없습니다");
-		});
+		indexedDBUtil
+			.existsTable("coupwa", "viewToon")
+			.then(r => {
+				if (r !== true) {
+					indexedDBUtil.createTable("coupwa", "viewToon", "key");
+				}
+			})
+			.then(r => {
+				return offlineUtil.storeCacheViewToon(true);
+			});
 	}
 	render() {
 		return (

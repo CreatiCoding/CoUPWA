@@ -119,7 +119,14 @@ const self = {
 			};
 		});
 	},
-	insert: (dbName, tableName, arr) => {
+	insertList: (dbName, tableName, arr) => {
+		let promises = [];
+		for (let i = 0; i < arr.length; i++) {
+			promises.push(self.insert(dbName, tableName, arr[i]));
+		}
+		return Promise.all(promises);
+	},
+	insert: (dbName, tableName, data) => {
 		let dbVersion;
 		return new Promise(resolve => {
 			let request = indexedDB.open(dbName);
@@ -131,14 +138,16 @@ const self = {
 				dbVersion = parseInt(db.version);
 				let tx = db.transaction(tableName, "readwrite");
 				let store = tx.objectStore(tableName);
-				console.log(arr);
-				for (let i in arr) store.add(arr[i]);
+
+				store.add(data);
 				tx.oncomplete = t => {
 					db.close();
+					console.log(t);
 					resolve(t);
 				};
 				tx.onerror = e => {
 					db.close();
+					console.log(e);
 					resolve(e);
 				};
 			};
