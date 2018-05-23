@@ -16,25 +16,6 @@ if (!Firebase.apps.length) {
 	fs = Firebase.firestore();
 	const settings = {/* your settings... */ timestampsInSnapshots: true};
 	fs.settings(settings);
-	fs
-		.enablePersistence()
-		.then(function() {
-			// Initialize Cloud Firestore through firebase
-			var db = firebase.firestore();
-		})
-		.catch(function(err) {
-			if (err.code == "failed-precondition") {
-				console.error("It is multi tab.");
-				// Multiple tabs open, persistence can only be enabled
-				// in one tab at a a time.
-				// ...
-			} else if (err.code == "unimplemented") {
-				console.error("It is not supported browser.");
-				// The current browser does not support all of the
-				// features required to enable persistence
-				// ...
-			}
-		});
 }
 
 const self = {
