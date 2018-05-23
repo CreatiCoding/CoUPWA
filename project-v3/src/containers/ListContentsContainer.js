@@ -27,10 +27,10 @@ class ListContentsContainer extends Component {
 			}
 			let tracks = this.state.tracks;
 
-			let lastIdx = tracks[tracks.length - 1].toon_data_idx;
+			let lastIdx = tracks[tracks.length - 1].toon_data_seq;
 			tracks.push(
 				this.props.toonList.filter(ele => {
-					return ele.toon_data_idx === lastIdx + 1;
+					return ele.toon_data_seq === lastIdx + 1;
 				})[0]
 			);
 			this.setState({
@@ -43,7 +43,7 @@ class ListContentsContainer extends Component {
 		this.props.handleLoadToonList({}, []);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchToonList(this.props.toon_info_idx, r => {
+		coupwaFetch.fetchToonList(this.props.toon_info_idx).then(r => {
 			let toonInfo = {
 				toon_info_author: r.toon_info_author,
 				toon_info_count: r.toon_info_count,

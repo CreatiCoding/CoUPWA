@@ -48,6 +48,7 @@ const self = {
 		return data_list.map((ele, seq, arr) => {
 			return new self.innerFactory(
 				seq + 1,
+				commonUtil.sliceString(ele, "&amp;no=", "&amp;week="),
 				commonUtil
 					.sliceString(
 						ele,
@@ -99,6 +100,7 @@ const self = {
 		this.toonListData = data_list;
 	},
 	innerFactory: function ToonData(
+		toon_data_seq,
 		toon_data_idx,
 		toon_data_name,
 		toon_data_star,
@@ -107,6 +109,7 @@ const self = {
 		toon_data_update,
 		toon_data_update_at
 	) {
+		this.toon_data_seq = toon_data_seq;
 		this.toon_data_idx = toon_data_idx;
 		this.toon_data_name = toon_data_name;
 		this.toon_data_star = toon_data_star;
