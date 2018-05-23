@@ -9,7 +9,9 @@ class MainContentsContainer extends Component {
 		super(props);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchViewToon("ViewCount", this.props.handleChangeViewToon);
+		coupwaFetch.fetchViewToonCaching("ViewCount").then(r => {
+			this.props.handleChangeViewToon(r);
+		});
 	}
 	render() {
 		return (
