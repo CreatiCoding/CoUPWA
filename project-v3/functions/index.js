@@ -3,9 +3,10 @@ const admin = require("firebase-admin");
 const properties = require("./properties.json");
 const customLoader = require(properties.index.customLoader);
 const serviceAccount = require(properties.index.serviceAccount);
-const crawlingUtil = require("./util/crawlingUtil");
 const commonUtil = require("./util/commonUtil");
 const request = require("request");
+const express = require("express");
+const routeCache = require("route-cache");
 
 if (!admin.apps.length) {
 	admin.initializeApp({
@@ -65,3 +66,37 @@ exports.toonDetail = functions.https.onRequest((request, response) => {
 		})
 		.then(r => response.json(r));
 });
+
+const requestImage = express();
+requestImage.get("/", routeCache.cacheSeconds(300), (req, res) => {
+	const url =
+		req.body.url === undefined
+			? req.query.url === undefined ? "" : req.query.url
+			: req.body.url;
+	return request(
+		{
+			url: url
+		},
+		(error, response, body) => {
+			res.send(body);
+		}
+	);
+});
+requestImage.get("/images", routeCache.cacheSeconds(300), (req, res) => {
+	const url =
+		req.body.url === undefined
+			? req.query.url === undefined ? "" : req.query.url
+			: req.body.url;
+	const options = {
+		headers: {
+			Referer: properties.url.toonDetail.referer,
+			"User-Agent": properties.userAgent
+		},
+		url: url,
+		encoding: null
+	};
+	return request(options, (error, response, body) => {
+		res.send(body);
+	});
+});
+exports.requestImage = functions.https.onRequest(requestImage);
