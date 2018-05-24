@@ -9,7 +9,7 @@ class MainBannerContainer extends Component {
 		super(props);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchViewBannerImage().then(r => {
+		coupwaFetch.fetchViewBannerImageCaching().then(r => {
 			this.props.handleChangeViewBannerImage(r);
 		});
 	}

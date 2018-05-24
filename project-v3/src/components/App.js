@@ -13,15 +13,20 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		indexedDBUtil
-			.existsTable("coupwa", "viewToon")
-			.then(r => {
-				if (r !== true) {
-					indexedDBUtil.createTable("coupwa", "viewToon", "key");
-				}
-			})
+			.isNotExistCreateTable("coupwa", "viewToon", "key")
 			.then(r => {
 				return offlineUtil.storeCacheViewToon(true);
 			});
+		// .then(() => {
+		// 	return indexedDBUtil.isNotExistCreateTable(
+		// 		"coupwa",
+		// 		"viewBannerImage",
+		// 		"key"
+		// 	);
+		// })
+		// .then(r => {
+		// 	return offlineUtil.storeCacheViewBannerImage(true);
+		// });
 	}
 	render() {
 		return (

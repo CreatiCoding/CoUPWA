@@ -6,11 +6,84 @@ import commonUtil from "./commonUtil";
 const weekDay = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
 const self = {
+	isCachedViewBannerImage: () => {
+		return indexedDBUtil
+			.existsTable("coupwa", "viewBannerImage")
+			.then(r => {
+				if (!r) {
+					return indexedDBUtil.createTable(
+						"coupwa",
+						"viewBannerImage",
+						"key"
+					);
+				} else {
+					return r;
+				}
+			})
+			.then(r => {
+				return indexedDBUtil.selectByKey(
+					"coupwa",
+					"viewBannerImage",
+					commonUtil.getDateFormat("YYMMDD")
+				);
+			})
+			.then(r => {
+				if (!r || !r.result) return false;
+				else return r;
+			});
+	},
+	existsCacheViewBannerImage: () => {
+		return indexedDBUtil
+			.isNotExistCreateTable("coupwa", "viewBannerImage", "key")
+			.then(r => {
+				if (!r) return false;
+				return indexedDBUtil.selectByKey(
+					"coupwa",
+					"viewBannerImage",
+					commonUtil.getDateFormat("YYMMDD")
+				);
+			})
+			.then(r => {
+				if (!r) return false;
+				else if (r.result !== undefined) {
+					return false;
+				}
+				return true;
+			});
+	},
+	storeCacheViewBannerImage: bool => {
+		return Promise.resolve(bool)
+			.then(r => {
+				if (!r) return false;
+				return coupwaFetch.fetchViewBannerImage();
+			})
+			.then(r => {
+				if (!r) return false;
+				return {
+					key: commonUtil.getDateFormat("YYMMDD"),
+					data: r
+				};
+			})
+			.then(r => {
+				if (!r) return false;
+				return indexedDBUtil.insert("coupwa", "viewBannerImage", r);
+			});
+	},
 	isCachedViewToon: sort_type => {
 		return indexedDBUtil
 			.existsTable("coupwa", "viewToon")
 			.then(r => {
-				if (!r) return false;
+				if (!r) {
+					return indexedDBUtil.createTable(
+						"coupwa",
+						"viewToon",
+						"key"
+					);
+				} else {
+					return r;
+				}
+			})
+			.then(r => {
 				return indexedDBUtil.selectByKey(
 					"coupwa",
 					"viewToon",
