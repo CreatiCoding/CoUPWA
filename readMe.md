@@ -1,6 +1,9 @@
 # CoUPWA
 PWA project by CoU Team
 [![Build Status](https://travis-ci.org/CreatiCoding/CoUPWA.svg?branch=master)](https://travis-ci.org/CreatiCoding/CoUPWA)
+
+![0001](https://user-images.githubusercontent.com/33514304/40483175-09e809c4-5f92-11e8-8016-83037e6934dc.png)
+
 ### 1. 참여 발명자
 + 정석호
 + 강희정
