@@ -1,4 +1,7 @@
-const commonUtil = {
+const self = {
+	getYYMMDD: () => {
+		return self.getDateFormat("YYMMDD");
+	},
 	sliceString: (str, from, end) => {
 		return str.substring(str.indexOf(from) + from.length, str.indexOf(end));
 	},
@@ -99,4 +102,4 @@ const commonUtil = {
 	}
 };
 
-module.exports = commonUtil;
+module.exports = self;

@@ -2,6 +2,7 @@ import Firebase from "./Firebase";
 import commonUtil from "./commonUtil";
 import offlineUtil from "./offlineUtil";
 import indexedDBUtil from "./indexedDBUtil";
+import db from "./db";
 
 const week = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 const self = {
@@ -26,35 +27,34 @@ const self = {
 		});
 	},
 	fetchViewToonCaching: sortType => {
-		let arr = [];
-		return offlineUtil.isCachedViewToon(sortType).then(r => {
-			if (r) {
-				console.log("캐싱된 데이터를 불러옵니다.");
-				return r.result.data;
-			} else {
+		return db.getViewToon(commonUtil.getYYMMDD(), sortType).then(r => {
+			if (!r) {
 				console.log("캐싱된 데이터가 없습니다.");
-				return self
-					.fetchViewToon(sortType)
-					.then(r => {
-						arr.push({
-							key:
-								commonUtil.getDateFormat("YYMMDD") +
-								"_" +
-								sortType,
-							data: r
-						});
-						return indexedDBUtil.insertList(
-							"coupwa",
-							"viewToon",
-							arr
-						);
-					})
-					.then(r => {
-						if (r) console.log("캐시로 저장되었습니다.");
-						return arr[0].data;
-					});
+				return offlineUtil.cacheViewToon(
+					commonUtil.getYYMMDD(),
+					sortType
+				);
+				//return self.fetchViewToon(sortType);
+			} else {
+				console.log("캐싱된 데이터를 불러옵니다.");
+				return r.data;
 			}
 		});
+	},
+
+	fetchViewBannerImageCaching2: () => {
+		let cache = localStorage.getItem(commonUtil.getDateFormat("YYMMDD"));
+		if (cache === null) {
+			return self.fetchViewBannerImage().then(r => {
+				localStorage.setItem(
+					commonUtil.getDateFormat("YYMMDD"),
+					JSON.stringify(r)
+				);
+				return r;
+			});
+		} else {
+			return Promise.resolve(JSON.parse(cache));
+		}
 	},
 	fetchViewBannerImage: () => {
 		let key = commonUtil.getDateFormat("YYMMDD");
@@ -68,37 +68,32 @@ const self = {
 			});
 	},
 	fetchViewBannerImageCaching: () => {
-		let data;
-		return offlineUtil.isCachedViewBannerImage().then(r => {
-			if (r) {
-				console.log("캐싱된 데이터를 불러옵니다.");
-				return r.result.data;
-			} else {
+		return db.getViewBannerImage(commonUtil.getYYMMDD()).then(r => {
+			if (!r) {
 				console.log("캐싱된 데이터가 없습니다.");
-				return self
-					.fetchViewBannerImage()
-					.then(r => {
-						data = {
-							key: commonUtil.getDateFormat("YYMMDD"),
-							data: r
-						};
-						return indexedDBUtil.insert(
-							"coupwa",
-							"viewBannerImage",
-							data
-						);
-					})
-					.then(r => {
-						if (r) console.log("캐시로 저장되었습니다.");
-						return data.data;
-					});
+				return offlineUtil.cacheViewBannerImage(commonUtil.getYYMMDD());
+			} else {
+				console.log("캐싱된 데이터를 불러옵니다.");
+				return r.data;
 			}
 		});
 	},
 	fetchToonList: toon_info_idx => {
 		let key = toon_info_idx;
 		return Firebase.selectDoc("toonList", key).then(result => {
+			console.log(result);
 			return result;
+		});
+	},
+	fetchToonListCaching: toon_info_idx => {
+		return db.getToonList(toon_info_idx).then(r => {
+			if (!r) {
+				console.log("캐싱된 데이터가 없습니다.");
+				return offlineUtil.cacheToonList(toon_info_idx);
+			} else {
+				console.log("캐싱된 데이터를 불러옵니다.");
+				return r.data;
+			}
 		});
 	}
 };

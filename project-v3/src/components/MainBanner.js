@@ -6,15 +6,15 @@ import "../css/MainBanner.css";
 import {Link} from "react-router-dom";
 
 const MainBannerInfo = ({ele}) => {
-	let loadImgBackground = e => {
-		setTimeout(
-			ele => {
-				ele.attributes.src.value = ele.attributes.path.value;
-			},
-			10,
-			e.target
-		);
-	};
+	// let loadImgBackground = e => {
+	// 	setTimeout(
+	// 		ele => {
+	// 			ele.attributes.src.value = ele.attributes.path.value;
+	// 		},
+	// 		10,
+	// 		e.target
+	// 	);
+	// };
 
 	let isMouseDown = false;
 	let isLinkable = true;
@@ -45,9 +45,10 @@ const MainBannerInfo = ({ele}) => {
 					onError={e => {
 						e.target.src = "/images/banner_naver.png";
 					}}
-					src={"/images/banner_naver.png"}
-					onLoad={loadImgBackground}
-					path={ele.banner_image_path}
+					src={ele.banner_image_path}
+					// src={"/images/banner_naver.png"}
+					// onLoad={loadImgBackground}
+					// path={ele.banner_image_path}
 					alt={ele.image_alt}
 				/>
 			</div>
@@ -63,7 +64,7 @@ const MainBanner = ({viewBannerImage}) => {
 	};
 	let settings = {
 		dots: true,
-		lazyLoad: "progressive",
+		lazyLoad: "ondemand",
 		infinite: true,
 		speed: 500,
 		slidesToShow: 1,
