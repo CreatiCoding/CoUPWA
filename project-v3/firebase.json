@@ -20,6 +20,10 @@
             {
                 "source": "/fc/toonDetail",
                 "function": "toonDetail"
+            },
+            {
+                "source": "**",
+                "destination": "/index.html"
             }
         ],
         "headers": [
