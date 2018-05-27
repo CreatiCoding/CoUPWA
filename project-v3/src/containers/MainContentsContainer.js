@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import * as actions from "../actions";
 import MainContents from "../components/MainContents";
 import coupwaFetch from "../lib/coupwaFetch";
+import db from "../lib/db";
 
 class MainContentsContainer extends Component {
 	constructor(props) {

@@ -1,10 +1,18 @@
 import React from "react";
 import "../css/ListHeader.css";
 
-const ListContents = ({items, toonInfo}) => {
+const ListContents = ({items, toonInfo, toon_info_idx}) => {
 	const mapToListContentsWebtoonList = data => {
+		if (data.length === 1 && data[0] === undefined) {
+			alert(
+				"19금 웹툰은 네이버웹툰에서 이용해주세요! :)" +
+					JSON.stringify(toonInfo)
+			);
+			window.location =
+				"http://comic.naver.com/webtoon/list.nhn?titleId=" +
+				toon_info_idx;
+		}
 		return data.map((ele, seq) => {
-			console.log(ele);
 			let href =
 				"http://m.comic.naver.com/webtoon/detail.nhn?titleId=" +
 				toonInfo.toon_info_idx +

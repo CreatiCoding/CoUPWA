@@ -9,16 +9,11 @@ class MainBannerContainer extends Component {
 		super(props);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchViewBannerImage().then(r => {
+		coupwaFetch.fetchViewBannerImageCaching().then(r => {
 			this.props.handleChangeViewBannerImage(r);
 		});
 	}
 	render() {
-		//이 작업은 설치를 할 때 진행해야함.
-		// let cacheData = this.props.viewBannerImage;
-		// for (let i in cacheData) {
-		// 	document.createElement("img").src = cacheData[i].banner_image_path;
-		// }
 		return <MainBanner viewBannerImage={this.props.viewBannerImage} />;
 	}
 }

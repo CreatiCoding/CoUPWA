@@ -1,5 +1,5 @@
 import * as types from "./ActionTypes";
-//
+
 export function changeViewBannerImage(viewBannerImage) {
 	return {
 		type: types.CHANGE_VIEWBANNERIMAGE,

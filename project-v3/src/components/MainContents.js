@@ -15,7 +15,7 @@ const MainContents = ({viewToon}) => {
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		lazyLoad: "progressive",
+		lazyLoad: "ondemand",
 		arrows: false,
 		className: "main-contents-slick",
 		dotsClass: "main-contents-slick-dots slick-dots",
@@ -31,7 +31,7 @@ const MainContents = ({viewToon}) => {
 				ele => {
 					ele.attributes.src.value = ele.attributes.path.value;
 				},
-				10,
+				0,
 				e.target
 			);
 		};

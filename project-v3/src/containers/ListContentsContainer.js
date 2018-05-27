@@ -43,7 +43,13 @@ class ListContentsContainer extends Component {
 		this.props.handleLoadToonList({}, []);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchToonList(this.props.toon_info_idx).then(r => {
+		coupwaFetch.fetchToonListCaching(this.props.toon_info_idx).then(r => {
+			if (r === undefined) {
+				alert(
+					"잘못된 경로로 들어오셨습니다 :)\n사용에 맞게 사용해주세요! :)"
+				);
+				window.location = "/";
+			}
 			let toonInfo = {
 				toon_info_author: r.toon_info_author,
 				toon_info_count: r.toon_info_count,
@@ -80,6 +86,7 @@ class ListContentsContainer extends Component {
 						<ListContents
 							items={this.state.tracks}
 							toonInfo={this.props.toonInfo}
+							toon_info_idx={this.props.toon_info_idx}
 						/>
 					</InfiniteScroll>
 				</div>

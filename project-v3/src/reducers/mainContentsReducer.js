@@ -13,20 +13,7 @@ export default function mainContentsReducer(state = initialState, action) {
 				...state,
 				viewToon: action.viewToon
 			};
-		// 	state["viewToon_" + action.weekday] = action.value;
-		// 	return state;
-
-		// {
-		// 		...state,
-		// 		viewToon: {
-		// 			...state.viewToon,
-		// 			action['sortType'] : {
 		//
-		// 			}
-		// 		}
-		// 	};
-		// case types.CHANGE_WEEKNUM:
-		// 	return {
 		// 		...state,
 		// 		currentWeekNum: action.currentWeekNum
 		// 	};
