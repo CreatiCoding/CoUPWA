@@ -29,7 +29,10 @@ const MainContents = ({viewToon}) => {
 		let loadImgBackground = e => {
 			setTimeout(
 				ele => {
-					ele.attributes.src.value = ele.attributes.path.value;
+					let path = ele.attributes.path.value;
+					if (window.navigator.userAgent.indexOf("Chrome") == -1)
+						path = path.slice(0, path.lastIndexOf(".")) + ".jpg";
+					ele.attributes.src.value = path;
 				},
 				0,
 				e.target

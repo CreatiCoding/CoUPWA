@@ -252,6 +252,8 @@ ul {
 
 .square {
 
+	width: 177px;
+	height: 105px;
 	display: block;
 	position: absolute;
 	/*top: 0;*/

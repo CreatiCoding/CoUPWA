@@ -16,6 +16,19 @@ const MainBannerInfo = ({ele}) => {
 	// 	);
 	// };
 
+	let loadImgBackground = e => {
+		setTimeout(
+			ele => {
+				let path = ele.attributes.path.value;
+				if (window.navigator.userAgent.indexOf("Chrome") == -1)
+					path = path.slice(0, path.lastIndexOf(".")) + ".jpg";
+				ele.attributes.src.value = path;
+			},
+			0,
+			e.target
+		);
+	};
+
 	let isMouseDown = false;
 	let isLinkable = true;
 	return (
@@ -43,11 +56,12 @@ const MainBannerInfo = ({ele}) => {
 				<img
 					className="main-banner-img"
 					onError={e => {
-						e.target.src = "/images/banner_naver.jpg";
+						e.target.src = "/images/banner_naver.png";
 					}}
-					src={ele.banner_image_path}
+					path={ele.banner_image_path}
+					src={"/images/banner_naver.png"}
 					// src={"/images/banner_naver.png"}
-					// onLoad={loadImgBackground}
+					onLoad={loadImgBackground}
 					// path={ele.banner_image_path}
 					alt={ele.image_alt}
 				/>
