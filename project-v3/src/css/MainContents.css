@@ -197,6 +197,10 @@
 	max-width: none !important;
 }
 
+.main-contents-toon-img {
+
+}
+
 .main-contents-toon-thumbnail {
 	display: block;
 	position: absolute;
@@ -241,8 +245,4 @@
 	border-radius: 10px;
 	border: solid;
 	padding: 2px;
-}
-.main-contents-toon-img{
-	display: flex;
-	float: left;
 }

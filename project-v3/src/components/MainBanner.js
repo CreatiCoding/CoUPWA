@@ -43,7 +43,7 @@ const MainBannerInfo = ({ele}) => {
 				<img
 					className="main-banner-img"
 					onError={e => {
-						e.target.src = "/images/banner_naver.png";
+						e.target.src = "/images/banner_naver.jpg";
 					}}
 					src={ele.banner_image_path}
 					// src={"/images/banner_naver.png"}
