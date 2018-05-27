@@ -24,15 +24,16 @@ const self = {
 				});
 			})
 			.then(r => commonUtil.promiseSeqOneSec(r))
-			.then(r =>
-				r.map(ele => {
+			.then(r => {
+				console.log(r);
+				return r.map(ele => {
 					return {
 						key: ele.toonList.toon_info_idx,
 						model: "toonList",
 						data: ele.toonList
 					};
-				})
-			)
+				});
+			})
 			.then(r => firestoreUtil.insert(r));
 	},
 	resetMain: () => {

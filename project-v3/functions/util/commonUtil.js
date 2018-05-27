@@ -126,6 +126,7 @@ const self = {
 	 *
 	 *
 	 */
+
 	storeImageToBucket: args => {
 		let body = args.body !== undefined ? args.body : args[0];
 		let path = args.path !== undefined ? args.path : args[1];
@@ -134,7 +135,7 @@ const self = {
 		let options = args.options !== undefined ? args.options : args[4];
 		let file = bucket.file(path);
 		return new Promise((resolve, reject) => {
-			file
+			return file
 				.createWriteStream({
 					metadata: {
 						contentType: type
@@ -147,6 +148,7 @@ const self = {
 					let preUrl =
 						"https://storage.googleapis.com/react-pwa-webtoon";
 					let url = preUrl + path;
+					console.log(path, "is stored.");
 					return file
 						.makePublic()
 						.then(() => {
@@ -169,7 +171,6 @@ const self = {
 		let type = args[2];
 		path =
 			path.substring(0, path.lastIndexOf(".")) +
-			"2" +
 			path.substring(path.lastIndexOf("."));
 		type = type.substring(0, type.lastIndexOf("/")) + "/webp";
 		args[2] = type;
@@ -184,6 +185,24 @@ const self = {
 				args[0] = r;
 				return self.storeImageToBucket(args);
 			});
+	},
+	storeImageToBucket3: args => {
+		let body = args[0];
+		let path = args[1];
+		let type = args[2];
+		path =
+			path.substring(0, path.lastIndexOf(".")) +
+			path.substring(path.lastIndexOf("."));
+		type = type.substring(0, type.lastIndexOf("/")) + "/jpeg";
+		args[2] = type;
+		args[1] = path;
+		return imageUtil.optimizeImage(body).then(r => {
+			let path = args[1];
+			path = path.substring(0, path.lastIndexOf(".")) + ".jpg";
+			args[1] = path;
+			args[0] = r;
+			return self.storeImageToBucket(args);
+		});
 	},
 	/**
 	 * isValidImage
@@ -219,7 +238,7 @@ const self = {
 						console.log(sec + " second(s) passed");
 						resolve(fc(args));
 					},
-					250 * sec,
+					500 * sec,
 					{}
 				);
 			});

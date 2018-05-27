@@ -154,6 +154,7 @@ const self = {
 					reject(err);
 				})
 				.then(result2 => {
+					console.log(result2);
 					let ext = result2.file.file_path.slice(
 						result2.file.file_path.lastIndexOf(".") + 1
 					);
