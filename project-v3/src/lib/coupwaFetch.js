@@ -30,7 +30,7 @@ const self = {
 		return offlineUtil.isCachedViewToon(sortType).then(r => {
 			if (r) {
 				console.log("캐싱된 데이터를 불러옵니다.");
-				return r.result;
+				return r.result.data;
 			} else {
 				console.log("캐싱된 데이터가 없습니다.");
 				return self
@@ -43,7 +43,11 @@ const self = {
 								sortType,
 							data: r
 						});
-						return indexedDBUtil.insert("coupwa", "viewToon", arr);
+						return indexedDBUtil.insertList(
+							"coupwa",
+							"viewToon",
+							arr
+						);
 					})
 					.then(r => {
 						if (r) console.log("캐시로 저장되었습니다.");

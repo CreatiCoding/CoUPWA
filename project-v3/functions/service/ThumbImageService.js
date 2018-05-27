@@ -28,7 +28,6 @@ const self = {
 				return firestoreUtil.insert(arr2);
 			})
 			.then(() => {
-				console.log(arr2);
 				return arr2;
 			});
 	}

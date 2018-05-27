@@ -5,14 +5,14 @@ const indexedDB =
 	window.msIndexedDB;
 
 const self = {
-	isNotExistCreateTable: (dbName, tableName) => {
+	isNotExistCreateTable: (dbName, tableName, key) => {
 		return self
 			.existsTable(dbName, tableName)
 			.then(exists => {
 				if (exists) {
 					return {name: tableName};
 				} else {
-					return self.createTable(dbName, tableName);
+					return self.createTable(dbName, tableName, key);
 				}
 			})
 			.then(r => {
@@ -119,7 +119,14 @@ const self = {
 			};
 		});
 	},
-	insert: (dbName, tableName, arr) => {
+	insertList: (dbName, tableName, arr) => {
+		let promises = [];
+		for (let i = 0; i < arr.length; i++) {
+			promises.push(self.insert(dbName, tableName, arr[i]));
+		}
+		return Promise.all(promises);
+	},
+	insert: (dbName, tableName, data) => {
 		let dbVersion;
 		return new Promise(resolve => {
 			let request = indexedDB.open(dbName);
@@ -131,13 +138,16 @@ const self = {
 				dbVersion = parseInt(db.version);
 				let tx = db.transaction(tableName, "readwrite");
 				let store = tx.objectStore(tableName);
-				for (let i in arr) store.add(arr[i].data, arr[i].key);
+
+				store.add(data);
 				tx.oncomplete = t => {
 					db.close();
+					console.log(t);
 					resolve(t);
 				};
 				tx.onerror = e => {
 					db.close();
+					console.log(e);
 					resolve(e);
 				};
 			};

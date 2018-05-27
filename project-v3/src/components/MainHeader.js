@@ -43,10 +43,9 @@ const MainHeader = ({currentSortType, clickLeft, clickRight, clickTypes}) => {
 	};
 	return (
 		<div className="main-header-navbar hide">
-			<div
-				className="main-header-side-style oi oi-caret-left"
-				onClick={clickLeft}
-			/>
+			<div className="main-header-side-style" onClick={clickLeft}>
+				◀
+			</div>
 			<div className="main-header-list-type-style">
 				<DropdownButton
 					id="main-header-dropdown"
@@ -57,10 +56,9 @@ const MainHeader = ({currentSortType, clickLeft, clickRight, clickTypes}) => {
 					{mapToListType(sortTypesKor)}
 				</DropdownButton>
 			</div>
-			<div
-				className="main-header-side-style oi oi-caret-right"
-				onClick={clickRight}
-			/>
+			<div className="main-header-side-style" onClick={clickRight}>
+				▶
+			</div>
 		</div>
 	);
 };

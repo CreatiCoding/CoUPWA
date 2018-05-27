@@ -40,7 +40,7 @@ const self = {
 		for (let i = 0; i < insertInfo.length / 500; i++) {
 			let index = batch.length;
 			batch[index] = db.batch();
-
+			console.log(insertInfo[i]);
 			for (
 				let j = i * 500;
 				j < (i + 1) * 500 && j < insertInfo.length;

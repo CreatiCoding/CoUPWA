@@ -86,7 +86,7 @@ const self = {
 			})
 			.then(r => {
 				if (!r) return false;
-				return indexedDBUtil.insert("coupwa", "viewToon", r);
+				return indexedDBUtil.insertList("coupwa", "viewToon", r);
 			});
 	}
 };

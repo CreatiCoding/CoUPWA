@@ -5,9 +5,12 @@ const self = {
 		let arr2 = [];
 		return imageDownloadUtil
 			.crawlBannerImage()
-			.then(result => imageDownloadUtil.downloadImageList(result))
+			.then(result => {
+				console.log("crawlBannerImage result");
+				return imageDownloadUtil.downloadImageList(result);
+			})
 			.then(result2 => {
-				//console.log(result2);
+				console.log("downloadImageList result");
 				let arr = result2.map(ele => {
 					let ret = [];
 					for (let item in ele) {

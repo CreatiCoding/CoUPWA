@@ -12,7 +12,8 @@ const commonUtil = {
 				String.fromCodePoint(
 					parseInt(
 						"0" +
-							a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7)
+							a.slice(a.indexOf("&#x") + 2, a.indexOf("&#x") + 7),
+						10
 					)
 				) +
 				a.slice(a.indexOf("&#x") + 8);
@@ -68,13 +69,13 @@ const commonUtil = {
 			yy: src[3].substr(2, 2),
 			YY: src[3].substr(2, 2),
 			MMM: src[1],
-			MM: parseInt(month / 10) > 0 ? month : "0" + String(month),
+			MM: parseInt(month / 10, 10) > 0 ? month : "0" + String(month),
 			DD: src[2],
 			dd: src[2],
 			EEE: src[0],
 			eee: src[0].toLowerCase(),
 			HH: time[0],
-			hh: String(parseInt(time[0]) % 12),
+			hh: String(parseInt(time[0], 10) % 12),
 			mm: time[1],
 			SS: time[2],
 			ss: time[2]

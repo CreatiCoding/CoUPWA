@@ -27,26 +27,26 @@ module.exports = {
 		"build/css/**.css",
 		"build/favicon.ico",
 		"build/static/**/**.js",
-		"build/static/**/**.css"
+		"build/static/**/**.css",
+		"build/static/**/**.wott",
+		"build/static/**/**.eot",
+		"build/static/**/**.ttf",
+		"build/static/**/**.svg"
 	],
 	stripPrefix: "build/",
 	bail: true,
 	runtimeCaching: [
 		{
-			urlPattern: /\/react-pwa-webtoon\/thumb\/.*.(jpg|png)/,
-			handler: "fastest"
+			urlPattern: /\/react-pwa-webtoon\/thumb\/.*.(jpg|png|webp)/,
+			handler: "cacheFirst"
 		},
 		{
-			urlPattern: /^http:\/\/thumb\.comic\.naver\.net\/webtoon\/.*.\.(jpg|png)/,
-			handler: "fastest"
+			urlPattern: /^https:\/\/us-central1-react-pwa-webtoon\.cloudfunctions\.net\/requestImage.*/,
+			handler: "cacheFirst"
 		},
 		{
-			urlPattern: /\/react-pwa-webtoon\/banner\/.*.(jpg|png)/,
-			handler: "fastest"
-		},
-		{
-			urlPattern: /https:\/\/www\.google\.com\/images\/cleardot.*./,
-			handler: "fastest"
+			urlPattern: /\/react-pwa-webtoon\/banner\/.*.(jpg|png|webp)/,
+			handler: "cacheFirst"
 		}
 	]
 };

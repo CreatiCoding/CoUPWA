@@ -4,6 +4,7 @@ import "../css/ListHeader.css";
 const ListContents = ({items, toonInfo}) => {
 	const mapToListContentsWebtoonList = data => {
 		return data.map((ele, seq) => {
+			console.log(ele);
 			let href =
 				"http://m.comic.naver.com/webtoon/detail.nhn?titleId=" +
 				toonInfo.toon_info_idx +
@@ -16,11 +17,22 @@ const ListContents = ({items, toonInfo}) => {
 				window.location.href = href;
 			};
 			return (
-				<li onClick={onclick} key={seq} className="sub_toon_lst">
-					<img className="square" src={ele.toon_data_thumb} />
+				<li
+					onClick={onclick}
+					key={seq}
+					className="sub_toon_lst"
+					alt={ele.toon_data_name}
+				>
+					<img
+						className="square"
+						src={
+							"https://us-central1-react-pwa-webtoon.cloudfunctions.net/requestImage/images?url=" +
+							ele.toon_data_thumb
+						}
+					/>
 					<div className="toon_info" key={ele.toon_data_idx}>
 						<div className="toon-data-title">
-							{ele.toon_data_name}
+							{ele.toon_data_idx + " " + ele.toon_data_name}
 							<div
 								className={
 									ele.toon_data_update

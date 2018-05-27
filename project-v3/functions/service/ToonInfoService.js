@@ -39,6 +39,7 @@ const self = {
 				return result2;
 			})
 			.then(result3 => {
+				console.log(result3);
 				return firestoreUtil.insert(result3);
 			})
 			.then(result4 => {
