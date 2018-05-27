@@ -250,8 +250,15 @@ ul {
 }
 
 .square {
+
 	display: block;
-	float: left;
+	position: absolute;
+	/*top: 0;*/
+	/*left: 0;*/
+	/*width:100%;*/
+
+	/*display: block;*/
+	/*float: left;*/
 }
 
 .frame ul {
@@ -334,4 +341,13 @@ strong {
 .list-contents-toon-date{
 	float : right;
 	color: #000000;
+}
+.list-toon-img{
+	display: flex;
+	float: left;
+}
+.list-toon-img .default-thumbnail {
+	width: 177px;
+	height: 105px;
+	z-index: -1;
 }

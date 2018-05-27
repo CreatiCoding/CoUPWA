@@ -24,6 +24,7 @@ const ListContents = ({items, toonInfo, toon_info_idx}) => {
 				e.preventDefault();
 				window.location.href = href;
 			};
+			let altDefault = "기본 썸네일";
 			return (
 				<li
 					onClick={onclick}
@@ -31,13 +32,23 @@ const ListContents = ({items, toonInfo, toon_info_idx}) => {
 					className="sub_toon_lst"
 					alt={ele.toon_data_name}
 				>
-					<img
-						className="square"
-						src={
-							"https://us-central1-react-pwa-webtoon.cloudfunctions.net/requestImage/images?url=" +
-							ele.toon_data_thumb
-						}
-					/>
+					<div className="list-toon-img">
+						<img
+							className="default-thumbnail"
+							src={"/images/list_logo.jpg"}
+							alt={altDefault}
+						/>
+						<img
+							className="square"
+							src={
+								"https://us-central1-react-pwa-webtoon.cloudfunctions.net/requestImage/images?url=" +
+								ele.toon_data_thumb
+							}
+							onError={e => {
+								e.target.src = "/images/list_logo.jpg";
+							}}
+						/>
+					</div>
 					<div className="toon_info" key={ele.toon_data_idx}>
 						<div className="toon-data-title">
 							{ele.toon_data_idx + " " + ele.toon_data_name}
