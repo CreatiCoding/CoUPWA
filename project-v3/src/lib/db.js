@@ -35,6 +35,9 @@ const self = {
 				sortType: sortType,
 				data: data
 			})
+			.catch(e => {
+				return data;
+			})
 			.then(r => {
 				if (r.length === 2) {
 					return data;
@@ -44,16 +47,26 @@ const self = {
 			});
 	},
 	addViewBannerImage: (YYMMDD, data) => {
-		return self.db.table("viewBannerImage").add({
-			YYMMDD: YYMMDD,
-			data: data
-		});
+		return self.db
+			.table("viewBannerImage")
+			.add({
+				YYMMDD: YYMMDD,
+				data: data
+			})
+			.catch(e => {
+				console.log("It already exists.");
+			});
 	},
 	addToonList: (toonInfoIdx, data) => {
-		return self.db.table("toonList").add({
-			toonInfoIdx: toonInfoIdx,
-			data: data
-		});
+		return self.db
+			.table("toonList")
+			.add({
+				toonInfoIdx: toonInfoIdx,
+				data: data
+			})
+			.catch(e => {
+				console.log("It already exists.");
+			});
 	}
 };
 

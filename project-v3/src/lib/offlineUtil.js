@@ -85,7 +85,7 @@ const self = {
 			for (let j in r[i]) {
 				let path = r[i][j].image_path;
 				cacheUtil.cacheImage(
-					"$$$toolbox-cache$$$https://react-pwa-webtoon.firebaseapp.com/$$$",
+					"test",
 					path,
 					path.slice(path.lastIndexOf(".") + 1)
 				);
@@ -95,7 +95,7 @@ const self = {
 		for (let i in r) {
 			let path = r[i].banner_image_path;
 			cacheUtil.cacheImage(
-				"$$$toolbox-cache$$$https://react-pwa-webtoon.firebaseapp.com/$$$",
+				"test",
 				path,
 				path.slice(path.lastIndexOf(".") + 1)
 			);

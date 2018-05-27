@@ -7,9 +7,7 @@ class ListHeaderContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
-	componentDidMount() {
-		console.log(this.props.toonInfo);
-	}
+	componentDidMount() {}
 	render() {
 		return (
 			<div className="list-header-container">
