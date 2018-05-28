@@ -3,12 +3,28 @@
 PWA project by CoU Team
 [![Build Status](https://travis-ci.org/CreatiCoding/CoUPWA.svg?branch=master)](https://travis-ci.org/CreatiCoding/CoUPWA)
 
+### 0. Information
+
+#### 1) 배포 도메인
+
+#####   https://react-pwa-webtoon.firebaseapp.com/
+
+#####   QR 코드
+
+[![QR코드](https://user-images.githubusercontent.com/33514304/40631403-6d247710-6317-11e8-986c-b3dd8883079b.png)]((https://react-pwa-webtoon.firebaseapp.com/))
+
+#### 2) 시연 영상
+
+#####   https://youtu.be/CVlXL1oIuhU
+
+#####   QR 코드
+
+[![QR코드](https://user-images.githubusercontent.com/33514304/40631399-5d480c30-6317-11e8-8e5c-8d349343f064.png)](https://youtu.be/CVlXL1oIuhU)
+
+
 ### 1. 참여 발명자
 
-- 정석호
-- 강희정
-- 이경진
-- 노희정
+- 정석호 강희정 이경진 노희정
 
 ### 2. 연구개발 문서
 
