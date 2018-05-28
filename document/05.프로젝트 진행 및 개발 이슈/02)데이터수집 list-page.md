@@ -42,7 +42,10 @@ todayList: () => {
 
 #### 2) 저장된 결과 확인가능
 
-#### ![image-20180528201949711](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180528201949711.png) 
+#### ![image](https://user-images.githubusercontent.com/33514304/40612944-7ad0bd8e-62b7-11e8-917f-8788e3348947.png)
+
+
+
 
 ### 2. [데이터수집] list-page - 회차 썸네일 이미지
 
@@ -91,4 +94,4 @@ exports.requestImage = functions.https.onRequest(requestImage);
 
 ### 3) 이미지 다운로드 화면 
 
-![image-20180528203230463](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180528203230463.png)
+![image](https://user-images.githubusercontent.com/33514304/40612947-81c9fd3a-62b7-11e8-92bf-c5281dc29d6a.png)
