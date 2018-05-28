@@ -2,23 +2,22 @@
 
 ### 1. safari가 service-worker.js를 미지원 했을 당시
 
-![image-20180529043700673](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529043700673.png)
+![image](https://user-images.githubusercontent.com/33514304/40628495-5793d6aa-6300-11e8-8035-d864a294cccf.png)
 
 	##### 주의: 현재 **Deprecated**
 
-![image-20180529043731078](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529043731078.png)
+![image](https://user-images.githubusercontent.com/33514304/40628499-5c371672-6300-11e8-85f1-a62807e7d7fb.png)
 
 ### 2. safari가 service-worker.js 지원
 
-![image-20180529043848281](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529043848281.png)
+![image](https://user-images.githubusercontent.com/33514304/40628502-6096415c-6300-11e8-8cf5-7af43b68e841.png)
 
-![image-20180529043902378](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529043902378.png)
-
+![image](https://user-images.githubusercontent.com/33514304/40628504-66275070-6300-11e8-8137-5333c115a275.png)
 ### 3. Cache API 미지원
 
-![image-20180529044301010](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529044301010.png)
+![image](https://user-images.githubusercontent.com/33514304/40628511-69dd82d4-6300-11e8-990b-95b888e7a734.png)
 
-![image-20180529044318346](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529044318346.png)
+![image](https://user-images.githubusercontent.com/33514304/40628518-6e9c2b4a-6300-11e8-8d27-993724e9e8cd.png)
 
 #### 4. 결론
 
