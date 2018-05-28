@@ -44,6 +44,9 @@ const MainContents = ({viewToon}) => {
 			let updateStyle = "main-contents-toon-update";
 			let noUpdateStyle = "main-contents-toon-update hide";
 			let altDefault = "기본 썸네일 이미지";
+			let onclickF = e => {
+				console.log(1111);
+			};
 			return (
 				<Link
 					key={seq}
@@ -67,18 +70,29 @@ const MainContents = ({viewToon}) => {
 					}}
 				>
 					<div className="main-contents-toon col-xl-2 col-lg-2 col-md-2 col-sm-3 col-4">
-						<div className="main-contents-toon-img">
+						<div
+							className="main-contents-toon-img"
+							onClick={onclickF}
+						>
 							<img
+								href={"/list/" + ele.toon_info_idx}
 								className="main-contents-toon-thumbnail"
 								src={"/images/thumbnail_default.png"}
 								onLoad={loadImgBackground}
 								path={ele.image_path}
 								alt={ele.image_alt}
+								onClick={onclickF}
+								onError={e => {
+									e.target.src =
+										"/images/thumbnail_default.png";
+								}}
 							/>
 							<img
+								href={"/list/" + ele.toon_info_idx}
 								className="default-thumbnail"
 								src={"/images/thumbnail_default.png"}
 								alt={altDefault}
+								onClick={onclickF}
 							/>
 						</div>
 						<div className="main-contents-toon-info">

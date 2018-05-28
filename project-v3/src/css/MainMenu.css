@@ -6,7 +6,7 @@
 	.main-menu-row{
 		width: 100%;
 	}
-	.wrapper{
+	.wrapper, .list-contents-container{
 		margin-bottom: 16vw;
 	}
 }
@@ -19,7 +19,7 @@
 	.main-menu-row{
 		width: 100%;
 	}
-	.wrapper{
+	.wrapper, .list-contents-container{
 		margin-bottom: 19vw;
 	}
 }
@@ -32,7 +32,7 @@
 	.main-menu-row{
 		width: 100%;
 	}
-	.wrapper{
+	.wrapper, .list-contents-container{
 		margin-bottom: 16vw;
 	}
 }
@@ -45,7 +45,7 @@
 	.main-menu-row{
 		width: 980px;
 	}
-	.wrapper{
+	.wrapper, .list-contents-container{
 		margin-bottom: 16vw;
 	}
 }

@@ -56,10 +56,11 @@ const MainBannerInfo = ({ele}) => {
 				<img
 					className="main-banner-img"
 					onError={e => {
-						e.target.src = "/images/banner_naver.png";
+						e.target.src = "/images/banner_naver.jpg";
 					}}
+					herf={"/list/" + ele.toon_info_idx}
 					path={ele.banner_image_path}
-					src={"/images/banner_naver.png"}
+					src={"/images/banner_naver.jpg"}
 					// src={"/images/banner_naver.png"}
 					onLoad={loadImgBackground}
 					// path={ele.banner_image_path}

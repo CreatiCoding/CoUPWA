@@ -297,3 +297,7 @@
 	border: solid;
 	padding: 2px;
 }
+
+.main-contents-toon-img img {
+	pointer-events: none;
+}
