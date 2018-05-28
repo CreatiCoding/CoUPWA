@@ -244,6 +244,7 @@
 }
 
 .main-contents-toon-thumbnail {
+	background-image: url("/images/thumbnail_default.png");
 	display: block;
 	position: absolute;
 	top: 0;
