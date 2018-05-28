@@ -4,15 +4,25 @@ import * as actions from "../actions";
 import MainContents from "../components/MainContents";
 import coupwaFetch from "../lib/coupwaFetch";
 import db from "../lib/db";
+import commonUtil from "../lib/commonUtil";
 
 class MainContentsContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
 	componentDidMount() {
-		coupwaFetch.fetchViewToon("ViewCount").then(r => {
-			this.props.handleChangeViewToon(r);
-		});
+		coupwaFetch
+			.fetchViewToon("ViewCount")
+			.catch(() => {
+				return db
+					.getViewToon(commonUtil.getYYMMDD(), "ViewCount")
+					.then(r => {
+						return r.data;
+					});
+			})
+			.then(r => {
+				this.props.handleChangeViewToon(r);
+			});
 	}
 	render() {
 		return (

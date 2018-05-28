@@ -28,7 +28,6 @@ const MainContents = ({viewToon}) => {
 		afterChange: function(slide, slide2) {
 			var a = $(".main-contents-slick .slick-track").children();
 			let n = slide;
-			console.log(slide, slide2);
 			if (n == 0) {
 				$(a[1].childNodes[0])
 					.find("img.main-contents-toon-thumbnail")
@@ -77,7 +76,6 @@ const MainContents = ({viewToon}) => {
 		beforeChange: function(slide2, slide) {
 			var a = $(".main-contents-slick .slick-track").children();
 			let n = slide;
-			console.log(slide, slide2);
 			if (n == 0) {
 				$(a[0].childNodes[0]).show();
 				$(a[0].childNodes[0])
