@@ -78,19 +78,19 @@ jsTester.doTest(unitTest);
 
 #### 2) 현재 사용중인 테스트 함수들
 
-![image-20180529041852445](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529041852445.png)
+![image](https://user-images.githubusercontent.com/33514304/40628396-bdf2cc0e-62ff-11e8-89ee-2dd3833be628.png)
 
 ####3) 푸시 및 Pull Request 화면
 
-![image-20180529041935950](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529041935950.png)
+![image](https://user-images.githubusercontent.com/33514304/40628406-ce232aec-62ff-11e8-8116-b8345f16a6c3.png)
 
 #### 4) 결과화면(travis-ci.org)
 
-![image-20180529041022959](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529041022959.png)
+![image](https://user-images.githubusercontent.com/33514304/40628410-d31cd156-62ff-11e8-85e6-c35dff4c3b30.png)
 
 #### 5) Firebase 권한이 필요한 테스트 함수는 직접 실행
 
-![image-20180529042029858](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529042029858.png)
+![image](https://user-images.githubusercontent.com/33514304/40628413-d7555c48-62ff-11e8-90f9-cc55ec21b88d.png)
 
 ##### 주의: travis 는 public의 레파지토리의 경우 소스코드가 공개된 경우만 테스트 가능하므로 키 파일 노출 주의
 
