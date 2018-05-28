@@ -6,7 +6,9 @@
 	.main-menu-row{
 		width: 100%;
 	}
-
+	.wrapper, .list-contents-container{
+		margin-bottom: 16vw;
+	}
 }
 
 @media (min-width: 400px) and (max-width: 800px) {
@@ -16,6 +18,9 @@
 	}
 	.main-menu-row{
 		width: 100%;
+	}
+	.wrapper, .list-contents-container{
+		margin-bottom: 19vw;
 	}
 }
 
@@ -27,6 +32,9 @@
 	.main-menu-row{
 		width: 100%;
 	}
+	.wrapper, .list-contents-container{
+		margin-bottom: 16vw;
+	}
 }
 
 @media all and (min-width: 980px) {
@@ -36,6 +44,9 @@
 	}
 	.main-menu-row{
 		width: 980px;
+	}
+	.wrapper, .list-contents-container{
+		margin-bottom: 16vw;
 	}
 }
 
