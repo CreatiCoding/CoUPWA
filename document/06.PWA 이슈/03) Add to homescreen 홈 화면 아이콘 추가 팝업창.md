@@ -2,11 +2,11 @@
 
 ### 1. 첫 접속시 설치 팝업창
 
-![image-20180529044752231](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529044752231.png)
+![image](https://user-images.githubusercontent.com/33514304/40628548-a04f6044-6300-11e8-8a56-b6de06be01b1.png)
 
 ### 2. 자동 팝업창의 조건
 
-![image-20180529044826120](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529044826120.png)
+![image](https://user-images.githubusercontent.com/33514304/40628553-a5e4c4ae-6300-11e8-8c54-1ef9160621c9.png)
 
 ### 3. 제한 및 한계
 
