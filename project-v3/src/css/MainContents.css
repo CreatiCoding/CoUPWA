@@ -139,19 +139,47 @@
 }
 
 @media all and (max-width: 576px) {
-	.main-contents-toon{
-		width:32vw;
+	.main-contents-toon {
+		min-width: 32vw;
+		max-width: 32vw;
+	}
+
+	.main-contents-toon-img {
+		min-width: 32vw;
+	}
+
+	.main-contents-toon-img img {
+		width: 32vw;
 	}
 }
+
 @media (min-width: 540px) and (max-width: 768px) {
-	.main-contents-toon{
-		width:24vw;
+	.main-contents-toon {
+		min-width: 24vw;
+		max-width: 24vw;
+	}
+
+	.main-contents-toon-img {
+		min-width: 24vw;
+	}
+
+	.main-contents-toon-img img {
+		width: 24vw;
 	}
 }
 
 @media all and (min-width: 768px) {
-	.main-contents-toon{
-		width:13vw;
+	.main-contents-toon {
+		min-width: 15vw;
+		max-width: 15vw;
+	}
+
+	.main-contents-toon-img {
+		min-width: 15vw;
+	}
+
+	.main-contents-toon-img img {
+		width: 15vw;
 	}
 }
 
@@ -197,7 +225,6 @@
 	margin: -0.2px;
 }
 
-
 .main-contents-slick-dots li {
 	margin: 0px;
 	width: 14%;
@@ -209,14 +236,11 @@
 	color: #ffffff;
 }
 
-
-
-.slick-slide .container{
+.slick-slide .container {
 	max-width: none !important;
 }
 
 .main-contents-toon-img {
-
 }
 
 .main-contents-toon-thumbnail {
@@ -224,42 +248,51 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width:100%;
-}
-.default-thumbnail{
-	width:100%;
+	width: 100%;
 }
 
-.main-contents-toon-middle{
+.default-thumbnail {
+	width: 100%;
+}
+
+.main-contents-toon-middle {
 	display: inline-block;
 }
-.main-contents-toon-middle div{
+
+.main-contents-toon-middle div {
 	display: inline;
 }
-.container .row a{
+
+.container .row a {
 	display: contents;
 	color: #000000;
 }
-.container .row a:hover{
-	text-decoration:none !important
+
+.container .row a:hover {
+	text-decoration: none !important;
 }
-.container .row a{
-	text-decoration:none !important
+
+.container .row a {
+	text-decoration: none !important;
 }
-.main-contents-toon-info{
+
+.main-contents-toon-info {
 	text-align: left;
 	margin-left: 15px;
 }
-.main-contents-toon-title{
+
+.main-contents-toon-title {
 	font-weight: bold;
+	white-space: nowrap;
 }
-.main-contents-toon-star{
-	color: #E60000;
+
+.main-contents-toon-star {
+	color: #e60000;
 	font-weight: bold;
 }
 
-.main-contents-toon-update{
-	color: #E60000;
+.main-contents-toon-update {
+	color: #e60000;
 	border-radius: 10px;
 	border: solid;
 	padding: 2px;
