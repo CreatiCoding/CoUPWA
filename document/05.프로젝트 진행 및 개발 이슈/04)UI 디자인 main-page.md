@@ -4,11 +4,12 @@
 
 #### 1) 문제의 화면
 
-![image-20180529015010055](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529015010055.png)
+![image](https://user-images.githubusercontent.com/33514304/40624310-c70585b6-62e6-11e8-94a0-a3b3d02c3682.png)
+
 
 #### 2) 임시 해결법 - 홈화면 아이콘 추가로 실행
 
-![image-20180529015343499](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529015343499.png)
+![image](https://user-images.githubusercontent.com/33514304/40624311-cd168176-62e6-11e8-9571-81072c542166.png)
 
 #### 3) 근본적 해결법 - css 디자인 수정, 내부 디자인
 
@@ -20,7 +21,7 @@
 
 #### 1) 문제의 화면
 
-![image-20180529020545086](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529020545086.png)
+![image](https://user-images.githubusercontent.com/33514304/40624317-d5b1845c-62e6-11e8-95c7-76858b4cb6eb.png)
 
 #### 2) 해결법 - media query를 활용한 css 동작, 크롬과 사파리 동시 만족
 
@@ -73,4 +74,4 @@
 
 #### 3) 해결 화면
 
-![image-20180529020731873](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529020731873.png)
+![image](https://user-images.githubusercontent.com/33514304/40624323-deb31b60-62e6-11e8-822d-0a5a8b9b6710.png)
