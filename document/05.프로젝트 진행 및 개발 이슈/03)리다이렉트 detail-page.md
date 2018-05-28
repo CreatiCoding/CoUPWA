@@ -32,5 +32,4 @@ const ListContents = ({items, toonInfo, toon_info_idx}) => {
 ```
 
 #### 2) 리다이렉트 결과 확인
-
-![image-20180528205155527](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180528205155527.png)
+![image](https://user-images.githubusercontent.com/33514304/40613535-da55696a-62b9-11e8-9c0e-377bb01ca766.png)
