@@ -13,7 +13,7 @@ PWA project by CoU Team
 
 #####   QR 코드
 
-[![QR코드](https://user-images.githubusercontent.com/33514304/40631403-6d247710-6317-11e8-986c-b3dd8883079b.png)]((https://react-pwa-webtoon.firebaseapp.com/))
+[![QR코드](https://user-images.githubusercontent.com/33514304/40631403-6d247710-6317-11e8-986c-b3dd8883079b.png)](https://react-pwa-webtoon.firebaseapp.com/)
 
 #### 2) 시연 영상
 
@@ -59,12 +59,3 @@ PWA project by CoU Team
 - [**05) Create React App pwa service-worker 이슈**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/06.PWA%20%EC%9D%B4%EC%8A%88/05)%20Create%20React%20App%20%20pwa%20service-worker%20%EC%9D%B4%EC%8A%88.md>)
 
   
-
-### 5. 배포 결과물
-
-#### 1) 배포 도메인: https://react-pwa-webtoon.firebaseapp.com/
-
-#### 2) 모바일 접속 QR 코드
-
-[![QR코드](http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl=https%3A//react-pwa-webtoon.firebaseapp.com/&chld=H|0)](https://react-pwa-webtoon.firebaseapp.com/
-)
