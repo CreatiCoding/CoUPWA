@@ -80,13 +80,13 @@ let settings = {
 
 #### 3) afterChange
 
-![image-20180529034315723](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529034315723.png)
+![image](https://user-images.githubusercontent.com/33514304/40628333-5dac7408-62ff-11e8-97d3-5542c7fdfe49.png)
 
 현재 3번 기준 2,4번 슬라이드의 틀(웹툰 이름, 작가이름, 별점 등등)만 남기고 나머지는 모두 display none 처리
 
 #### 4) beforeChange 
 
-![image-20180529034442952](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529034442952.png)
+![image](https://user-images.githubusercontent.com/33514304/40628335-61c89c74-62ff-11e8-9142-a288b078f6fc.png)
 
 현재 3번 슬라이드의 이미지들을 제외하고 2,4번 슬라이드의 이미지들은 모두 display none처리 배경 사진이 차지
 
@@ -94,7 +94,7 @@ let settings = {
 
 beforeChange 월요일에서 화요일화면을 보면 이미지 none		afterChange 금요일에서 월요일로 이동시 아무것도 없음
 
-![image-20180529034843080](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180529034843080.png)
+![image](https://user-images.githubusercontent.com/33514304/40628344-69c49306-62ff-11e8-9c3b-95d0b172d114.png)
 
 #### 6) 얻는 성능의 이점 
 
