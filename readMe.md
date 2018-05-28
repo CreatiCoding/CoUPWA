@@ -1,5 +1,7 @@
 # CoUPWA
 
+[![github](https://user-images.githubusercontent.com/33514304/40631431-a4e205b4-6317-11e8-89e1-1b8d00d0de07.png)](https://github.com/CreatiCoding/CoUPWA)
+
 PWA project by CoU Team
 [![Build Status](https://travis-ci.org/CreatiCoding/CoUPWA.svg?branch=master)](https://travis-ci.org/CreatiCoding/CoUPWA)
 
