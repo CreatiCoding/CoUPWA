@@ -148,7 +148,8 @@ insert: insertInfo => {
 
 #### 3) 저장된 결과 확인 가능
 
-![image-20180528192824221](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180528192824221.png)
+![image](https://user-images.githubusercontent.com/33514304/40612258-bc516e8c-62b4-11e8-8214-86e23408650b.png)
+
 
 
 
@@ -300,4 +301,4 @@ storeImageToBucket: args => {
 
 #### 4) 저장된 결과 확인 가능
 
-![image-20180528195352202](/var/folders/gh/lmckw4456mvbkzbf93mgkf4w0000gn/T/abnerworks.Typora/image-20180528195352202.png)
+![image](https://user-images.githubusercontent.com/33514304/40612264-c4bc2df0-62b4-11e8-8d51-223d9d288c69.png)
