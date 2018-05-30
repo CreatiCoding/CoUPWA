@@ -7,11 +7,9 @@ import $ from "jquery";
 import {Link} from "react-router-dom";
 
 const MainContents = ({viewToon}) => {
-	let lazyLoadImage = n => {};
 	let initSlide = new Date().getDay() == 0 ? 6 : new Date().getDay() - 1;
 	let settings = {
-		// 0이면 일요일인데 일요일 슬라이드는 6임 나머진-1만 해주면됨
-		initialSlide: initSlide, //currentWeekNum,
+		initialSlide: initSlide,
 		dots: true,
 		infinite: false,
 		speed: 500,
@@ -32,43 +30,15 @@ const MainContents = ({viewToon}) => {
 				$(a[1].childNodes[0])
 					.find("img.main-contents-toon-thumbnail")
 					.hide();
-			} else if (n == 1) {
-				$(a[0].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-				$(a[2].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-			} else if (n == 2) {
-				$(a[1].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-				$(a[3].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-			} else if (n == 3) {
-				$(a[2].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-				$(a[4].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-			} else if (n == 4) {
-				$(a[3].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-				$(a[5].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-			} else if (n == 5) {
-				$(a[6].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-				$(a[4].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
 			} else if (n == 6) {
 				$(a[5].childNodes[0])
+					.find("img.main-contents-toon-thumbnail")
+					.hide();
+			} else {
+				$(a[n - 1].childNodes[0])
+					.find("img.main-contents-toon-thumbnail")
+					.hide();
+				$(a[n + 1].childNodes[0])
 					.find("img.main-contents-toon-thumbnail")
 					.hide();
 			}
@@ -76,64 +46,27 @@ const MainContents = ({viewToon}) => {
 		beforeChange: function(slide2, slide) {
 			var a = $(".main-contents-slick .slick-track").children();
 			let n = slide;
+			$(a[n].childNodes[0]).show();
+			$(a[n].childNodes[0])
+				.find("img.main-contents-toon-thumbnail")
+				.show();
 			if (n == 0) {
-				$(a[0].childNodes[0]).show();
-				$(a[0].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
 				$(a[1].childNodes[0]).show();
 				$(a[2].childNodes[0]).hide();
 			} else if (n == 1) {
-				$(a[1].childNodes[0]).show();
-				$(a[1].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
 				$(a[0].childNodes[0]).show();
 				$(a[2].childNodes[0]).show();
 				$(a[3].childNodes[0]).hide();
-			} else if (n == 2) {
-				$(a[2].childNodes[0]).show();
-				$(a[2].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
-				$(a[0].childNodes[0]).hide();
-				$(a[4].childNodes[0]).hide();
-				$(a[1].childNodes[0]).show();
-				$(a[3].childNodes[0]).show();
-				$(a[3].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.hide();
-			} else if (n == 3) {
-				$(a[3].childNodes[0]).show();
-				$(a[3].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
-				$(a[1].childNodes[0]).hide();
-				$(a[5].childNodes[0]).hide();
-				$(a[2].childNodes[0]).show();
-				$(a[4].childNodes[0]).show();
-			} else if (n == 4) {
-				$(a[4].childNodes[0]).show();
-				$(a[4].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
-				$(a[2].childNodes[0]).hide();
-				$(a[6].childNodes[0]).hide();
-				$(a[3].childNodes[0]).show();
-				$(a[5].childNodes[0]).show();
+			} else if (n <= 2 || n <= 4) {
+				$(a[n - 2].childNodes[0]).hide();
+				$(a[n - 1].childNodes[0]).show();
+				$(a[n + 1].childNodes[0]).show();
+				$(a[n + 2].childNodes[0]).hide();
 			} else if (n == 5) {
-				$(a[5].childNodes[0]).show();
-				$(a[5].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
 				$(a[6].childNodes[0]).show();
 				$(a[4].childNodes[0]).show();
 				$(a[3].childNodes[0]).hide();
 			} else if (n == 6) {
-				$(a[6].childNodes[0]).show();
-				$(a[6].childNodes[0])
-					.find("img.main-contents-toon-thumbnail")
-					.show();
 				$(a[5].childNodes[0]).show();
 				$(a[4].childNodes[0]).hide();
 			}
@@ -144,6 +77,7 @@ const MainContents = ({viewToon}) => {
 		let loadImgBackground = (e, path) => {
 			setTimeout(
 				ele => {
+					// userAgent를 검사하여 Chrome 이 없는 경우 확장자를 jpg로 요청한다.
 					if (window.navigator.userAgent.indexOf("Chrome") == -1)
 						path = path.slice(0, path.lastIndexOf(".")) + ".jpg";
 					ele.attributes.src.value = path;

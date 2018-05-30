@@ -7,8 +7,8 @@ const ToonList = require("../model/ToonList");
 const self = {
 	/**
 	 * crawlToon
-	 * @param sortType: ViewCount, Update, StarScore, TitleName
-	 * @returns {*}
+	 * input : "ViewCount" 혹은 "Update", "StarScore", "TitleName"
+	 * output: Promise([(ToonObject),(ToonObject),(ToonObject), ...])
 	 */
 	crawlToon: sortType => {
 		sortType = sortType === undefined ? "ViewCount" : sortType;
@@ -176,6 +176,9 @@ const self = {
 			.then(() => {
 				return ToonList.instance(toon_info_idx, first_page, resultList);
 			});
+	},
+	test: () => {
+		self.crawlToon();
 	}
 };
 

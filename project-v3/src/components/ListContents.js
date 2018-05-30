@@ -1,6 +1,9 @@
 import React from "react";
 import "../css/ListHeader.css";
 
+const updateStyle = "list-contents-toon-update";
+const noUpdateStyle = "list-contents-toon-update hide";
+
 const ListContents = ({items, toonInfo, toon_info_idx}) => {
 	const mapToListContentsWebtoonList = data => {
 		if (data.length === 1 && data[0] === undefined) {
@@ -18,8 +21,6 @@ const ListContents = ({items, toonInfo, toon_info_idx}) => {
 				toonInfo.toon_info_idx +
 				"&no=" +
 				ele.toon_data_idx;
-			let updateStyle = "list-contents-toon-update";
-			let noUpdateStyle = "list-contents-toon-update hide";
 			let onclick = e => {
 				e.preventDefault();
 				window.location.href = href;

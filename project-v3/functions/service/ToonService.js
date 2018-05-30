@@ -15,6 +15,11 @@ const self = {
 			return arr;
 		});
 	},
+	/**
+	 * createToonBySortType
+	 * input : "ViewCount" 혹은 "Update", "StarScore", "TitleName"
+	 * output: false | [(docObject, docObject, ...)]
+	 */
 	createToonBySortType: sortType => {
 		sortType = sortType !== undefined ? sortType : "ViewCount";
 		let lastResult;

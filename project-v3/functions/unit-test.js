@@ -3,13 +3,16 @@ const commonUtil = require("./util/commonUtil");
 const firestoreUtil = require("./util/firestoreUtil");
 const crawlingUtil = require("./util/crawlingUtil");
 const imageDownloadUtil = require("./util/imageDownloadUtil");
-
 const BannerImageService = require("./service/BannerImageService");
 const ThumbImageService = require("./service/ThumbImageService");
 const toonService = require("./service/ToonService");
 const toonInfoService = require("./service/ToonInfoService");
 
 const jsTester = {
+	/**
+	 * assertResult
+	 * 테스트 결과를 확인하여 true면 성공 false면 실패를 출력
+	 */
 	assertResult: (caller, unitTest, args) => {
 		return new Promise((resolve, reject) => {
 			unitTest(args)
@@ -51,6 +54,10 @@ const jsTester = {
 				});
 		});
 	},
+	/**
+	 * testInSequence
+	 * 테스트 함수들을 순서대로 실행하는 프로미스 기법 함수
+	 */
 	testInSequence: testList => {
 		let result = Promise.resolve();
 		testList.forEach(task => {
@@ -60,6 +67,12 @@ const jsTester = {
 		});
 		return result;
 	},
+	/**
+	 * doTest
+	 * 테스트 함수들을 실행해주는 함수
+	 * 분기를 타서 travis에서 가능한 테스트와 불가능한 테스트를 나눔
+	 * @param unitTest
+	 */
 	doTest: unitTest => {
 		let testList = [];
 
@@ -405,7 +418,7 @@ const unitTest = {
 			[]
 		);
 	},
-	_DownloadThumbImageList: () => {
+	DownloadThumbImageList: () => {
 		return jsTester.assertResult(
 			"DownloadThumbImageList",
 			args => {
