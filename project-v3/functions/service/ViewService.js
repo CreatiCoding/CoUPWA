@@ -12,29 +12,38 @@ const self = {
 	resetList: () => {
 		return firestoreUtil.reset(["toonList"]);
 	},
+	/**
+	 * todayList
+	 * input : null
+	 * output: result of firestoreUtil.insert(r)
+	 */
 	todayList: () => {
-		return firestoreUtil
-			.selectList("toonInfo")
-			.then(result => {
-				return result.map(ele => {
-					return {
-						func: crwalingUtil.doCrwalingToonList,
-						args: ele.toon_info_idx
-					};
-				});
-			})
-			.then(r => commonUtil.promiseSeqOneSec(r))
-			.then(r => {
-				console.log(r);
-				return r.map(ele => {
-					return {
-						key: ele.toonList.toon_info_idx,
-						model: "toonList",
-						data: ele.toonList
-					};
-				});
-			})
-			.then(r => firestoreUtil.insert(r));
+		// 기존의 웹툰 정보 로드
+		return (
+			firestoreUtil
+				.selectList("toonInfo")
+				.then(result => {
+					// 회차 정보 크롤링 함수 리스트로 생성
+					return result.map(ele => {
+						return {
+							func: crwalingUtil.doCrwalingToonList,
+							args: ele.toon_info_idx
+						};
+					});
+				})
+				// 각 크롤링 함수 promise로 1초 간격으로 실행(과부하로 인한 차단 방지)
+				.then(r => commonUtil.promiseSeqOneSec(r))
+				.then(r => {
+					return r.map(ele => {
+						return {
+							key: ele.toonList.toon_info_idx,
+							model: "toonList",
+							data: ele.toonList
+						};
+					});
+				})
+				.then(r => firestoreUtil.insert(r))
+		);
 	},
 	resetMain: () => {
 		return firestoreUtil.reset([

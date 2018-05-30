@@ -152,7 +152,8 @@
 		width: 32vw;
 	}
 	.slick-slide .row{
-		padding: 0 1.5vw 0 1.5vw;
+		margin: -17px;
+		padding: 2px;
 	}
 }
 
@@ -170,7 +171,8 @@
 		width: 24vw;
 	}
 	.slick-slide .row{
-		padding: 0 1.5vw 0 1.5vw;
+		/*padding: 0 0.4vw 0 0.4vw;*/
+		padding: 0;
 	}
 }
 
@@ -188,7 +190,7 @@
 		width: 15vw;
 	}
 	.slick-slide .row{
-		padding: 0 4.5vw 0 4.5vw;
+		padding: 0 3.5vw 0 3.5vw;
 	}
 }
 
@@ -321,9 +323,9 @@
 }
 
 .main-contents-toon-update {
-	color: #e60000;
+	color: #03cc3a;
 	border-radius: 10px;
-	border: solid;
+	border: solid 1px;
 	padding: 2px;
 }
 

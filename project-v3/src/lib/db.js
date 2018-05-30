@@ -1,5 +1,4 @@
 import Dexie from "dexie";
-import commonUtil from "./commonUtil";
 
 const self = {
 	db: new Dexie("coupwa"),
@@ -70,6 +69,7 @@ const self = {
 	}
 };
 
+// 테이블 생성
 self.db.version(4).stores({
 	viewToon: "[YYMMDD+sortType]",
 	viewBannerImage: "YYMMDD",

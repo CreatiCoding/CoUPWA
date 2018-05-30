@@ -13,7 +13,7 @@ const MainHeaderNav = ({}) => {
 			</a>
 			<h1 className="header-nav-font default-font-bold">
 				<Link to="/">
-					<span>프로그레시브 웹툰</span>
+					<span>네이버 PWA 웹툰</span>
 				</Link>
 			</h1>
 		</div>

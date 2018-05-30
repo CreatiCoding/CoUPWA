@@ -82,6 +82,10 @@ requestImage.get("/", routeCache.cacheSeconds(300), (req, res) => {
 		}
 	);
 });
+
+// const request = require("request");
+// const express = require("express");
+// const requestImage = express();
 requestImage.get("/images", routeCache.cacheSeconds(300), (req, res) => {
 	const url =
 		req.body.url === undefined

@@ -33,19 +33,24 @@ const self = {
 		}
 		return arr;
 	},
+	/**
+	 * insert
+	 * input : insertObject{key, model, data}
+	 * output: [Promise(result), Promise(result), Promise(result), ...]
+	 */
 	insert: insertInfo => {
-		// Get a new write batch
 		const batch = [];
 		const result = [];
 		for (let i = 0; i < insertInfo.length / 500; i++) {
 			let index = batch.length;
 			batch[index] = db.batch();
-			console.log(insertInfo[i]);
+			//배치 개수 최대 500개이므로 잘라서 진행
 			for (
 				let j = i * 500;
 				j < (i + 1) * 500 && j < insertInfo.length;
 				j++
 			) {
+				// pure object로 변환하여 삽입
 				batch[index].set(
 					db.collection(insertInfo[j].model).doc(insertInfo[j].key),
 					JSON.parse(JSON.stringify(insertInfo[j].data))
@@ -53,6 +58,7 @@ const self = {
 			}
 			result.push(batch[index].commit());
 		}
+		// 삽입된 결과는 모두 성공 및 완료되었을 때 반영되며 그 결과가 반환
 		return Promise.all(result);
 	},
 	selectList: model => {

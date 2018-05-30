@@ -62,38 +62,35 @@ const self = {
 	},
 	/**
 	 * crawling module
-	 * ex) commonUtil
-	 * 		.crawlingHTMLArray("<html><div class='target'><li>asd</li></div></html>",".target")
-	 * 		.then(result=>{console.log(result);});
+	 * input : [ "<html><div class='target'><li>asd</li></div></html>", ".target"]
+	 * output: "<li>asd</li>"
 	 * */
 	crawlingHTMLArray: args => {
 		let src = args.src !== undefined ? args.src : args[0];
 		let selector = args.selector !== undefined ? args.selector : args[1];
-		//return
 		return new Promise((resolve, reject) => {
+			// source에서 selector로 요소를 선택한다.
 			let $ = cheerio.load(src);
 			let result = $(selector);
-			//console.log("result");
+			// 결과에 대한 예외처리
 			if (result.length === 0) {
-				//console.log("result.length", result.length);
-				console.log("src", args.src);
-				console.log("selector", args.selector);
 				reject(new Error("result length is zero"));
-			} else if (result !== undefined) {
-				resolve(result.map((i, ele) => cheerio(ele).html()));
-			} else {
+			} else if (result === undefined) {
 				reject(new Error("result is undefined"));
+			} else {
+				resolve(result.map((i, ele) => cheerio(ele).html()));
 			}
 		});
 	},
 	/**
 	 * requestImage
-	 * @param argsurl, referer
-	 * @returns {Promise<any>}
+	 * input : [ "www.url.com/test.png", "www.url.com" ]
+	 * output: response(httpResponse)
 	 */
 	requestImage: args => {
 		let url = args.url !== undefined ? args.url : args[0];
 		let referer = args.referer !== undefined ? args.referer : args[1];
+		// encoding이 null이어야 image가 binary 형식
 		const options = {
 			url: url,
 			headers: {
@@ -104,9 +101,11 @@ const self = {
 		};
 		return new Promise((resolve, reject) => {
 			request(options, (err, res) => {
+				// 정상 요청 완료시 응답 반환
 				if (!err && res.statusCode === 200) {
 					resolve(res);
 				} else {
+					// 에러 발생시 에러 출력
 					console.log(err);
 					if (res === undefined) reject(err);
 					else
@@ -121,12 +120,9 @@ const self = {
 	},
 	/**
 	 * storeImageToBucket
-	 * @param args pipe, path,type,tag
-	 * @returns {Promise<any>}, file model and image model
-	 *
-	 *
+	 * input : [body, path, type, res, options]
+	 * output: Promise({file:Object, image:Object})
 	 */
-
 	storeImageToBucket: args => {
 		let body = args.body !== undefined ? args.body : args[0];
 		let path = args.path !== undefined ? args.path : args[1];
@@ -135,34 +131,39 @@ const self = {
 		let options = args.options !== undefined ? args.options : args[4];
 		let file = bucket.file(path);
 		return new Promise((resolve, reject) => {
-			return file
-				.createWriteStream({
-					metadata: {
-						contentType: type
-					}
-				})
-				.on("error", err => {
-					reject(err);
-				})
-				.on("finish", () => {
-					let preUrl =
-						"https://storage.googleapis.com/react-pwa-webtoon";
-					let url = preUrl + path;
-					console.log(path, "is stored.");
-					return file
-						.makePublic()
-						.then(() => {
-							return resolve({
-								file: File.instance(res, path, url).file,
-								image: Image.instance(res, options).image
+			return (
+				file
+					.createWriteStream({
+						metadata: {
+							contentType: type
+						}
+					})
+					// 에러 발생시 이벤트 발생
+					.on("error", err => {
+						reject(err);
+					})
+					// 저장 완료시 이벤트 발생
+					.on("finish", () => {
+						let preUrl =
+							"https://storage.googleapis.com/react-pwa-webtoon";
+						let url = preUrl + path;
+						console.log(path, "is stored.");
+						// 공유 설정 및 완료시 비동기로 객체 반환
+						return file
+							.makePublic()
+							.then(() => {
+								return resolve({
+									file: File.instance(res, path, url).file,
+									image: Image.instance(res, options).image
+								});
+							})
+							.catch(e => {
+								reject(e);
 							});
-						})
-						.catch(e => {
-							console.log("storeImageToBucket:getSignedUrl");
-							reject(e);
-						});
-				})
-				.end(body);
+					})
+					// 이미지의 내용물을 담아 닫기
+					.end(body)
+			);
 		});
 	},
 	storeImageToBucket2: args => {
@@ -230,6 +231,11 @@ const self = {
 		});
 	},
 
+	/**
+	 * promiseSeqOneSec
+	 * input : promises[{func, args}, {func, args}, {func, args}, ...]
+	 * output: [Promise(result), Promise(result), Promise(result), ...]
+	 */
 	promiseSeqOneSec: promises => {
 		let oneSecFunc = (fc, args, sec) => {
 			return new Promise(resolve => {
@@ -255,14 +261,21 @@ const self = {
 		}
 		return Promise.all(processPromises);
 	},
+	/**
+	 * promiseSeq
+	 * input : promises[{func, args}, {func, args}, {func, args}, ...]
+	 * output: Promise(result)
+	 */
 	promiseSeq: promises => {
 		const oneFunc = (fc, args) => {
 			return new Promise(resolve => {
 				resolve(fc(args));
 			});
 		};
+		// promise가 실행된다.
 		let current = oneFunc(promises[0].func, promises[0].args);
 		for (let i = 1; i < promises.length; i++) {
+			// current의 then에 다음 프로미스를 실행시키고 그 결과를 current로 가져온다
 			current = current.then(() => {
 				return oneFunc(promises[1].func, promises[i].args);
 			});
