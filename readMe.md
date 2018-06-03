@@ -1,21 +1,12 @@
 # CoUPWA
 
-[![github](https://user-images.githubusercontent.com/33514304/40631431-a4e205b4-6317-11e8-89e1-1b8d00d0de07.png)](https://github.com/CreatiCoding/CoUPWA)
 
 PWA project by CoU Team
 [![Build Status](https://travis-ci.org/CreatiCoding/CoUPWA.svg?branch=master)](https://travis-ci.org/CreatiCoding/CoUPWA)
 
 ### 0. Information
 
-#### 1) 배포 도메인
-
-#####   https://react-pwa-webtoon.firebaseapp.com/
-
-#####   QR 코드
-
-[![QR코드](https://user-images.githubusercontent.com/33514304/40631403-6d247710-6317-11e8-986c-b3dd8883079b.png)](https://react-pwa-webtoon.firebaseapp.com/)
-
-#### 2) 시연 영상
+#### 1) 시연 영상
 
 #####   https://youtu.be/CVlXL1oIuhU
 
