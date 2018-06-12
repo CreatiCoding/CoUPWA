@@ -119,7 +119,7 @@ const self = {
 				return indexedDBUtil.selectByKey(
 					"coupwa",
 					"viewBannerImage",
-					commonUtil.getDateFormat("YYMMDD")
+					"180612"
 				);
 			})
 			.then(r => {
@@ -135,7 +135,7 @@ const self = {
 				return indexedDBUtil.selectByKey(
 					"coupwa",
 					"viewBannerImage",
-					commonUtil.getDateFormat("YYMMDD")
+					"180612"
 				);
 			})
 			.then(r => {
@@ -155,7 +155,7 @@ const self = {
 			.then(r => {
 				if (!r) return false;
 				return {
-					key: commonUtil.getDateFormat("YYMMDD"),
+					key: "180612",
 					data: r
 				};
 			})
@@ -182,7 +182,7 @@ const self = {
 				return indexedDBUtil.selectByKey(
 					"coupwa",
 					"viewToon",
-					commonUtil.getDateFormat("YYMMDD") + "_" + sort_type
+					"180612" + "_" + sort_type
 				);
 			})
 			.then(r => {
@@ -198,11 +198,7 @@ const self = {
 				return indexedDBUtil.selectByKey(
 					"coupwa",
 					"viewToon",
-					commonUtil.getDateFormat("YYMMDD") +
-						"_" +
-						"ViewCount" +
-						"_" +
-						weekDay[0]
+					"180612" + "_" + "ViewCount" + "_" + weekDay[0]
 				);
 			})
 			.then(r => {
@@ -223,7 +219,7 @@ const self = {
 			.then(r => {
 				if (!r) return false;
 				result.push({
-					key: commonUtil.getDateFormat("YYMMDD") + "_" + "ViewCount",
+					key: "180612" + "_" + "ViewCount",
 					data: r
 				});
 				return coupwaFetch.fetchViewToon("StarScore");
@@ -231,7 +227,7 @@ const self = {
 			.then(r => {
 				if (!r) return false;
 				result.push({
-					key: commonUtil.getDateFormat("YYMMDD") + "_" + "StarScore",
+					key: "180612" + "_" + "StarScore",
 					data: r
 				});
 				return coupwaFetch.fetchViewToon("TitleName");
@@ -239,7 +235,7 @@ const self = {
 			.then(r => {
 				if (!r) return false;
 				result.push({
-					key: commonUtil.getDateFormat("YYMMDD") + "_" + "TitleName",
+					key: "180612" + "_" + "TitleName",
 					data: r
 				});
 				return coupwaFetch.fetchViewToon("Update");
@@ -247,7 +243,7 @@ const self = {
 			.then(r => {
 				if (!r) return false;
 				result.push({
-					key: commonUtil.getDateFormat("YYMMDD") + "_" + "Update",
+					key: "180612" + "_" + "Update",
 					data: r
 				});
 				return result;

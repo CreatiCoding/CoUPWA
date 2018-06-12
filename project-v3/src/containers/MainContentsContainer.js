@@ -14,11 +14,9 @@ class MainContentsContainer extends Component {
 		coupwaFetch
 			.fetchViewToon("ViewCount")
 			.catch(() => {
-				return db
-					.getViewToon(commonUtil.getYYMMDD(), "ViewCount")
-					.then(r => {
-						return r.data;
-					});
+				return db.getViewToon("180612", "ViewCount").then(r => {
+					return r.data;
+				});
 			})
 			.then(r => {
 				this.props.handleChangeViewToon(r);

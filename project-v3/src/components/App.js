@@ -13,19 +13,19 @@ class App extends Component {
 		super(props);
 
 		offlineUtil
-			.cacheViewToon(commonUtil.getYYMMDD(), "ViewCount")
+			.cacheViewToon("180612", "ViewCount")
 			.then(r => offlineUtil.storeCacheThumb(r));
 		offlineUtil
-			.cacheViewToon(commonUtil.getYYMMDD(), "StarScore")
+			.cacheViewToon("180612", "StarScore")
 			.then(r => offlineUtil.storeCacheThumb(r));
 		offlineUtil
-			.cacheViewToon(commonUtil.getYYMMDD(), "TitleName")
+			.cacheViewToon("180612", "TitleName")
 			.then(r => offlineUtil.storeCacheThumb(r));
 		offlineUtil
-			.cacheViewToon(commonUtil.getYYMMDD(), "Update")
+			.cacheViewToon("180612", "Update")
 			.then(r => offlineUtil.storeCacheThumb(r));
 		offlineUtil
-			.cacheViewBannerImage(commonUtil.getYYMMDD())
+			.cacheViewBannerImage("180612")
 			.then(r => offlineUtil.storeCacheBanner(r));
 	}
 	componentDidMount() {}

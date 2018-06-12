@@ -15,8 +15,7 @@ const self = {
 	fetchViewToon: sortType => {
 		let returnValue = [];
 		let promises = week.map((ele, i) => {
-			let key =
-				commonUtil.getDateFormat("YYMMDD") + "_" + sortType + "_" + ele;
+			let key = "180612" + "_" + sortType + "_" + ele;
 			return Firebase.selectDoc("viewToon", key).then(result => {
 				returnValue[returnValue.length] = result.view_toon_list;
 				return result.view_toon_list;
@@ -27,13 +26,10 @@ const self = {
 		});
 	},
 	fetchViewToonCaching: sortType => {
-		return db.getViewToon(commonUtil.getYYMMDD(), sortType).then(r => {
+		return db.getViewToon("180612", sortType).then(r => {
 			if (!r) {
 				console.log("캐싱된 데이터가 없습니다.");
-				return offlineUtil.cacheViewToon(
-					commonUtil.getYYMMDD(),
-					sortType
-				);
+				return offlineUtil.cacheViewToon("180612", sortType);
 				//return self.fetchViewToon(sortType);
 			} else {
 				console.log("캐싱된 데이터를 불러옵니다.");
@@ -43,13 +39,10 @@ const self = {
 	},
 
 	fetchViewBannerImageCaching2: () => {
-		let cache = localStorage.getItem(commonUtil.getDateFormat("YYMMDD"));
+		let cache = localStorage.getItem("180612");
 		if (cache === null) {
 			return self.fetchViewBannerImage().then(r => {
-				localStorage.setItem(
-					commonUtil.getDateFormat("YYMMDD"),
-					JSON.stringify(r)
-				);
+				localStorage.setItem("180612", JSON.stringify(r));
 				return r;
 			});
 		} else {
@@ -57,7 +50,7 @@ const self = {
 		}
 	},
 	fetchViewBannerImage: () => {
-		let key = commonUtil.getDateFormat("YYMMDD");
+		let key = "180612";
 		return Firebase.selectDoc("viewBannerImage", key)
 			.then(result => {
 				return result.view_banner_image_list;
@@ -68,10 +61,10 @@ const self = {
 			});
 	},
 	fetchViewBannerImageCaching: () => {
-		return db.getViewBannerImage(commonUtil.getYYMMDD()).then(r => {
+		return db.getViewBannerImage("180612").then(r => {
 			if (!r) {
 				console.log("캐싱된 데이터가 없습니다.");
-				return offlineUtil.cacheViewBannerImage(commonUtil.getYYMMDD());
+				return offlineUtil.cacheViewBannerImage("180612");
 			} else {
 				console.log("캐싱된 데이터를 불러옵니다.");
 				return r.data;

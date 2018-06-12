@@ -554,7 +554,7 @@ const unitTest = {
 			[]
 		);
 	},
-	zzzzTodayMain: () => {
+	TodayMain: () => {
 		return jsTester.assertResult(
 			"TodayMain",
 			() => {
@@ -567,7 +567,7 @@ const unitTest = {
 			[]
 		);
 	},
-	TodayList: () => {
+	zzzzTodayList: () => {
 		return jsTester.assertResult(
 			"TodayList",
 			() => {

@@ -9,7 +9,7 @@ const self = {
 				commonUtil.sliceString(ele, '<img src="', '" width="100%"'),
 				commonUtil.sliceString(
 					ele,
-					"thumb.comic.naver.net/webtoon/",
+					"image-comic.pstatic.net/webtoon/",
 					"/thumbnail/"
 				)
 			)

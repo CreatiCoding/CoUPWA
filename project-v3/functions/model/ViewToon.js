@@ -3,13 +3,24 @@ const commonUtil = require("../util/commonUtil");
 //웹툰 정보
 const self = {
 	instance: (toons, toonInfos, thumbImages, files) => {
+		console.log("@@@@");
+		console.log(toons, toonInfos, thumbImages, files);
+		console.log("@@@@");
 		let list = [];
 		for (let i = 0; i < toons.length; i++) {
 			let thumbImage = thumbImages.filter(
 				ele => toons[i].data.toon_info_idx === ele.data.toon_info_idx
 			);
+
+			console.log("@@@@");
+			console.log(thumbImage);
+			console.log("@@@@");
 			if (thumbImage[0] !== undefined) {
 				thumbImage = thumbImage[0];
+
+				console.log("@@@@");
+				console.log(thumbImage);
+				console.log("@@@@");
 			}
 			list.push(
 				self.innerInstance(
