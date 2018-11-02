@@ -4,9 +4,22 @@
 PWA project by CoU Team
 [![Build Status](https://travis-ci.org/CreatiCoding/CoUPWA.svg?branch=master)](https://travis-ci.org/CreatiCoding/CoUPWA)
 
-### 0. Information
+### 0. Current Notes
 
-#### 1) 시연 영상
+1. 공개 SW 개발자 대회
+
+[필독] 1차 합격팀 발표_2차 심사 대상
+
+![image](https://user-images.githubusercontent.com/33514304/47920049-61dc1580-def4-11e8-8d65-b13f090e4e34.png)
+
+2. 기능 테스트 시현 영상
+
+https://www.youtube.com/watch?v=dbKD8em8IYo
+
+
+### 1. Information
+
+#### 1) 시현 영상
 
 #####   https://youtu.be/CVlXL1oIuhU
 
@@ -15,18 +28,18 @@ PWA project by CoU Team
 [![QR코드](https://user-images.githubusercontent.com/33514304/40631399-5d480c30-6317-11e8-8e5c-8d349343f064.png)](https://youtu.be/CVlXL1oIuhU)
 
 
-### 1. 참여 발명자
+### 2. 참여 발명자
 
 - 정석호 강희정 이경진 노희정
 
-### 2. 연구개발 문서
+### 3. 연구개발 문서
 
 - [**1.연구개발 요구사항 분석**](https://github.com/CreatiCoding/CoUPWA/blob/master/document/1.%EC%97%B0%EA%B5%AC%EA%B0%9C%EB%B0%9C%20%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EB%B6%84%EC%84%9D.md)
 - [**2.연구개발 범위산정**](https://github.com/CreatiCoding/CoUPWA/blob/master/document/2.%EC%97%B0%EA%B5%AC%EA%B0%9C%EB%B0%9C%20%EB%B2%94%EC%9C%84%EC%82%B0%EC%A0%95.md)
 - [**3.연구개발 일정**](https://github.com/CreatiCoding/CoUPWA/blob/master/document/3.%EC%97%B0%EA%B5%AC%EA%B0%9C%EB%B0%9C%20%EC%9D%BC%EC%A0%95.md)
 - [**4.브랜치 관리 전략**](https://github.com/CreatiCoding/CoUPWA/blob/master/document/4.%EB%B8%8C%EB%9E%9C%EC%B9%98%20%EA%B4%80%EB%A6%AC%20%EC%A0%84%EB%9E%B5.md)
 
-### 3. 프로젝트 진행 및 개발 이슈
+### 4. 프로젝트 진행 및 개발 이슈
 
 - [**01)데이터수집 main-page.md**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/05.%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A7%84%ED%96%89%20%EB%B0%8F%20%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88/01)%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%20main-page.md>)
 - [**02)데이터수집 list-page**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/05.%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A7%84%ED%96%89%20%EB%B0%8F%20%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88/02)%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%20list-page.md>)
@@ -37,7 +50,7 @@ PWA project by CoU Team
 - [**07) 비동기 요청 크롤링의 여러가지 비동기 요청 기법**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/05.%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A7%84%ED%96%89%20%EB%B0%8F%20%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88/07)%20%EB%B9%84%EB%8F%99%EA%B8%B0%20%EC%9A%94%EC%B2%AD%20%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%98%20%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80%20%EB%B9%84%EB%8F%99%EA%B8%B0%20%EC%9A%94%EC%B2%AD%20%EA%B8%B0%EB%B2%95.md>)
 - [**08) travis-ci 단위 테스트 자동화**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/05.%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A7%84%ED%96%89%20%EB%B0%8F%20%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88/08)%20travis-ci%20%EB%8B%A8%EC%9C%84%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%9E%90%EB%8F%99%ED%99%94.md>)
 
-### 4.PWA 이슈
+### 5.PWA 이슈
 
 - [**01) Firebase Firestore 오프라인 사용**](<https://github.com/CreatiCoding/CoUPWA/blob/master/document/06.PWA%20%EC%9D%B4%EC%8A%88/01)%20Firebase%20Firestore%20%EC%98%A4%ED%94%84%EB%9D%BC%EC%9D%B8%20%EC%82%AC%EC%9A%A9.md>)
 
