@@ -5,6 +5,7 @@ const functions = require('firebase-functions');
 // Import and initialize the Firebase Admin SDK.
 const admin = require('firebase-admin');
 const crypto = require('crypto');
+const controller = require('./controller');
 
 /* cartoon folder */
 /**
@@ -207,7 +208,7 @@ exports.searchUser = functions.https.onRequest((request, response) => {
 				console.log('randomId is '+ childData);
 
 				/* TODO ele 앞에 NULL space가 추가 --> 수정 필요!! */
-				//console.log('Element is ---' + ele + '---');
+				console.log('Element is ---' + ele + '---');
 
 				//compare uuid & ele
 				if (uuid == ele) {
@@ -253,3 +254,7 @@ function pushToken(uuid, randomId, token) {
 }
 
 
+exports.testFc = functions.https.onRequest((request, response) => {
+	controller.testFc();
+	response.send(true);
+});

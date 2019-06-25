@@ -46,7 +46,7 @@ exports.like = () =>{
 };
 
 //사용자의 웹툰 업데이트 알람 수신여부
-exports.like = () =>{
+exports.alarm = () =>{
 	return {
 		UUID : '',
 		TitleId: '',
